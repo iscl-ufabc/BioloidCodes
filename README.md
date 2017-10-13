@@ -22,12 +22,18 @@ A imagem ilustra a arquitetura proposta, com o suporte _pan/tilt_ e a _webcam_ f
 
 **_OpenCV+Raspberry+Java:_** Contém os códigos adaptados de [9] para uso do OpenCV em tempo real, além das instruções de instalação.
 
+**_PIXY+Raspberry+Python:_** Em desenvolvimento.
+
+**_Tutorial para Montar a Shield Raspi2Dynamixel:_** Em desenvolvimento.
+
 ## Contato
 
 Gilmar Correia Jeronimo
+
 e-mail: gilmarjeronimo@uol.com.br
 
 Paulo Consoni
+
 e-mail: paulo.consoni4000@gmail.com
 
 ## Apoio
