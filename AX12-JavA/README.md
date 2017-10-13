@@ -20,19 +20,19 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 ### PI4J 
 
-**Para instalar o PI4J:**
+*Para instalar o PI4J:*
 
 	No terminal: 
 		- curl -s get.pi4j.com | sudo bash
 
 ### ECLIPSE 
 
-**Para instalar o ECLIPSE:**
+*Para instalar o ECLIPSE:*
 
 	No terminal: 
 		- sudo apt-get install eclipse
 
-**Para colocar as bibliotecas no Eclipse:**
+*Para colocar as bibliotecas no Eclipse:*
 
 	- Abra o eclipse
 	- em window -> preferences
@@ -44,7 +44,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
 	- OK!
 
-**Crie um novo projeto Java:**
+*Crie um novo projeto Java:*
 
 	- Coloque o nome e clique em next>
 	- em Libraries clique em Add Library...
@@ -55,7 +55,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 ### NETBEANS
 
-**Para instalar o NETBEANS:**
+*Para instalar o NETBEANS:*
 
 	- No site do netbeans: https://netbeans.org/downloads/ , baixe a versão Java SE na plataforma
 	SO Independent ZIP.
@@ -63,7 +63,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Abra o arquivo contido em: /netbeans/bin/netbeans
 	- Atualize os pacotes, e reinicie o netbeans.
 
-**Para colocar as bibliotecas no NETBEANS:**
+*Para colocar as bibliotecas no NETBEANS:*
 
 	- Abra o NETBEANS.
 	- Em ferramentas, clique em bibliotecas.
@@ -74,7 +74,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
 	- OK!
 
-**Crie um novo projeto Java:**
+*Crie um novo projeto Java:*
 
 	- Clique em Aplicação Java, Próximo >
 	- Escolha o Nome de seu projeto e clique em Finalizar
@@ -84,7 +84,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 ### BlueJ 
 
-**Crie um novo projeto Java:**
+*Crie um novo projeto Java:*
 
 	- Ao abrir o BlueJ, clique em New Project.
 	- Crie uma pasta em /home/pi e nomeie como BlueJ Projects, dentro dessa pasta crie outra com o nome do seu Projeto, clique em create.
@@ -97,15 +97,17 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 Dentro da pasta encontrará os seguintes arquivos:
 
-**AX12.java:** Biblioteca que implementa as funções dos servos.
+*AX12.java:* Biblioteca que implementa as funções dos servos.
 
-**Bioloid.java:** Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
+*Bioloid.java:* Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
 
-**Run.java:** Permite rodar o programa.
+*Run.java:* Permite rodar o programa.
 
 ### Funções
 
-#### AX12.java
+<p align="center">
+AX12.java
+</p>
 
 _serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
 
@@ -115,7 +117,11 @@ _moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição
 
 _em desenvolvimento_
 
-#### Bioloid.java
+
+<p align="center">
+Bioloid.java
+</p>
+
 
 _initialPos():_ Seta os motores em posição inicial.
 
@@ -125,49 +131,55 @@ _em desenvolvimento_
 
 ### Instalação
 
-**Ao executar o código RUN, aparecerá o seguinte problema:**
+*Ao executar o código RUN, aparecerá o seguinte problema:*
 
 
 	- Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
 
-**Para resolvê-lo, digitar no terminal:**
+*Para resolvê-lo, digitar no terminal:*
 
 	- sudo rpi-update 52241088c1da59a359110d39c1875cda56496764
 	- sudo reboot
 
-**Ao executar novamente o código, aparecerá outro problema: **
+*Ao executar novamente o código, aparecerá outro problema: *
 
 	- wiringPiSetup: Must be root (Did you forget sudo ?)
 
-**Para resolvê-lo: ???**
+*Para resolvê-lo: ???*
+
+## Apoio
+
+<img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
+  
+<img src = "http://proad.ufabc.edu.br/images/headers/logo_ufabc.png" width="100">
+
+## Referências 
+
+[1] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Disponível em: <http://pi4j.com/download.html>. Acesso em 4 de Outubro de 2017: Pi4J©, 2016.
+
+[2] HERSAN, T. **How to Drive Dynamixel AX-12A Servos (with a RaspberryPi)**. Disponível em: <http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/>. Acesso em 3 de Outubro de 2017: Instructables, 2015.
+
+[3] ECLIPSE, I.; IDE, E. __Documentação do. Eclipse©__. Disponível em:<http://www.eclipse.org>. Acesso em 4 de Outubro de 2017, v. 12, 2006.
+
+[4] NETBEANS, I. __Netbeans©__. Disponível em:<http://netbeans.org/>. Acesso em 4 de Outubro de 2017, v. 11, 2008.
+
+[5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249–268, 2003.
+
+JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
+
+HERSAN, T. **AX-12 Python Library (for RaspberryPi)**. [S.l.]: GitHub, 2014. <https://github.com/thiagohersan/memememe/tree/master/Python/ax12>.
 
 
-
-----------------------------------------------------------------------------------------------
-------------------------------------------OBS E REF-------------------------------------------
-----------------------------------------------------------------------------------------------
-
-dtoverlay=pi3-miniuart-bt
-dtoverlay=w1-gpio
-enable_uart=1
-
-** Pacotes e exemplos do Pi4j em: /opt/pi4j/
-
-Fonte: http://robinhenniges.com/en/install-opencv-for-java-raspberry-pi-debian-jessy
-       http://ubuntuforum-br.org/index.php?topic=104190.0
-       http://answers.opencv.org/question/12449/how-to-use-txt-and-cmake-files-in-cmake/
        http://docs.opencv.org/2.4/doc/tutorials/introduction/java_eclipse/java_eclipse.html
-       http://pi4j.com/install.html
-       https://codeshare.io/
-       http://pi4j.com/apidocs/                                                                            --> pi4j reference
-       https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/                                    --> RPi.GPIO python reference
-       http://pi4j.com/example/control.html                                                                --> como acender um led, java raspberry
-       https://www.programiz.com/python-programming/methods/built-in/chr                                   --> o que é chr python 
-       http://pyserial.readthedocs.io/en/latest/pyserial_api.html                                          --> python serial
-       https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/ --> RXTX SERIAL JAVA
-       https://wiki.python.org/moin/BitwiseOperators                                                       --> operações de bits python
-       https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm                             --> operação de bits em java
-       https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279                                        --> arrumar o primeiro problema do java de não reconhecer o hardware
+       http://pi4j.com/apidocs/     
+       https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/                                   
+       http://pi4j.com/example/control.html                                                              
+       https://www.programiz.com/python-programming/methods/built-in/chr                                  
+       http://pyserial.readthedocs.io/en/latest/pyserial_api.html                                          
+       https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/ 
+       https://wiki.python.org/moin/BitwiseOperators                                                       
+       https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm                             
+       https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279                                        
        http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi
        http://wiringpi.com/reference/serial-library/
        https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/
