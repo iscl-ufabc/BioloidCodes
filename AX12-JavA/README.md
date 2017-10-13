@@ -18,17 +18,14 @@ _Em desenvolvimento_
 
 Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
-
------------------------------------------- PI4J ------------------------------------------
--
+### PI4J 
 
 **Para instalar o PI4J:**
 
 	No terminal: 
 		- curl -s get.pi4j.com | sudo bash
 
----------------------------------------- ECLIPSE ----------------------------------------
--
+### ECLIPSE 
 
 **Para instalar o ECLIPSE:**
 
@@ -56,8 +53,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Finish
 	- Crie a Classe e começe a brincadeira
 
--------------------------------------- NETBEANS --------------------------------------
--
+### NETBEANS
 
 **Para instalar o NETBEANS:**
 
@@ -86,8 +82,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
 	- Adicione ela, e dê Ok!
 
------------------------------------------ BlueJ ------------------------------------------
--
+### BlueJ 
 
 **Crie um novo projeto Java:**
 
@@ -98,13 +93,42 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Dê ok e reinicie o Programa.
 	- Crie a sua classe, clique duas vezes e programe em java!
 
+## Programas e Funções da AX12-JavA 
 
-## AX12-A LIB 
+Dentro da pasta encontrará os seguintes arquivos:
+
+**AX12.java:** Biblioteca que implementa as funções dos servos.
+
+**Bioloid.java:** Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
+
+**Run.java:** Permite rodar o programa.
+
+### Funções
+
+#### AX12.java
+
+_serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
+
+_move(id, pos):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
+
+_moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
+
+_em desenvolvimento_
+
+#### Bioloid.java
+
+_initialPos():_ Seta os motores em posição inicial.
+
+_clear():_ Seta os motores em 512.
+
+_em desenvolvimento_
+
+### Instalação
 
 **Ao executar o código RUN, aparecerá o seguinte problema:**
 
 
-	%Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
+	- Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
 
 **Para resolvê-lo, digitar no terminal:**
 
@@ -113,7 +137,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 **Ao executar novamente o código, aparecerá outro problema: **
 
-	wiringPiSetup: Must be root (Did you forget sudo ?)
+	- wiringPiSetup: Must be root (Did you forget sudo ?)
 
 **Para resolvê-lo: ???**
 
