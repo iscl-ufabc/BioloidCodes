@@ -19,25 +19,23 @@ _Em desenvolvimento_
 Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
 
------------------------------------------ PI4J -------------------------------------------
----------
+------------------------------------------ PI4J ------------------------------------------
+-
 
-
-Para instalar o PI4J:
+**Para instalar o PI4J:**
 
 	No terminal: 
-	- curl -s get.pi4j.com | sudo bash
+		- curl -s get.pi4j.com | sudo bash
 
-------------------------------------- ECLIPSE -------------------------------------------
----------
+---------------------------------------- ECLIPSE ----------------------------------------
+-
 
-
-Para instalar o ECLIPSE:
+**Para instalar o ECLIPSE:**
 
 	No terminal: 
 		- sudo apt-get install eclipse
 
-Para colocar as bibliotecas no Eclipse:
+**Para colocar as bibliotecas no Eclipse:**
 
 	- Abra o eclipse
 	- em window -> preferences
@@ -49,7 +47,7 @@ Para colocar as bibliotecas no Eclipse:
 	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
 	- OK!
 
-Crie um novo projeto Java:
+**Crie um novo projeto Java:**
 
 	- Coloque o nome e clique em next>
 	- em Libraries clique em Add Library...
@@ -58,24 +56,21 @@ Crie um novo projeto Java:
 	- Finish
 	- Crie a Classe e começe a brincadeira
 
------------------------------------------ NETBEANS -------------------------------------------
----------
+-------------------------------------- NETBEANS --------------------------------------
+-
 
-Para instalar o NETBEANS:
+**Para instalar o NETBEANS:**
 
-	No site do netbeans: https://netbeans.org/downloads/ , baixe a versão Java SE na plataforma
+	- No site do netbeans: https://netbeans.org/downloads/ , baixe a versão Java SE na plataforma
 	SO Independent ZIP.
+	- Ao baixar, vá em download e descompact.
+	- Abra o arquivo contido em: /netbeans/bin/netbeans
+	- Atualize os pacotes, e reinicie o netbeans.
 
-	Ao baixar, vá em download e descompacte
+**Para colocar as bibliotecas no NETBEANS:**
 
-	Abra o arquivo contido em: /netbeans/bin/netbeans
-
-	Atualize os pacotes, e reinicie o netbeans
-
-Para colocar as bibliotecas no NETBEANS:
-
-	- Abra o NETBEANS
-	- Em ferramentas, clique em bibliotecas
+	- Abra o NETBEANS.
+	- Em ferramentas, clique em bibliotecas.
 	- Clique em Nova Biblioteca...
 	- Coloque como nome: Pi4j , dê (OK)
 	- Adicionar Jar/Pasta...
@@ -83,7 +78,7 @@ Para colocar as bibliotecas no NETBEANS:
 	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
 	- OK!
 
-Crie um novo projeto Java:
+**Crie um novo projeto Java:**
 
 	- Clique em Aplicação Java, Próximo >
 	- Escolha o Nome de seu projeto e clique em Finalizar
@@ -91,48 +86,36 @@ Crie um novo projeto Java:
 	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
 	- Adicione ela, e dê Ok!
 
-----------------------------------------------------------------------------------------------
---------------------------------------------BlueJ---------------------------------------------
-----------------------------------------------------------------------------------------------
+----------------------------------------- BlueJ ------------------------------------------
+-
 
-	
-Ao abrir o BlueJ, clique em New Project
+**Crie um novo projeto Java:**
 
-Crie uma pasta em /home/pi e nomeie como BlueJ Projects, dentro dessa pasta crie outra com o nome do seu Projeto, clique em create
-
-Ao Abrir vá em Tools --> Preferences --> Library, clique em add
-
-Procure as pastas: /opt/pi4j/lib/pi4j-core.jar (e também pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar)
-
-Dê ok e reinicie o Programa
-
-Crie a sua classe, clique duas vezes e programe em java!
+	- Ao abrir o BlueJ, clique em New Project.
+	- Crie uma pasta em /home/pi e nomeie como BlueJ Projects, dentro dessa pasta crie outra com o nome do seu Projeto, clique em create.
+	- Ao Abrir vá em Tools --> Preferences --> Library, clique em add.
+	- Procure as pastas: /opt/pi4j/lib/pi4j-core.jar (e também pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar)
+	- Dê ok e reinicie o Programa.
+	- Crie a sua classe, clique duas vezes e programe em java!
 
 
+## AX12-A LIB 
 
-----------------------------------------------------------------------------------------------
------------------------------------------AX12-A LIB-------------------------------------------
-----------------------------------------------------------------------------------------------
-
-Ao executar o código RUN, aparecerá o seguinte problema:
+**Ao executar o código RUN, aparecerá o seguinte problema:**
 
 
-%Unable to determine hardware version. I see: Hardware	: BCM2835
-%,
-% - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net
-%terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >'
-%  what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
+	%Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
 
-Para resolvê-lo, digitar no terminal:
+**Para resolvê-lo, digitar no terminal:**
 
 	- sudo rpi-update 52241088c1da59a359110d39c1875cda56496764
 	- sudo reboot
 
-Ao executar novamente o código, aparecerá outro problema: 
+**Ao executar novamente o código, aparecerá outro problema: **
 
-% wiringPiSetup: Must be root (Did you forget sudo ?)
+	wiringPiSetup: Must be root (Did you forget sudo ?)
 
-Para resolvê-lo: ???
+**Para resolvê-lo: ???**
 
 
 
