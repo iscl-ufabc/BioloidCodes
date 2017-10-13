@@ -1,5 +1,22 @@
 # Comunicação AX-12A, Java e Raspberry Pi 3B
 
+**Descrição:** Biblioteca Java, desenvolvida com o Pi4J [1], para controlar os servos motores AX-12A com a Raspberry Pi 3B.
+
+## Projeto Eletrônico
+
+Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
+
+<p align="center">
+<img src = "https://user-images.githubusercontent.com/28567780/31362861-22917b22-ad31-11e7-919d-b8ea135fb5ae.png" width = "300">
+</p>
+
+Ou, pode-se confeccionar o _shield_ Raspi2Dynamixel em:
+
+_Em desenvolvimento_
+
+## Instalação
+
+Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
 
 ----------------------------------------- PI4J -------------------------------------------
