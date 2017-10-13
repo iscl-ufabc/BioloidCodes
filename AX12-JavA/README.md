@@ -2,7 +2,7 @@
 
 **Descrição:** Biblioteca Java, desenvolvida com o Pi4J [1], para controlar os servos motores AX-12A com a Raspberry Pi 3B.
 
-## Projeto Eletrônico
+## 1.Projeto Eletrônico
 
 Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
 
@@ -14,18 +14,18 @@ Ou, pode-se confeccionar o _shield_ Raspi2Dynamixel em:
 
 _Em desenvolvimento_
 
-## Instalação
+## 2.Instalação
 
 Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
-### PI4J 
+### 2.1.PI4J 
 
 *Para instalar o PI4J:*
 
 	No terminal: 
 		- curl -s get.pi4j.com | sudo bash
 
-### ECLIPSE 
+### 2.2.ECLIPSE 
 
 *Para instalar o ECLIPSE:*
 
@@ -53,7 +53,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Finish
 	- Crie a Classe e começe a brincadeira
 
-### NETBEANS
+### 2.3.NETBEANS
 
 *Para instalar o NETBEANS:*
 
@@ -82,7 +82,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
 	- Adicione ela, e dê Ok!
 
-### BlueJ 
+### 2.4.BlueJ 
 
 *Crie um novo projeto Java:*
 
@@ -93,7 +93,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Dê ok e reinicie o Programa.
 	- Crie a sua classe, clique duas vezes e programe em java!
 
-## Programas e Funções da AX12-JavA 
+## 3.Programas e Funções da AX12-JavA 
 
 Dentro da pasta encontrará os seguintes arquivos:
 
@@ -103,7 +103,7 @@ Dentro da pasta encontrará os seguintes arquivos:
 
 *Run.java:* Permite rodar o programa.
 
-### Funções
+### 3.1.Funções
 
 <p align="center">
 AX12.java
@@ -129,7 +129,7 @@ _clear():_ Seta os motores em 512.
 
 _em desenvolvimento_
 
-### Instalação
+### 3.2.Instalação
 
 *Ao executar o código RUN, aparecerá o seguinte problema:*
 
@@ -147,13 +147,13 @@ _em desenvolvimento_
 
 *Para resolvê-lo: ???*
 
-## Apoio
+## 4.Apoio
 
 <img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
   
 <img src = "http://proad.ufabc.edu.br/images/headers/logo_ufabc.png" width="100">
 
-## Referências 
+## 5.Referências 
 
 [1] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Disponível em: <http://pi4j.com/download.html>. Acesso em 4 de Outubro de 2017: Pi4J©, 2016.
 
