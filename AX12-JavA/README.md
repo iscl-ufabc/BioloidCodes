@@ -169,18 +169,28 @@ JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a
 
 HERSAN, T. **AX-12 Python Library (for RaspberryPi)**. [S.l.]: GitHub, 2014. <https://github.com/thiagohersan/memememe/tree/master/Python/ax12>.
 
+PI4J©. **Pi4J :: Parent POM 1.1 API**. Disponível em: <http://pi4j.com/apidocs/>. Acesso em 13 de Outubro de 2017: Pi4J©, 2016.
 
-       http://docs.opencv.org/2.4/doc/tutorials/introduction/java_eclipse/java_eclipse.html
-       http://pi4j.com/apidocs/     
-       https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/                                   
-       http://pi4j.com/example/control.html                                                              
-       https://www.programiz.com/python-programming/methods/built-in/chr                                  
-       http://pyserial.readthedocs.io/en/latest/pyserial_api.html                                          
-       https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/ 
-       https://wiki.python.org/moin/BitwiseOperators                                                       
-       https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm                             
-       https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279                                        
-       http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi
-       http://wiringpi.com/reference/serial-library/
-       https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/
-       http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html
+CROSTON, B. __RPi.GPIO module basics__. Disponível em: <https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/>. Acesso em 13 de Outubro de 2017.
+
+PI4J©. **Simple GPIO Control using Pi4J**. Disponível em: <http://pi4j.com/example/control.html>. Acesso em 13 de Outubro de 2017: Pi4J©, 2016.
+
+Programiz©. **Python chr()**. Disponível em: <https://www.programiz.com/python-programming/methods/built-in/chr>. Acesso em 13 de Outubro de 2017.
+
+LIECHTI, C. ©. **pySerial API**. Disponível em: <http://pyserial.readthedocs.io/en/latest/pyserial_api.html>. Acesso em 13 de Outubro de 2017.
+
+EICKHOLD, J. **Serial Communication in Java with Raspberry Pi and RXTX**. Disponível em: <https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/>. Acesso em 13 de Outubro de 2017.
+
+Python. **FAQ: What do the operators <<, >>, &, |, ~, and ^ do?**. Disponível em: <https://wiki.python.org/moin/BitwiseOperators>. Acesso em 13 de Outubro de 2017.
+
+TutorialsPoint. **Java - Bitwise Operators Example**. Disponível em: <https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm>. Acesso em 13 de Outubro de 2017.
+
+Domoticz. **Domoticz error after RPI update**. Disponível em: <https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279>. Acesso em 13 de Outubro de 2017.
+
+Opeedijk. **Dynamixel AX12 and the Raspberry Pi**. Disponível em: <http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi>. Acesso em 13 de Outubro de 2017.
+
+WiringPi. **Serial Library**. Disponível em: <http://wiringpi.com/reference/serial-library/>. Acesso em 13 de Outubro de 2017.
+
+THOMSEN, A. **Como comunicar o Arduino com Raspberry Pi**. Disponível em: <https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/>. Acesso em 13 de Outubro de 2017.
+
+Java-Buddy. **Install NetBeans on Raspberry Pi/Raspbian for Java and C/C++ development**. Disponível em: <http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html>. Acesso em 13 de Outubro de 2017.  
