@@ -1,6 +1,7 @@
 
 import com.pi4j.io.gpio.*;
 import com.pi4j.wiringpi.Serial;
+import javax.swing.JOptionPane;
 
 
 public class Ax12 {
@@ -169,8 +170,45 @@ public class Ax12 {
         Serial.serialPutchar(port, (char) s[0]);   
         Serial.serialPutchar(port, (char) s[1]); 
         Serial.serialPutchar(port, (char) checksum);   
-        gpio.shutdown();
-        
+        gpio.shutdown(); 
     }
+	
+    public static void ping(int id){
+    	direction(1)
+   
+        int checksum = (~(id + Ax12.AX_READ_DATA + Ax12.AX_PING))&0xff;
+        Serial.serialPutchar(port, (char) Ax12.AX_START);      
+        Serial.serialPutchar(port, (char) Ax12.AX_START);   
+        Serial.serialPutchar(port, (char) id); 
+        Serial.serialPutchar(port, (char) Ax12.AX_READ_DATA);   
+        Serial.serialPutchar(port, (char) Ax12.AX_PING);   
+        Serial.serialPutchar(port, (char) checksum);   
+        gpio.shutdown(); 
+    }
+	
+    public static void factoryReset(int id){
+	String[] options = new String[] {"SIM", "NÃO"};
+	
+	int response = JOptionPane.showOptionDialog(null, "DESEJA REALIZAR A RESTAURAÇÃO DE FÁBRICA? \n"
+	    		+ "OBS: Essa operação tornará o motor incompatível com AX12-JavA, lembre-se de alterar o baudrate do motor",
+	    		"Preparando para Reset de Fábrica", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+			null, options, options[0]);   
+	    
+	if (response == 0){    
+    		direction(1)
+        	int checksum = (~(id + Ax12.AX_RESET_LENGTH + Ax12.AX_RESET))&0xff;
+        	Serial.serialPutchar(port, (char) Ax12.AX_START);      
+        	Serial.serialPutchar(port, (char) Ax12.AX_START);   
+        	Serial.serialPutchar(port, (char) id); 
+        	Serial.serialPutchar(port, (char) Ax12.AX_RESET_LENGTH);   
+        	Serial.serialPutchar(port, (char) Ax12.AX_RESET);   
+        	Serial.serialPutchar(port, (char) checksum);   
+        	gpio.shutdown(); 
+	}
+	else{
+		System.out.println("");
+		return
+	}
+    }	
 }
 
