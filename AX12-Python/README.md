@@ -1,7 +1,7 @@
 LIGANDO OS MOTORES NA RASPBERRY PI 3:
 - montar o circuito:
 	
- ![circuito](https://user-images.githubusercontent.com/28567780/31362861-22917b22-ad31-11e7-919d-b8ea135fb5ae.png)
+ ![circuito](https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png)
  
 - ao ligar a raspberry:
 1.	No terminal: sudo leafpad /boot/config.txt
