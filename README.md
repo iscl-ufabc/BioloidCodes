@@ -36,6 +36,10 @@ Paulo Consoni
 
 e-mail: paulo.consoni4000@gmail.com
 
+Rodrigo Fialho
+
+e-mail: 
+
 ## Apoio
 
 <img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
