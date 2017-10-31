@@ -1,0 +1,54 @@
+!SESSION 2017-10-31 16:48:31.156 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_65
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=arm, WS=gtk, NL=pt_BR
+Command-line arguments:  -data /home/pi/Desktop/GitHub/BioloidCodes -os linux -ws gtk
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 4 0 2017-10-31 16:54:11.623
+!MESSAGE Manual restore of backup needed for: /tmp/PlatformProfile_2bee79150e40_7f000001b569/_/usr/lib/eclipse/.eclipseproduct
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 4 0 2017-10-31 16:54:11.654
+!MESSAGE 0 items out of 1 items restored.
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2017-10-31 16:54:11.656
+!MESSAGE An error occurred while committing the engine session for profile: PlatformProfile.
+!SUBENTRY 1 org.eclipse.equinox.p2.touchpoint.natives 4 0 2017-10-31 16:54:11.656
+!MESSAGE Restore of backup failed - see log for details. Backup directory name: PlatformProfile_2bee79150e40_7f000001b569.
+!STACK 0
+java.io.IOException: Errors while restoring - see earlier logged errors
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.BackupStore.close(BackupStore.java:489)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.BackupStore.restore(BackupStore.java:452)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.LazyBackupStore.restore(LazyBackupStore.java:53)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.NativeTouchpoint.rollback(NativeTouchpoint.java:108)
+	at org.eclipse.equinox.internal.p2.engine.EngineSession.rollback(EngineSession.java:194)
+	at org.eclipse.equinox.internal.p2.engine.Engine.perform(Engine.java:84)
+	at org.eclipse.equinox.internal.p2.engine.Engine.perform(Engine.java:44)
+	at org.eclipse.equinox.p2.operations.ProvisioningSession.performProvisioningPlan(ProvisioningSession.java:174)
+	at org.eclipse.equinox.p2.operations.ProfileModificationJob.runModal(ProfileModificationJob.java:79)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2017-10-31 16:54:12.697
+!MESSAGE An error occurred while uninstalling
+!SUBENTRY 1 org.eclipse.equinox.p2.engine 4 0 2017-10-31 16:54:12.697
+!MESSAGE session context was:(profile=PlatformProfile, phase=org.eclipse.equinox.internal.p2.engine.phases.Uninstall, operand=[R]org.eclipse.platform_root 3.8.1.dist-A8F8_IVSG4VZSDmg7oLVfBs5JohYFyJZcMPL9 --> null, action=org.eclipse.equinox.internal.p2.touchpoint.natives.actions.CleanupzipAction).
+!SUBENTRY 1 org.eclipse.equinox.p2.touchpoint.natives 4 0 2017-10-31 16:54:12.698
+!MESSAGE Backup of file /usr/lib/eclipse/.eclipseproduct failed.
+!STACK 0
+java.io.IOException: File that was copied to backup could not be deleted: /usr/lib/eclipse/.eclipseproduct
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.BackupStore.moveToBackup(BackupStore.java:274)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.BackupStore.backup(BackupStore.java:243)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.LazyBackupStore.backup(LazyBackupStore.java:36)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.actions.CleanupzipAction.cleanupzip(CleanupzipAction.java:85)
+	at org.eclipse.equinox.internal.p2.touchpoint.natives.actions.CleanupzipAction.execute(CleanupzipAction.java:30)
+	at org.eclipse.equinox.internal.p2.engine.ParameterizedProvisioningAction.execute(ParameterizedProvisioningAction.java:35)
+	at org.eclipse.equinox.internal.p2.engine.Phase.mainPerform(Phase.java:174)
+	at org.eclipse.equinox.internal.p2.engine.Phase.perform(Phase.java:92)
+	at org.eclipse.equinox.internal.p2.engine.PhaseSet.perform(PhaseSet.java:47)
+	at org.eclipse.equinox.internal.p2.engine.Engine.perform(Engine.java:75)
+	at org.eclipse.equinox.internal.p2.engine.Engine.perform(Engine.java:44)
+	at org.eclipse.equinox.p2.operations.ProvisioningSession.performProvisioningPlan(ProvisioningSession.java:174)
+	at org.eclipse.equinox.p2.operations.ProfileModificationJob.runModal(ProfileModificationJob.java:79)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
