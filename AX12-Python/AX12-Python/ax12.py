@@ -137,8 +137,7 @@ class Ax12:
 
     def __init__(self):
         if(Ax12.port == None):
-            Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001)
-            print(Ax12.port)
+            Ax12.port = Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.001)
         if(not Ax12.gpioSet):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
@@ -170,7 +169,8 @@ class Ax12:
 
     def readData(self,id):
         self.direction(Ax12.RPI_DIRECTION_RX)
-        reply = Ax12.port.read(5) # [0xff, 0xff, origin, length, error]
+        reply = Ax12.port.read(8) # [0xff, 0xff, origin, length, error]
+        
         try:
             assert ord(reply[0]) == 0xFF
         except:
@@ -210,7 +210,10 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        print ('Ping of motor ' + str(id) + ' is ' + str(ord(reply[5])))
 
     def factoryReset(self,id, confirm = False):
         if(confirm):
@@ -325,8 +328,6 @@ class Ax12:
         outData += chr(p[0])
         outData += chr(p[1])
         outData += chr(checksum)
-        print(Ax12.AX_START,Ax12.AX_START,id,Ax12.AX_GOAL_LENGTH,Ax12.AX_WRITE_DATA,Ax12.AX_GOAL_POSITION_L,p[0],p[1],checksum)
-        print(chr(Ax12.AX_START),chr(Ax12.AX_START),chr(id),chr(Ax12.AX_GOAL_LENGTH),chr(Ax12.AX_WRITE_DATA),chr(Ax12.AX_GOAL_POSITION_L),chr(p[0]),chr(p[1]),chr(checksum))
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
         # # return self.readData(id)
@@ -592,7 +593,10 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        print ('Temperature of motor ' + str(id) + ' is ' + str(ord(reply[5])))
 
     def readPosition(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -608,7 +612,20 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        if(ord(reply[6])==1):
+            print("Position of Motor" + str(id) + " is: " + str(ord(reply[5])+256))
+        else:
+            if(ord(reply[6])==2):
+                print("Position of Motor" + str(id) + " is: " + str(ord(reply[5])+512))
+            else:
+                if(ord(reply[6])==3):
+                    print("Position of Motor" + str(id) + " is: " + str(ord(reply[5])+768))
+                else:
+                    print("Position of Motor" + str(id) + " is: " + str(ord(reply[5])))
+                
 
     def readVoltage(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -624,7 +641,12 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        
+        print ('Voltage of motor ' + str(id) + ' is ' + str(ord(reply[5]))+ '??')
+        
 
     def readSpeed(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -640,7 +662,20 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        
+        if(ord(reply[6])==1):
+            print("Speed of Motor" + str(id) + " is: " + str(ord(reply[5])+256))
+        else:
+            if(ord(reply[6])==2):
+                print("Speed of Motor" + str(id) + " is: " + str(ord(reply[5])+512))
+            else:
+                if(ord(reply[6])==3):
+                    print("Speed of Motor" + str(id) + " is: " + str(ord(reply[5])+768))
+                else:
+                    print("Speed of Motor" + str(id) + " is: " + str(ord(reply[5])))
 
     def readLoad(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -656,7 +691,23 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # # return self.readData(id)
+
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        
+        if(ord(reply[6])==1):
+            print("Load of Motor" + str(id) + " is: " + str((float(ord(reply[5])+256)/100)) + "V")
+        else:
+            if(ord(reply[6])==2):
+                print("Load of Motor" + str(id) + " is: " + str((float(ord(reply[5])+512))/100) + "V")
+            else:
+                if(ord(reply[6])==3):
+                    print("Load of Motor" + str(id) + " is: " + str((float(ord(reply[5])+768))/100) + "V")
+                else:
+                    if(ord(reply[6])==4):
+                        print("Load of Motor" + str(id) + " is: " + str((float(ord(reply[5])+1024))/100) + "V")
+                    else:
+                        print("Load of Motor" + str(id) + " is: " + str(float(ord(reply[5])/100)) + "V")
 
     def readMovingStatus(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -672,7 +723,14 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
+        
+        if(ord(reply[5]) == 1):
+            print ('Motor ' + str(id) + ' has Moved')
+        else:
+            print ('Motor ' + str(id) + ' has not Moved')
 
     def readRWStatus(self, id):
         self.direction(Ax12.RPI_DIRECTION_TX)
@@ -688,8 +746,11 @@ class Ax12:
         outData += chr(checksum)
         Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
-        # return self.readData(id)
+        
+        self.direction(Ax12.RPI_DIRECTION_RX)
+        reply = Ax12.port.read(8)
 
+        print ('RWStatus of motor ' + str(id) + ' is ' + str(ord(reply[5])))
 
     def learnServos(self,minValue=1, maxValue=6, verbose=False) :
         servoList = []
