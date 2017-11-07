@@ -102,8 +102,6 @@ Domoticz. **Domoticz error after RPI update**. Disponível em: <https://www.domo
 
 Opeedijk. **Dynamixel AX12 and the Raspberry Pi**. Disponível em: <http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi>. Acesso em 13 de Outubro de 2017.
 
-WiringPi. **Serial Library**. Disponível em: <http://wiringpi.com/reference/serial-library/>. Acesso em 13 de Outubro de 2017.
-
 THOMSEN, A. **Como comunicar o Arduino com Raspberry Pi**. Disponível em: <https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/>. Acesso em 13 de Outubro de 2017.
 
 Robotttini. **Dynamixel AX-12A and Arduino: how to use the Serial Port**. Disponível em:<http://robottini.altervista.org/dynamixel-ax-12a-and-arduino-how-to-use-the-serial-port>. Acesso em 07/11/2017.
