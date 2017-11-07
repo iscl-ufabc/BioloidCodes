@@ -18,14 +18,33 @@ _Em desenvolvimento_
 
 Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
-### 2.1.PI4J 
+### 2.1.Preparando a Raspiberry 
+
+*Ao Ligar a RaspiBerry Pi:*
+
+	No terminal: 
+		- sudo leafpad /boot/config.txt
+	Irá abrir o arquivo, no final dele acrescentar:
+		- init_uart_clock = 16000000
+		- init_uart_baud=1000000
+	Existirá uma parte comentada começando com #dtoverlay... 
+	Descomentar e alterar para: 
+		- dtoverlay = pi3-disable-bt
+	No terminal: 
+		- sudo leafpad ~/.bashrc
+	No final do arquivo colocar: 
+		- sudo chmod 777 /dev/ttyAMA0
+	No terminal: 
+		- sudo reboot
+
+### 2.2.PI4J 
 
 *Para instalar o PI4J:*
 
 	No terminal: 
 		- curl -s get.pi4j.com | sudo bash
 
-### 2.2.ECLIPSE 
+### 2.3.ECLIPSE 
 
 *Para instalar o ECLIPSE:*
 
@@ -53,7 +72,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Finish
 	- Crie a Classe e começe a brincadeira
 
-### 2.3.NETBEANS
+### 2.4.NETBEANS
 
 *Para instalar o NETBEANS:*
 
@@ -82,7 +101,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
 	- Adicione ela, e dê Ok!
 
-### 2.4.BlueJ 
+### 2.5.BlueJ 
 
 *Crie um novo projeto Java:*
 
