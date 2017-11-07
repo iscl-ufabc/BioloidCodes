@@ -16,7 +16,7 @@ _Em desenvolvimento_
 
 ## 2.Instalação
 
-Alguns recursos são necessários para a integração da Raspiberry com os motores dynamixel, com o Python. A biblioteca usada em Python 2, é a https://github.com/thiagohersan/memememe/blob/master/Python/ax12/ax12.py. Segue-se os procedimentos para o uso da biblioteca na Raspiberry Pi 3. 
+Alguns recursos são necessários para a integração da Raspiberry com os motores dynamixel, com o Python. A [biblioteca](https://github.com/thiagohersan/memememe/blob/master/Python/ax12/ax12.py) utilizada foi a criada por [thiagohersan](https://github.com/thiagohersan), escrita em Python 2. Segue-se os procedimentos para o uso da biblioteca na Raspiberry Pi 3. 
 
 ### 2.2.Preparando a Raspiberry 
 
@@ -44,29 +44,19 @@ Alguns recursos são necessários para a integração da Raspiberry com os motor
 		- rode o RUN.py no Python 2
 		- começe a brincadeira
 		
-## 3.Programas e Funções da AX12-JavA 
+## 3.Programas e Funções da AX12-Python 
 
 Dentro da pasta encontrará os seguintes arquivos:
 
-*AX12.java:* Biblioteca que implementa as funções dos servos.
+*AX12.py:* Biblioteca que implementa as funções dos servos.
 
-*Bioloid.java:* Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
+*Bioloid.py:* Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
 
-*Run.java:* Permite rodar o programa.
+*Run.py:* Permite rodar o programa.
 
 ### 3.1.Funções
 
-<p align="center">
-AX12.java
-</p>
-
-_serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
-
-_move(id, pos):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
-
-_moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
-
-_em desenvolvimento_
+As funções presentes no arquivo Ax12.py foram criadas por [thiagohersan](https://github.com/thiagohersan), e estão explicadas detalhadamente em [AX12-JavA](https://github.com/LAB08-SBC/BioloidCodes/tree/master/AX12-JavA).
 
 
 <p align="center">
@@ -147,26 +137,6 @@ THOMSEN, A. **Como comunicar o Arduino com Raspberry Pi**. Disponível em: <http
 Java-Buddy. **Install NetBeans on Raspberry Pi/Raspbian for Java and C/C++ development**. Disponível em: <http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html>. Acesso em 13 de Outubro de 2017.  
 
 
-
-
-LIGANDO OS MOTORES NA RASPBERRY PI 3:
-- montar o circuito:
-	
- ![circuito](https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png)
- 
-- ao ligar a raspberry:
-1.	No terminal: sudo leafpad /boot/config.txt
-2.	Irá abrir o arquivo, no final dele acrescentar:
-a.	init_uart_clock = 16000000
-b.	init_uart_baud=1000000
-c.	existirá uma parte comentada começando com #dtoverlay... 
-descomentar e alterar para: dtoverlay = pi3-disable-bt
-3.	No terminal: sudo leafpad ~/.bashrc
-4.	No final do arquivo colocar: sudo chmod 777 /dev/ttyAMA0
-5.	No terminal: sudo reboot
-- abrir uma pasta com os arquivos:
-1.	ax12.py, __init__.py, Bioloid.py e RUN.py
-2.	rode o RUN.py no Python 2
 
 links:
 http://robottini.altervista.org/dynamixel-ax-12a-and-arduino-how-to-use-the-serial-port
