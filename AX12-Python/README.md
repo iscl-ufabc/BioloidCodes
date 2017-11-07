@@ -56,11 +56,15 @@ Dentro da pasta encontrará os seguintes arquivos:
 
 ### 3.1.Funções
 
+<p align="center">
+AX12.py
+</p>
+
 As funções presentes no arquivo Ax12.py foram criadas por [thiagohersan](https://github.com/thiagohersan), e estão explicadas detalhadamente em [AX12-JavA](https://github.com/LAB08-SBC/BioloidCodes/tree/master/AX12-JavA).
 
 
 <p align="center">
-Bioloid.java
+Bioloid.py
 </p>
 
 
@@ -69,24 +73,6 @@ _initialPos():_ Seta os motores em posição inicial.
 _clear():_ Seta os motores em 512.
 
 _em desenvolvimento_
-
-### 3.2.Instalação
-
-*Ao executar o código RUN, aparecerá o seguinte problema:*
-
-
-	- Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
-
-*Para resolvê-lo, digitar no terminal:*
-
-	- sudo rpi-update 52241088c1da59a359110d39c1875cda56496764
-	- sudo reboot
-
-*Ao executar novamente o código, aparecerá outro problema: *
-
-	- wiringPiSetup: Must be root (Did you forget sudo ?)
-
-*Para resolvê-lo: ???*
 
 ## 4.Apoio
 
@@ -136,13 +122,7 @@ THOMSEN, A. **Como comunicar o Arduino com Raspberry Pi**. Disponível em: <http
 
 Java-Buddy. **Install NetBeans on Raspberry Pi/Raspbian for Java and C/C++ development**. Disponível em: <http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html>. Acesso em 13 de Outubro de 2017.  
 
+Robotttini. **Dynamixel AX-12A and Arduino: how to use the Serial Port**. Disponível em:<http://robottini.altervista.org/dynamixel-ax-12a-and-arduino-how-to-use-the-serial-port>. Acesso em 07/11/2017.
 
-
-links:
-http://robottini.altervista.org/dynamixel-ax-12a-and-arduino-how-to-use-the-serial-port
-http://savageelectronics.blogspot.com.br/2011/01/arduino-y-dynamixel-ax-12.html
-http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/
-http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi
-https://github.com/thiagohersan/memememe
-
+ Savage, J. A. **Arduino y Dynamixel AX-12**. Disponível em <http://savageelectronics.blogspot.com.br/2011/01/arduino-y-dynamixel-ax-12.html>. Acesso em 07/11/2017.
 
