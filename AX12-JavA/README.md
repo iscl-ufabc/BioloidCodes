@@ -164,7 +164,11 @@ _em desenvolvimento_
 
 	- wiringPiSetup: Must be root (Did you forget sudo ?)
 
-*Para resolvê-lo: ???*
+*Para resolvê-lo: é necessario inicializar os programas pelo terminal de comandos.
+	
+	- sudo Eclipse
+	- sudo Netbens
+	- sudo BlueJ
 
 ## 4.Apoio
 
