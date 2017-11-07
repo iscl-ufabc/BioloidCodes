@@ -37,55 +37,13 @@ Alguns recursos são necessários para a integração da Raspiberry com os motor
 	No terminal: 
 		- sudo reboot
 		
-*Crie um novo projeto Java:*
+*Abrindo a biblioteca em Python:*
 
-	- Coloque o nome e clique em next>
-	- em Libraries clique em Add Library...
-	- User Library
-	- Selecione Pi4j
-	- Finish
-	- Crie a Classe e começe a brincadeira
-
-### 2.3.NETBEANS
-
-*Para instalar o NETBEANS:*
-
-	- No site do netbeans: https://netbeans.org/downloads/ , baixe a versão Java SE na plataforma
-	SO Independent ZIP.
-	- Ao baixar, vá em download e descompact.
-	- Abra o arquivo contido em: /netbeans/bin/netbeans
-	- Atualize os pacotes, e reinicie o netbeans.
-
-*Para colocar as bibliotecas no NETBEANS:*
-
-	- Abra o NETBEANS.
-	- Em ferramentas, clique em bibliotecas.
-	- Clique em Nova Biblioteca...
-	- Coloque como nome: Pi4j , dê (OK)
-	- Adicionar Jar/Pasta...
-	- Procure por /opt/pi4j/lib/pi4j-core.jar 
-	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
-	- OK!
-
-*Crie um novo projeto Java:*
-
-	- Clique em Aplicação Java, Próximo >
-	- Escolha o Nome de seu projeto e clique em Finalizar
-	- Ao criar o arquivo, clique com o botão direito do mouse em cima do projeto criado
-	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
-	- Adicione ela, e dê Ok!
-
-### 2.4.BlueJ 
-
-*Crie um novo projeto Java:*
-
-	- Ao abrir o BlueJ, clique em New Project.
-	- Crie uma pasta em /home/pi e nomeie como BlueJ Projects, dentro dessa pasta crie outra com o nome do seu Projeto, clique em create.
-	- Ao Abrir vá em Tools --> Preferences --> Library, clique em add.
-	- Procure as pastas: /opt/pi4j/lib/pi4j-core.jar (e também pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar)
-	- Dê ok e reinicie o Programa.
-	- Crie a sua classe, clique duas vezes e programe em java!
-
+	Abrir uma pasta com os arquivos:
+		- ax12.py, __init__.py, Bioloid.py e RUN.py
+		- rode o RUN.py no Python 2
+		- começe a brincadeira
+		
 ## 3.Programas e Funções da AX12-JavA 
 
 Dentro da pasta encontrará os seguintes arquivos:
