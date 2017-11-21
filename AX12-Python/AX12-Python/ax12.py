@@ -137,7 +137,7 @@ class Ax12:
 
     def __init__(self):
         if(Ax12.port == None):
-            Ax12.port = Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.001)
+            Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001)
         if(not Ax12.gpioSet):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
@@ -615,6 +615,7 @@ class Ax12:
         
         self.direction(Ax12.RPI_DIRECTION_RX)
         reply = Ax12.port.read(8)
+
         if(ord(reply[6])==1):
             print("Position of Motor" + str(id) + " is: " + str(ord(reply[5])+256))
         else:

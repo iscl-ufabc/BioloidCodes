@@ -6,14 +6,10 @@ import time
 robot = BIOLOID()
 m=Ax12()
 
-robot.clear();
-time.sleep(2);
-robot.readMotors();
-time.sleep(2);
-robot.initialPos();
-time.sleep(2);
-robot.readMotors();
-
+m.move(4,512);
+time.sleep(3);
+m.readPosition(4);
+time.sleep(3);
 ##robot.clear();
 ##time.sleep(2);
 ##robot.initialPos();
