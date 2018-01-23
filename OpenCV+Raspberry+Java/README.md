@@ -7,6 +7,10 @@ Como instalar OpenCV 3.1.0 JAVA na Raspberry:
 
 	Digitar no terminal:
 
+		Passo 0 - sudo apt-get purge openjdk-8-jre-headless
+			  sudo apt-get install openjdk-8-jre-headless
+			  sudo apt-get install openjdk-8-jre
+
 		Passo 1 - sudo apt-get update && sudo apt-get install oracle-java7-jdk cmake ant
 		Passo 2 - sudo apt-get install build-essential cmake pkg-config libpng12-0 libpng12-dev 
 			  libpng++-dev libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev pngtools  libtiff4 
@@ -36,8 +40,8 @@ Como instalar OpenCV 3.1.0 JAVA na Raspberry:
 
 	No terminal:
 
-		Passo 7 - wget https://codeload.github.com/Itseez/opencv/zip/3.1.0
-		Passo 8 - mv 3.1.0 opencv.zip
+		Passo 7 - baixar o sources (zip) do release mais atual de https://opencv.org/releases.html
+		Passo 8 - colocar o zip na pasta pi
 		Passo 9 - unzip opencv.zip 
 		Passo 10 - cd opencv-3.1.0/
 		Passo 11 - mkdir build
