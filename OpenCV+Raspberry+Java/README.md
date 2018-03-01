@@ -23,7 +23,7 @@ Como instalar OpenCV 3.1.0 JAVA na Raspberry:
     
 		    Após execute o passo 2 novamente
 
-		Passo 3 - Abrir o arquivo em home/pi/.bashrc
+		Passo 3 - Abrir o arquivo em sudo leafpad ~/.bashrc
 		Passo 4 - acrescentar no final do documento/:
 			export ANT_HOME=/usr/share/ant/
 			export PATH=${PATH}:${ANT_HOME}/bin
@@ -48,10 +48,10 @@ Como instalar OpenCV 3.1.0 JAVA na Raspberry:
 		Passo 12 - cd build
 		Passo 13 - cmake -D CMAKE_BUILD_TYPE=RELEASE -D WITH_OPENCL=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_SHARED_LIBS=OFF -D JAVA_INCLUDE_PATH=$JAVA_HOME/include -D JAVA_AWT_LIBRARY=$JAVA_HOME/jre/lib/arm/libawt.so -D JAVA_JVM_LIBRARY=$JAVA_HOME/jre/lib/arm/server/libjvm.so -D CMAKE_INSTALL_PREFIX=/usr/local ..
 		Passo 14 - make
-		Passo 15 - sudo chmod a+rw /usr/local/include
-			   sudo chmod a+rw /usr/local/lib
-			   sudo chmod a+rw /usr/local/share
-			   sudo chmod a+rw /usr/local/bin
+		Passo 15 - sudo chmod -R 777 /usr/local/include
+			   sudo chmod -R 777 /usr/local/lib
+			   sudo chmod -R 777 /usr/local/share
+			   sudo chmod -R 777 /usr/local/bin
 		Passo 15 - make install
 
 
