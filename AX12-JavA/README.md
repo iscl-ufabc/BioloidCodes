@@ -7,7 +7,7 @@
 Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
 
 <p align="center">
-<img src = "https://user-images.githubusercontent.com/28567780/31362861-22917b22-ad31-11e7-919d-b8ea135fb5ae.png" width = "300">
+<img src = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
 </p>
 
 Ou, pode-se confeccionar o _shield_ Raspi2Dynamixel em:
@@ -18,14 +18,45 @@ _Em desenvolvimento_
 
 Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
 
-### 2.1.PI4J 
+### 2.1.Preparando a Raspberry 
+
+*Ao Ligar a RaspiBerry Pi:*
+
+	No terminal: 
+		- sudo leafpad /boot/config.txt
+	Irá abrir o arquivo, no final dele acrescentar:
+		- init_uart_clock = 16000000
+		- init_uart_baud=1000000
+		- sudo stty -F /dev/ttyAMA0 1000000
+	Existirá uma parte comentada começando com #dtoverlay... 
+	Descomentar e alterar para: 
+		- dtoverlay = pi3-disable-bt
+	No terminal: 
+		- sudo leafpad ~/.bashrc
+	No final do arquivo colocar: 
+		- sudo chmod 777 /dev/ttyAMA0
+		- sudo chmod -R 777 /root
+	No terminal: 
+		- sudo reboot
+
+### 2.2.PI4J 
 
 *Para instalar o PI4J:*
-
+	
+	Passo 1 - sudo apt-get update && sudo apt-get install oracle-java7-jdk cmake ant
+	Passo 2 - sudo apt-get install build-essential cmake pkg-config libpng12-0 libpng12-dev 
+		  libpng++-dev libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev pngtools  libtiff4 
+		  libtiffxx0c2 libtiff-tools libjpeg8 libjpeg8-dev libjpeg8-dbg libjpeg-progs libavcodec-dev   
+		  libavformat-dev libgstreamer0.10-0-dbg libgstreamer0.10-0 libgstreamer0.10-dev  libunicap2 
+		  libunicap2-dev libdc1394-22-dev libdc1394-22 libdc1394-utils swig libv4l-0 libv4l-dev
+    
+	OBS: se aparecer qualquer problema digitar o seguinte
+	sudo rm /var/lib/apt/lists/* ; sudo rm /var/lib/apt/lists/partial/* ; sudo apt-get -f install ; sudo apt-get clean ; sudo apt-get update
+    
 	No terminal: 
 		- curl -s get.pi4j.com | sudo bash
 
-### 2.2.ECLIPSE 
+### 2.3.ECLIPSE 
 
 *Para instalar o ECLIPSE:*
 
@@ -53,7 +84,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Finish
 	- Crie a Classe e começe a brincadeira
 
-### 2.3.NETBEANS
+### 2.4.NETBEANS
 
 *Para instalar o NETBEANS:*
 
@@ -82,7 +113,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
 	- Adicione ela, e dê Ok!
 
-### 2.4.BlueJ 
+### 2.5.BlueJ 
 
 *Crie um novo projeto Java:*
 
@@ -145,7 +176,11 @@ _em desenvolvimento_
 
 	- wiringPiSetup: Must be root (Did you forget sudo ?)
 
-*Para resolvê-lo: ???*
+*Para resolvê-lo: é necessario inicializar os programas pelo terminal de comandos.
+	
+	- sudo Eclipse
+	- sudo Netbens
+	- sudo BlueJ
 
 ## 4.Apoio
 

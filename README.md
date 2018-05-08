@@ -9,7 +9,7 @@
 Foi proposto uma arquitetura para o uso de técnicas de processamento de imagem e visão computacional, além da utilização da Raspberry Pi 3B para controlar os servos motores do humanoide de uma forma prática, utilizando códigos do Java e Python [6].
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/28567780/31528663-13af6930-afab-11e7-98a3-8db50214c1a7.jpg" width="500">
+<img src="https://user-images.githubusercontent.com/28567780/32135686-fd12e826-bbe1-11e7-9b8e-8b909cda75f1.jpg" width="500">
 </p>
 
 A imagem ilustra a arquitetura proposta, com o suporte _pan/tilt_ e a _webcam_ formando o sistema de visão em (a) e (b). O projeto eletrônico utilizando a Raspberry Pi e o _shield_ Raspi2Dynamixel desenvolvido em (c) e (d). A plataforma humanoide em (e). A conexão entre o sistema de visão e o projeto eletrônico ocorre pelo OpenCV, e entre o projeto eletrônico e o jogador robótico ocorre pela biblioteca AX12-JavA desenvolvida com o Pi4J [7].
@@ -35,6 +35,10 @@ e-mail: gilmarjeronimo@uol.com.br
 Paulo Consoni
 
 e-mail: paulo.consoni4000@gmail.com
+
+Rodrigo Fialho 22
+
+e-mail: 
 
 ## Apoio
 
