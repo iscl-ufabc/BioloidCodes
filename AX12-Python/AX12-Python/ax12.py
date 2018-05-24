@@ -138,6 +138,7 @@ class Ax12:
     def __init__(self):
         if(Ax12.port == None):
             Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001)
+            ##Ax12.port.write('A');
         if(not Ax12.gpioSet):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)

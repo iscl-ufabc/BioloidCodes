@@ -138,7 +138,7 @@ public class Ax12 {
             RPI_DIRECTION_PIN.low();
     }
     
-    public static void move (int id, int position) {
+    public static void move (int id, int position) throws InterruptedException {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -154,7 +154,8 @@ public class Ax12 {
         Serial.serialPutchar(port, (char) Ax12.AX_GOAL_POSITION_L);   
         Serial.serialPutchar(port, (char) p[0]);   
         Serial.serialPutchar(port, (char) p[1]);   
-        Serial.serialPutchar(port, (char) checksum);   
+        Serial.serialPutchar(port, (char) checksum);  
+        Thread.sleep(10);
         gpio.shutdown();
     }
     

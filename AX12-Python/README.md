@@ -25,15 +25,20 @@ Alguns recursos são necessários para a integração da Raspiberry com os motor
 	No terminal: 
 		- sudo leafpad /boot/config.txt
 	Irá abrir o arquivo, no final dele acrescentar:
-		- init_uart_clock = 16000000
+		- enable_uart=1
+		- init_uart_clock=16000000
 		- init_uart_baud=1000000
+		- sudo stty -F /dev/ttyAMA0 1000000
 	Existirá uma parte comentada começando com #dtoverlay... 
 	Descomentar e alterar para: 
-		- dtoverlay = pi3-disable-bt
+		- dtoverlay=pi3-disable-bt
 	No terminal: 
 		- sudo leafpad ~/.bashrc
 	No final do arquivo colocar: 
 		- sudo chmod 777 /dev/ttyAMA0
+		- sudo chmod -R 777 /root
+	No terminal:
+		- sudo leafpad /boot/cmdline.txt -> remova todas opções citando ttyAMA0.
 	No terminal: 
 		- sudo reboot
 		
