@@ -10,7 +10,7 @@ Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2
 <img src = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
 </p>
 
-Ou, pode-se confeccionar o _shield_ Raspi2Dynamixel em:
+Ou, pode-se confeccionar o _shield_ Rasp2Dynamixel em:
 
 _Em desenvolvimento_
 
@@ -20,24 +20,36 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 ### 2.1.Preparando a Raspberry 
 
-*Ao Ligar a RaspiBerry Pi:*
+*Ao Ligar a RaspBerry Pi:*
 
-	No terminal: 
-		- sudo leafpad /boot/config.txt
-	Irá abrir o arquivo, no final dele acrescentar:
-		- init_uart_clock = 16000000
-		- init_uart_baud=1000000
-		- sudo stty -F /dev/ttyAMA0 1000000
-	Existirá uma parte comentada começando com #dtoverlay... 
-	Descomentar e alterar para: 
-		- dtoverlay = pi3-disable-bt
-	No terminal: 
-		- sudo leafpad ~/.bashrc
-	No final do arquivo colocar: 
-		- sudo chmod 777 /dev/ttyAMA0
-		- sudo chmod -R 777 /root
-	No terminal: 
-		- sudo reboot
+	1) No terminal digitar: 
+		sudo leafpad /boot/config.txt
+	
+	2) Irá abrir o arquivo, no final dele acrescentar:
+		enable_uart=1
+		init_uart_clock=16000000
+		init_uart_baud=1000000
+		sudo stty -F /dev/ttyAMA0 1000000
+		
+	3) Existirá uma parte comentada começando com #dtoverlay... Descomentar (tirar o #) e alterar para: 
+		dtoverlay=pi3-disable-bt
+	
+	4) No terminal digitar: 
+		sudo leafpad ~/.bashrc
+		
+	5) No final do arquivo colocar: 
+		sudo chmod -R 777 /dev/ttyAMA0
+		sudo chmod -R 777 /root
+		sudo chmod -R 777 '/dev/ttyAMA0'
+		sudo chmod -R 777 '/root'
+	
+	6) No terminal digitar:
+		sudo leafpad /boot/cmdline.txt
+	
+	7) Ao abrir o arquivo remova todas opções citando ttyAMA0.
+	
+	8) No terminal: 
+		sudo reboot
 
 ### 2.2.PI4J 
 
@@ -142,11 +154,68 @@ AX12.java
 
 _serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
 
+_direction(int):_ Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
+
 _move(id, pos):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
 
 _moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
 
-_em desenvolvimento_
+_ping(id):_ Retorna qual é o _ping_ do motor indicado pelo ID.
+
+_factoryReset(id):_ Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
+
+_setID(id, newID):_ Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
+
+_setBaudRate(id,baudrate):_ Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
+
+_setStatusReturnLevel(id,level):_ Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
+
+_setReturnDelayTime(id,delay):_ É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
+
+_lockRegister(id):_ Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
+
+_moveRW(id, position):_ Seta o servo para locomoção em rotação contínua.
+
+_moveSpeedRW(id,position,speed):_ Seta a velocidade do servo de rotação contínua.
+
+_action():_ Verifica se existe algum comando transmitido para o REG_WRITE
+
+_setTorqueStatus(id,status):_ Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
+
+_setLedStatus(id,status):_ Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
+
+_setTemperatureLimit(id, temp):_ Seta a temperatura limite do servo, indo de 0 a 99°C.
+
+_setVoltageLimit(id,lowVolt,highVolt):_ Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
+
+_setAngleLimit(id,cwLimit,ccwLimit):_ Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
+
+_setTorqueLimit(id,torque):_ Define o Torque limite, indo de 0 a 1023.
+
+_setPunchLimit(id,punch):_ Define a corrente para acionar o motor, indo de 0 a 1023.
+
+_setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
+
+_setLedAlarm(id,alarm):_ Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+
+_setShutdownAlarm(id,alarm):_ Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+
+_readTemperature(id):_ Lê a temperatura do servo. (Não FINALIZADO).
+
+_readPosition(id):_ Lê a Posição Atual do servo.(Não FINALIZADO).
+
+_readVoltage(id):_ Lê a Voltagem do servo. (Não FINALIZADO).
+
+_readSpeed(id):_ Lê a velocidade do servo. (Não FINALIZADO).
+
+_readLoad(id):_ Lê a carga do servo. (Não FINALIZADO).
+
+_readMovingStatus(id):_ Lê se o servo está se movimentando ou não. (Não FINALIZADO).
+
+_readRWStatus(id):_ Lê se o servo está em rotação contínua. (Não FINALIZADO).
+
+
+Mais informações em [6].
 
 
 <p align="center">
@@ -158,7 +227,6 @@ _initialPos():_ Seta os motores em posição inicial.
 
 _clear():_ Seta os motores em 512.
 
-_em desenvolvimento_
 
 ### 3.2.Instalação
 
@@ -182,6 +250,29 @@ _em desenvolvimento_
 	- sudo Netbens
 	- sudo BlueJ
 
+**Possíveis Problemas**
+	
+_1) Código não roda_
+	
+	O arquivo em Java roda em um Baud Rate específico, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo Ax12.java existe uma linha escrita:
+	
+		- public static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+		- static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
+	
+	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o Baud Rate para 57600 utilizando o código em Python disponível em https://github.com/LAB08-SBC/BioloidCodes/tree/master/AX12-Python
+	
+	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em https://github.com/LAB08-SBC/BioloidCodes/blob/master/SerialArduinoRasp.ino. Acesse o terminal Serial do Arduino e troque o Baud Rate para o mesmo da Raspberry. 
+	
+	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se os caractéres são transmitidos para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes Baud Rates).
+	
+_2) A comunicação serial funciona, mas o motor não mexe_
+	
+	Verifique se o baudrate dos motores AX-12A são os mesmos que está utilizando no código java.
+	
+	Utilize o RoboPlus, juntamente com o DynamixelWizard. Utilize os padrões de fábrica, com baudrate = 1000000 e verifique se o ID do motor está correto.
+	
+	Realize o passo 1 novamente	
+
 ## 4.Apoio
 
 <img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
@@ -199,6 +290,8 @@ _em desenvolvimento_
 [4] NETBEANS, I. __Netbeans©__. Disponível em:<http://netbeans.org/>. Acesso em 4 de Outubro de 2017, v. 11, 2008.
 
 [5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249–268, 2003.
+
+[6] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Disponível em: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Acesso em 26 de Maio de 2018.
 
 JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
 

@@ -4,15 +4,11 @@ import sys
 import time
 
 robot = BIOLOID()
-m=Ax12()
+#m = Ax12()
 
-m.move(4,512);
-time.sleep(3);
-m.readPosition(4);
-time.sleep(3);
-##robot.clear();
-##time.sleep(2);
-##robot.initialPos();
+robot.clear();
+time.sleep(2);
+robot.initialPos();
 ##
 ##while True:
 ##
