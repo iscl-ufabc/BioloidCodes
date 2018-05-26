@@ -10,7 +10,7 @@ Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2
 <img src = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
 </p>
 
-Ou, pode-se confeccionar o _shield_ Raspi2Dynamixel em:
+Ou, pode-se confeccionar o _shield_ Rasp2Dynamixel em:
 
 _Em desenvolvimento_
 
@@ -20,7 +20,7 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 ### 2.1.Preparando a Raspberry 
 
-*Ao Ligar a RaspiBerry Pi:*
+*Ao Ligar a RaspBerry Pi:*
 
 	1) No terminal digitar: 
 		sudo leafpad /boot/config.txt
@@ -200,19 +200,19 @@ _setLedAlarm(id,alarm):_ Define o alarme do LED. Seu valor é pode ser [1,2,4,8,
 
 _setShutdownAlarm(id,alarm):_ Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
 
-_readTemperature(id):_ Lê a temperatura do servo.
+_readTemperature(id):_ Lê a temperatura do servo. (Não FINALIZADO).
 
-_readPosition(id):_ Lê a Posição Atual do servo.
+_readPosition(id):_ Lê a Posição Atual do servo.(Não FINALIZADO).
 
-_readVoltage(id):_ Lê a Voltagem do servo
+_readVoltage(id):_ Lê a Voltagem do servo. (Não FINALIZADO).
 
-_readSpeed(id):_ Lê a velocidade do servo.
+_readSpeed(id):_ Lê a velocidade do servo. (Não FINALIZADO).
 
-_readLoad(id):_ Lê a carga do servo.
+_readLoad(id):_ Lê a carga do servo. (Não FINALIZADO).
 
-_readMovingStatus(id):_ Lê se o servo está se movimentando ou não.
+_readMovingStatus(id):_ Lê se o servo está se movimentando ou não. (Não FINALIZADO).
 
-_readRWStatus(id):_ Lê se o servo está em rotação contínua. 
+_readRWStatus(id):_ Lê se o servo está em rotação contínua. (Não FINALIZADO).
 
 
 Mais informações em [6].
@@ -249,6 +249,29 @@ _clear():_ Seta os motores em 512.
 	- sudo Eclipse
 	- sudo Netbens
 	- sudo BlueJ
+
+**Possíveis Problemas**
+	
+_1) Código não roda_
+	
+	O arquivo em Java roda em um Baud Rate específico, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo Ax12.java existe uma linha escrita:
+	
+		- public static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+		- static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
+	
+	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o Baud Rate para 57600 utilizando o código em Python disponível em https://github.com/LAB08-SBC/BioloidCodes/tree/master/AX12-Python
+	
+	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em https://github.com/LAB08-SBC/BioloidCodes/blob/master/SerialArduinoRasp.ino. Acesse o terminal Serial do Arduino e troque o Baud Rate para o mesmo da Raspberry. 
+	
+	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se os caractéres são transmitidos para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes Baud Rates).
+	
+_2) A comunicação serial funciona, mas o motor não mexe_
+	
+	Verifique se o baudrate dos motores AX-12A são os mesmos que está utilizando no código java.
+	
+	Utilize o RoboPlus, juntamente com o DynamixelWizard. Utilize os padrões de fábrica, com baudrate = 1000000 e verifique se o ID do motor está correto.
+	
+	Realize o passo 1 novamente	
 
 ## 4.Apoio
 
