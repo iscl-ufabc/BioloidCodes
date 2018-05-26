@@ -22,22 +22,34 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 
 *Ao Ligar a RaspiBerry Pi:*
 
-	No terminal: 
-		- sudo leafpad /boot/config.txt
-	Irá abrir o arquivo, no final dele acrescentar:
-		- init_uart_clock = 16000000
-		- init_uart_baud=1000000
-		- sudo stty -F /dev/ttyAMA0 1000000
-	Existirá uma parte comentada começando com #dtoverlay... 
-	Descomentar e alterar para: 
-		- dtoverlay = pi3-disable-bt
-	No terminal: 
-		- sudo leafpad ~/.bashrc
-	No final do arquivo colocar: 
-		- sudo chmod 777 /dev/ttyAMA0
-		- sudo chmod -R 777 /root
-	No terminal: 
-		- sudo reboot
+	1) No terminal digitar: 
+		sudo leafpad /boot/config.txt
+	
+	2) Irá abrir o arquivo, no final dele acrescentar:
+		enable_uart=1
+		init_uart_clock=16000000
+		init_uart_baud=1000000
+		sudo stty -F /dev/ttyAMA0 1000000
+		
+	3) Existirá uma parte comentada começando com #dtoverlay... Descomentar (tirar o #) e alterar para: 
+		dtoverlay=pi3-disable-bt
+	
+	4) No terminal digitar: 
+		sudo leafpad ~/.bashrc
+		
+	5) No final do arquivo colocar: 
+		sudo chmod -R 777 /dev/ttyAMA0
+		sudo chmod -R 777 /root
+		sudo chmod -R 777 '/dev/ttyAMA0'
+		sudo chmod -R 777 '/root'
+	
+	6) No terminal digitar:
+		sudo leafpad /boot/cmdline.txt
+	
+	7) Ao abrir o arquivo remova todas opções citando ttyAMA0.
+	
+	8) No terminal: 
+		sudo reboot
 
 ### 2.2.PI4J 
 
@@ -142,9 +154,47 @@ AX12.java
 
 _serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
 
+_direction(int):_ Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
+
 _move(id, pos):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
 
 _moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
+
+_ping(id):_ Retorna qual é o _ping_ do motor indicado pelo ID.
+
+_factoryReset(id):_ Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
+
+_setID(id, newID):_ Muda o ID do motor indicado (id) para um novo (newID).
+
+_setBaudRate(id,baudrate):_ Muda o baudrate do motor escolhido.
+
+_setStatusReturnLevel(id,level):_
+
+_setReturnDelayTime(id,delay):_
+
+_lockRegister(id):_
+
+_moveRW(id, position):_
+
+_moveSpeedRW(id,position,speed):_
+
+_action():_
+
+_setTorqueStatus(id,status):_
+
+_setLedStatus(id,status):_
+
+_setTemperatureLimit(id, tempo):_
+
+_setVoltageLimit(id,lowVolt,highVolt):_
+
+_setAngleLimit(id,cwLimit,ccwLimit):_
+
+_setTorqueLimit(id,torque):_
+
+_setPunchLimit(id,punch):_
+
+_setCompliance()_
 
 _em desenvolvimento_
 
