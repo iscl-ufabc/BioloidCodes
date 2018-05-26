@@ -16,31 +16,40 @@ _Em desenvolvimento_
 
 ## 2.Instalação
 
-Alguns recursos são necessários para a integração da Raspiberry com os motores dynamixel, com o Python. A [biblioteca](https://github.com/thiagohersan/memememe/blob/master/Python/ax12/ax12.py) utilizada foi a criada por [thiagohersan](https://github.com/thiagohersan), escrita em Python 2. Segue-se os procedimentos para o uso da biblioteca na Raspiberry Pi 3. 
+Alguns recursos são necessários para a integração da Raspiberry com os motores dynamixel, com o Python. A [biblioteca](https://github.com/thiagohersan/memememe/blob/master/Python/ax12/ax12.py) utilizada foi a criada por [thiagohersan](https://github.com/thiagohersan), escrita em Python 2 e melhorada durante o desenvolvimento de projeto de pesquisa. Segue-se os procedimentos para o uso da biblioteca na Raspiberry Pi 3. 
 
 ### 2.2.Preparando a Raspiberry 
 
 *Ao Ligar a RaspiBerry Pi:*
 
-	No terminal: 
-		- sudo leafpad /boot/config.txt
-	Irá abrir o arquivo, no final dele acrescentar:
-		- enable_uart=1
-		- init_uart_clock=16000000
-		- init_uart_baud=1000000
-		- sudo stty -F /dev/ttyAMA0 1000000
-	Existirá uma parte comentada começando com #dtoverlay... 
-	Descomentar e alterar para: 
-		- dtoverlay=pi3-disable-bt
-	No terminal: 
-		- sudo leafpad ~/.bashrc
-	No final do arquivo colocar: 
-		- sudo chmod 777 /dev/ttyAMA0
-		- sudo chmod -R 777 /root
-	No terminal:
-		- sudo leafpad /boot/cmdline.txt -> remova todas opções citando ttyAMA0.
-	No terminal: 
-		- sudo reboot
+	1) No terminal digitar: 
+		sudo leafpad /boot/config.txt
+	
+	2) Irá abrir o arquivo, no final dele acrescentar:
+		enable_uart=1
+		init_uart_clock=16000000
+		init_uart_baud=1000000
+		sudo stty -F /dev/ttyAMA0 1000000
+		
+	3) Existirá uma parte comentada começando com #dtoverlay... Descomentar (tirar o #) e alterar para: 
+		dtoverlay=pi3-disable-bt
+	
+	4) No terminal digitar: 
+		sudo leafpad ~/.bashrc
+		
+	5) No final do arquivo colocar: 
+		sudo chmod -R 777 /dev/ttyAMA0
+		sudo chmod -R 777 /root
+		sudo chmod -R 777 '/dev/ttyAMA0'
+		sudo chmod -R 777 '/root'
+	
+	6) No terminal digitar:
+		sudo leafpad /boot/cmdline.txt
+	
+	7) Ao abrir o arquivo remova todas opções citando ttyAMA0.
+	
+	8) No terminal: 
+		sudo reboot
 		
 *Abrindo a biblioteca em Python:*
 
@@ -48,6 +57,7 @@ Alguns recursos são necessários para a integração da Raspiberry com os motor
 		- ax12.py, __init__.py, Bioloid.py e RUN.py
 		- rode o RUN.py no Python 2
 		- começe a brincadeira
+			
 		
 ## 3.Programas e Funções da AX12-Python 
 
@@ -75,9 +85,48 @@ Bioloid.py
 
 _initialPos():_ Seta os motores em posição inicial.
 
-_clear():_ Seta os motores em 512.
+_clear():_ Seta os motores em 512, zerando eles.
 
-_em desenvolvimento_
+_readMotors():_ Lê os todos os motores.
+
+
+**Possíveis Problemas**
+	
+_1) Código não roda_
+	
+	O arquivo em Python roda a qualquer baudrate, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo ax12.py existe uma linha escrita:
+	
+		- Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001) 
+	
+	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o baudrate para 1000000, configuração inicial do AX-12A. 
+	
+	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em [Arduino] . Acesse o terminal Serial do Arduino e troque o baudrate para o mesmo da Raspberry. 
+	
+	Após a linha Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001) coloque o seguinte
+	
+		- Ax12.port.write('A');
+	
+	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se o caracter é transmitido para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes baudrates).
+	
+_2) A comunicação serial funciona, mas o motor não mexe_
+	
+	Verifique se o baudrate dos motores AX-12A são os mesmos que está utilizando no código python.
+	
+	Utilize o RoboPlus, juntamente com o DynamixelWizard. Utilize os padrões de fábrica, com baudrate = 1000000 e verifique se o ID do motor está correto.
+	
+	Realize o passo 1 novamente
+	
+_3) A leitura dos motores não funciona_
+	
+	Se por acaso a leitura dos dados dos motores não funcionar, entre em contato com nossa equipe.
+	
+	Para voltar a utilizar as ações dos motores, digite no terminal: 
+		sudo chmod -R 777 /dev/ttyAMA0
+		sudo chmod -R 777 /root
+		sudo chmod -R 777 '/dev/ttyAMA0'
+		sudo chmod -R 777 '/root'
+		
+	Dê reboot se o problema persistir.	
 
 ## 4.Apoio
 
