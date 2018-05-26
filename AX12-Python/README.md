@@ -94,23 +94,23 @@ _readMotors():_ Lê os todos os motores.
 	
 _1) Código não roda_
 	
-	O arquivo em Python roda a qualquer baudrate, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo ax12.py existe uma linha escrita:
+	O arquivo em Python roda a qualquer Baud Rate, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo ax12.py existe uma linha escrita:
 	
 		- Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001) 
 	
-	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o baudrate para 1000000, configuração inicial do AX-12A. 
+	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o Baud Rate para 1000000, configuração inicial do AX-12A. 
 	
-	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em [Arduino] . Acesse o terminal Serial do Arduino e troque o baudrate para o mesmo da Raspberry. 
+	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em [Arduino](https://github.com/LAB08-SBC/BioloidCodes/blob/master/SerialArduinoRasp.ino). Acesse o terminal Serial do Arduino e troque o Baud Rate para o mesmo da Raspberry. 
 	
 	Após a linha Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001) coloque o seguinte
 	
 		- Ax12.port.write('A');
 	
-	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se o caracter é transmitido para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes baudrates).
+	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se o caracter é transmitido para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes Baud Rates).
 	
 _2) A comunicação serial funciona, mas o motor não mexe_
 	
-	Verifique se o baudrate dos motores AX-12A são os mesmos que está utilizando no código python.
+	Verifique se o Baud Rate dos motores AX-12A são os mesmos que está utilizando no código python.
 	
 	Utilize o RoboPlus, juntamente com o DynamixelWizard. Utilize os padrões de fábrica, com baudrate = 1000000 e verifique se o ID do motor está correto.
 	
