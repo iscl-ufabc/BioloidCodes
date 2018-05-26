@@ -164,39 +164,58 @@ _ping(id):_ Retorna qual é o _ping_ do motor indicado pelo ID.
 
 _factoryReset(id):_ Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
 
-_setID(id, newID):_ Muda o ID do motor indicado (id) para um novo (newID).
+_setID(id, newID):_ Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
 
-_setBaudRate(id,baudrate):_ Muda o baudrate do motor escolhido.
+_setBaudRate(id,baudrate):_ Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
 
-_setStatusReturnLevel(id,level):_
+_setStatusReturnLevel(id,level):_ Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
 
-_setReturnDelayTime(id,delay):_
+_setReturnDelayTime(id,delay):_ É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
 
-_lockRegister(id):_
+_lockRegister(id):_ Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
 
-_moveRW(id, position):_
+_moveRW(id, position):_ Seta o servo para locomoção em rotação contínua.
 
-_moveSpeedRW(id,position,speed):_
+_moveSpeedRW(id,position,speed):_ Seta a velocidade do servo de rotação contínua.
 
-_action():_
+_action():_ Verifica se existe algum comando transmitido para o REG_WRITE
 
-_setTorqueStatus(id,status):_
+_setTorqueStatus(id,status):_ Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
 
-_setLedStatus(id,status):_
+_setLedStatus(id,status):_ Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
 
-_setTemperatureLimit(id, tempo):_
+_setTemperatureLimit(id, temp):_ Seta a temperatura limite do servo, indo de 0 a 99°C.
 
-_setVoltageLimit(id,lowVolt,highVolt):_
+_setVoltageLimit(id,lowVolt,highVolt):_ Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
 
-_setAngleLimit(id,cwLimit,ccwLimit):_
+_setAngleLimit(id,cwLimit,ccwLimit):_ Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
 
-_setTorqueLimit(id,torque):_
+_setTorqueLimit(id,torque):_ Define o Torque limite, indo de 0 a 1023.
 
-_setPunchLimit(id,punch):_
+_setPunchLimit(id,punch):_ Define a corrente para acionar o motor, indo de 0 a 1023.
 
-_setCompliance()_
+_setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
 
-_em desenvolvimento_
+_setLedAlarm(id,alarm):_ Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+
+_setShutdownAlarm(id,alarm):_ Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+
+_readTemperature(id):_ Lê a temperatura do servo.
+
+_readPosition(id):_ Lê a Posição Atual do servo.
+
+_readVoltage(id):_ Lê a Voltagem do servo
+
+_readSpeed(id):_ Lê a velocidade do servo.
+
+_readLoad(id):_ Lê a carga do servo.
+
+_readMovingStatus(id):_ Lê se o servo está se movimentando ou não.
+
+_readRWStatus(id):_ Lê se o servo está em rotação contínua. 
+
+
+Mais informações em [6].
 
 
 <p align="center">
@@ -208,7 +227,6 @@ _initialPos():_ Seta os motores em posição inicial.
 
 _clear():_ Seta os motores em 512.
 
-_em desenvolvimento_
 
 ### 3.2.Instalação
 
@@ -249,6 +267,8 @@ _em desenvolvimento_
 [4] NETBEANS, I. __Netbeans©__. Disponível em:<http://netbeans.org/>. Acesso em 4 de Outubro de 2017, v. 11, 2008.
 
 [5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249–268, 2003.
+
+[6] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Disponível em: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Acesso em 26 de Maio de 2018.
 
 JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
 
