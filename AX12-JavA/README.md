@@ -54,7 +54,10 @@ Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcio
 ### 2.2.PI4J 
 
 *Para instalar o PI4J:*
-	
+	Passo 0 - sudo apt-get purge openjdk-8-jre-headless
+			  sudo apt-get install openjdk-8-jre-headless
+			  sudo apt-get install openjdk-8-jre
+			  
 	Passo 1 - sudo apt-get update && sudo apt-get install oracle-java7-jdk cmake ant
 	Passo 2 - sudo apt-get install build-essential cmake pkg-config libpng12-0 libpng12-dev 
 		  libpng++-dev libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev pngtools  libtiff4 
