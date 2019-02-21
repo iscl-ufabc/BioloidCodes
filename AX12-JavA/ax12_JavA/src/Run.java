@@ -2,49 +2,25 @@ import java.math.BigDecimal;
 
 
 
-public class Run
-{
-    public static int motors[] = new int[18];
-    public static int initPos[] = {336, 687, 298, 724, 412, 611, 355, 664, 491, 530, 394, 625, 278, 743, 616, 405, 490, 530};
-	
-    public static void initialPos(Bioloid teste) throws InterruptedException {
-        //serial();
-        
-        for (int i=0;i<motors.length;i++){
-        	motors[i]=initPos[i];
-        	teste.move(i+1,motors[i]);
-        	Thread.sleep(1000);
-        }
-    }
-    
-    public static void clear(Bioloid teste) throws InterruptedException {
-        //serial();
-        
-        for(int i=0;i<(motors.length);i++){
-        	motors[i] = 512;	
-        		if(i==(7-1))
-        			motors[i] = 361;
-        		if(i==(8-1))
-        			motors[i] = 663;
-        	teste.move(i+1,motors[i]);
-        	Thread.sleep(1000);
-        }
-    }
-	
+public class Run{
+
     public static void main(String[] args) throws InterruptedException {
     	
     	Bioloid Jason = new Bioloid(18);
         
-    	Thread.sleep(10000);
+    	Jason.move(3,512);
     	
-    	clear(Jason);
-    	Thread.sleep(2000);
-    	initialPos(Jason);
+    	Jason.readPosition(3);
+    	//Thread.sleep(10000);
+    	
+    	//Jason.clear();
+    	//Thread.sleep(2000);
+    	//Jason.initialPos();
     	
     	
     	
-    	while (true){
-    	
+/*    	while (true){
+   	
     		BigDecimal i = new BigDecimal(1.00);
     		
     		while (i.doubleValue()<14.7){
@@ -77,6 +53,8 @@ public class Run
 		    	
 		    	System.out.println(i.doubleValue());
     		}
-		}
+		}*/
+    	
+    	
     }
 }
