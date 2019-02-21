@@ -9,119 +9,119 @@ import javax.swing.JOptionPane;
 public class Ax12 {
     
     // important AX-12 constants
-    public static final int AX_MODEL_NUMBER_L = 0;
-    public static final int AX_MODEL_NUMBER_H = 1;
-    public static final int AX_VERSION = 2;
-    public static final int AX_ID = 3;
-    public static final int AX_BAUD_RATE = 4;
-    public static final int AX_RETURN_DELAY_TIME = 5;
-    public static final int AX_CW_ANGLE_LIMIT_L = 6;
-    public static final int AX_CW_ANGLE_LIMIT_H = 7;
-    public static final int AX_CCW_ANGLE_LIMIT_L = 8;
-    public static final int AX_CCW_ANGLE_LIMIT_H = 9;
-    public static final int AX_SYSTEM_DATA2 = 10;
-    public static final int AX_LIMIT_TEMPERATURE = 11;
-    public static final int AX_DOWN_LIMIT_VOLTAGE = 12;
-    public static final int AX_UP_LIMIT_VOLTAGE = 13;
-    public static final int AX_MAX_TORQUE_L = 14;
-    public static final int AX_MAX_TORQUE_H = 15;
-    public static final int AX_RETURN_LEVEL = 16;
-    public static final int AX_ALARM_LED = 17;
-    public static final int AX_ALARM_SHUTDOWN = 18;
-    public static final int AX_OPERATING_MODE = 19;
-    public static final int AX_DOWN_CALIBRATION_L = 20;
-    public static final int AX_DOWN_CALIBRATION_H = 21;
-    public static final int AX_UP_CALIBRATION_L = 22;
-    public static final int AX_UP_CALIBRATION_H = 23;
-    public static final int AX_TORQUE_STATUS = 24;
-    public static final int AX_LED_STATUS = 25;
-    public static final int AX_CW_COMPLIANCE_MARGIN = 26;
-    public static final int AX_CCW_COMPLIANCE_MARGIN = 27;
-    public static final int AX_CW_COMPLIANCE_SLOPE = 28;
-    public static final int AX_CCW_COMPLIANCE_SLOPE = 29;
-    public static final int AX_GOAL_POSITION_L = 30;
-    public static final int AX_GOAL_POSITION_H = 31;
-    public static final int AX_GOAL_SPEED_L = 32;
-    public static final int AX_GOAL_SPEED_H = 33;
-    public static final int AX_TORQUE_LIMIT_L = 34;
-    public static final int AX_TORQUE_LIMIT_H = 35;
-    public static final int AX_PRESENT_POSITION_L = 36;
-    public static final int AX_PRESENT_POSITION_H = 37;
-    public static final int AX_PRESENT_SPEED_L = 38;
-    public static final int AX_PRESENT_SPEED_H = 39;
-    public static final int AX_PRESENT_LOAD_L = 40;
-    public static final int AX_PRESENT_LOAD_H = 41;
-    public static final int AX_PRESENT_VOLTAGE = 42;
-    public static final int AX_PRESENT_TEMPERATURE = 43;
-    public static final int AX_REGISTERED_INSTRUCTION = 44;
-    public static final int AX_PAUSE_TIME = 45;
-    public static final int AX_MOVING = 46;
-    public static final int AX_LOCK = 47;
-    public static final int AX_PUNCH_L = 48;
-    public static final int AX_PUNCH_H = 49;
-    public static final int AX_RETURN_NONE = 0;
-    public static final int AX_RETURN_READ = 1;
-    public static final int AX_RETURN_ALL = 2;
-    public static final int AX_PING = 1;
-    public static final int AX_READ_DATA = 2;
-    public static final int AX_WRITE_DATA = 3;
-    public static final int AX_REG_WRITE = 4;
-    public static final int AX_ACTION = 5;
-    public static final int AX_RESET = 6;
-    public static final int AX_SYNC_WRITE = 131;
-    public static final int AX_RESET_LENGTH = 2;
-    public static final int AX_ACTION_LENGTH = 2;
-    public static final int AX_ID_LENGTH = 4;
-    public static final int AX_LR_LENGTH = 4;
-    public static final int AX_SRL_LENGTH = 4;
-    public static final int AX_RDT_LENGTH = 4;
-    public static final int AX_LEDALARM_LENGTH = 4;
-    public static final int AX_SHUTDOWNALARM_LENGTH = 4;
-    public static final int AX_TL_LENGTH = 4;
-    public static final int AX_VL_LENGTH = 6;
-    public static final int AX_AL_LENGTH = 7;
-    public static final int AX_CM_LENGTH = 6;
-    public static final int AX_CS_LENGTH = 5;
-    public static final int AX_COMPLIANCE_LENGTH = 7;
-    public static final int AX_CCW_CW_LENGTH = 8;
-    public static final int AX_BD_LENGTH = 4;
-    public static final int AX_TEM_LENGTH = 4;
-    public static final int AX_MOVING_LENGTH = 4;
-    public static final int AX_RWS_LENGTH = 4;
-    public static final int AX_VOLT_LENGTH = 4;
-    public static final int AX_LOAD_LENGTH = 4;
-    public static final int AX_LED_LENGTH = 4;
-    public static final int AX_TORQUE_LENGTH = 4;
-    public static final int AX_POS_LENGTH = 4;
-    public static final int AX_GOAL_LENGTH = 5;
-    public static final int AX_MT_LENGTH = 5;
-    public static final int AX_PUNCH_LENGTH = 5;
-    public static final int AX_SPEED_LENGTH = 5;
-    public static final int AX_GOAL_SP_LENGTH = 7;
-    public static final int AX_BYTE_READ = 1;
-    public static final int AX_INT_READ = 2;
-    public static final int AX_ACTION_CHECKSUM = 250;
-    public static final int AX_BROADCAST_ID = 254;
-    public static final int AX_START = 255;
-    public static final int AX_CCW_AL_L = 255;
-    public static final int AX_CCW_AL_H = 3;
-    public static final int AX_LOCK_VALUE = 1;
-    public static final int LEFT = 0;
-    public static final int RIGTH = 1;
-    public static final int RX_TIME_OUT = 10;
-    public static final double TX_DELAY_TIME = 0.00002;
+    private final static int AX_MODEL_NUMBER_L = 0;
+    private final static int AX_MODEL_NUMBER_H = 1;
+    private final static int AX_VERSION = 2;
+    private final static int AX_ID = 3;
+    private final static int AX_BAUD_RATE = 4;
+    private final static int AX_RETURN_DELAY_TIME = 5;
+    private final static int AX_CW_ANGLE_LIMIT_L = 6;
+    private final static int AX_CW_ANGLE_LIMIT_H = 7;
+    private final static int AX_CCW_ANGLE_LIMIT_L = 8;
+    private final static int AX_CCW_ANGLE_LIMIT_H = 9;
+    private final static int AX_SYSTEM_DATA2 = 10;
+    private final static int AX_LIMIT_TEMPERATURE = 11;
+    private final static int AX_DOWN_LIMIT_VOLTAGE = 12;
+    private final static int AX_UP_LIMIT_VOLTAGE = 13;
+    private final static int AX_MAX_TORQUE_L = 14;
+    private final static int AX_MAX_TORQUE_H = 15;
+    private final static int AX_RETURN_LEVEL = 16;
+    private final static int AX_ALARM_LED = 17;
+    private final static int AX_ALARM_SHUTDOWN = 18;
+    private final static int AX_OPERATING_MODE = 19;
+    private final static int AX_DOWN_CALIBRATION_L = 20;
+    private final static int AX_DOWN_CALIBRATION_H = 21;
+    private final static int AX_UP_CALIBRATION_L = 22;
+    private final static int AX_UP_CALIBRATION_H = 23;
+    private final static int AX_TORQUE_STATUS = 24;
+    private final static int AX_LED_STATUS = 25;
+    private final static int AX_CW_COMPLIANCE_MARGIN = 26;
+    private final static int AX_CCW_COMPLIANCE_MARGIN = 27;
+    private final static int AX_CW_COMPLIANCE_SLOPE = 28;
+    private final static int AX_CCW_COMPLIANCE_SLOPE = 29;
+    private final static int AX_GOAL_POSITION_L = 30;
+    private final static int AX_GOAL_POSITION_H = 31;
+    private final static int AX_GOAL_SPEED_L = 32;
+    private final static int AX_GOAL_SPEED_H = 33;
+    private final static int AX_TORQUE_LIMIT_L = 34;
+    private final static int AX_TORQUE_LIMIT_H = 35;
+    private final static int AX_PRESENT_POSITION_L = 36;
+    private final static int AX_PRESENT_POSITION_H = 37;
+    private final static int AX_PRESENT_SPEED_L = 38;
+    private final static int AX_PRESENT_SPEED_H = 39;
+    private final static int AX_PRESENT_LOAD_L = 40;
+    private final static int AX_PRESENT_LOAD_H = 41;
+    private final static int AX_PRESENT_VOLTAGE = 42;
+    private final static int AX_PRESENT_TEMPERATURE = 43;
+    private final static int AX_REGISTERED_INSTRUCTION = 44;
+    private final static int AX_PAUSE_TIME = 45;
+    private final static int AX_MOVING = 46;
+    private final static int AX_LOCK = 47;
+    private final static int AX_PUNCH_L = 48;
+    private final static int AX_PUNCH_H = 49;
+    private final static int AX_RETURN_NONE = 0;
+    private final static int AX_RETURN_READ = 1;
+    private final static int AX_RETURN_ALL = 2;
+    private final static int AX_PING = 1;
+    private final static int AX_READ_DATA = 2;
+    private final static int AX_WRITE_DATA = 3;
+    private final static int AX_REG_WRITE = 4;
+    private final static int AX_ACTION = 5;
+    private final static int AX_RESET = 6;
+    private final static int AX_SYNC_WRITE = 131;
+    private final static int AX_RESET_LENGTH = 2;
+    private final static int AX_ACTION_LENGTH = 2;
+    private final static int AX_ID_LENGTH = 4;
+    private final static int AX_LR_LENGTH = 4;
+    private final static int AX_SRL_LENGTH = 4;
+    private final static int AX_RDT_LENGTH = 4;
+    private final static int AX_LEDALARM_LENGTH = 4;
+    private final static int AX_SHUTDOWNALARM_LENGTH = 4;
+    private final static int AX_TL_LENGTH = 4;
+    private final static int AX_VL_LENGTH = 6;
+    private final static int AX_AL_LENGTH = 7;
+    private final static int AX_CM_LENGTH = 6;
+    private final static int AX_CS_LENGTH = 5;
+    private final static int AX_COMPLIANCE_LENGTH = 7;
+    private final static int AX_CCW_CW_LENGTH = 8;
+    private final static int AX_BD_LENGTH = 4;
+    private final static int AX_TEM_LENGTH = 4;
+    private final static int AX_MOVING_LENGTH = 4;
+    private final static int AX_RWS_LENGTH = 4;
+    private final static int AX_VOLT_LENGTH = 4;
+    private final static int AX_LOAD_LENGTH = 4;
+    private final static int AX_LED_LENGTH = 4;
+    private final static int AX_TORQUE_LENGTH = 4;
+    private final static int AX_POS_LENGTH = 4;
+    private final static int AX_GOAL_LENGTH = 5;
+    private final static int AX_MT_LENGTH = 5;
+    private final static int AX_PUNCH_LENGTH = 5;
+    private final static int AX_SPEED_LENGTH = 5;
+    private final static int AX_GOAL_SP_LENGTH = 7;
+    private final static int AX_BYTE_READ = 1;
+    private final static int AX_INT_READ = 2;
+    private final static int AX_ACTION_CHECKSUM = 250;
+    private final static int AX_BROADCAST_ID = 254;
+    private final static int AX_START = 255;
+    private final static int AX_CCW_AL_L = 255;
+    private final static int AX_CCW_AL_H = 3;
+    private final static int AX_LOCK_VALUE = 1;
+    private final static int LEFT = 0;
+    private final static int RIGTH = 1;
+    private final static int RX_TIME_OUT = 10;
+    private final static double TX_DELAY_TIME = 0.00002;
 
 
-    final static GpioController gpio = GpioFactory.getInstance(); 
-    public static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
-    public static GpioPinDigitalOutput RPI_DIRECTION_PIN_RX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16); //PORTAS RELACIONADAS PI4J
-    static double RPI_DIRECTION_SWITCH_DELAY = 0.0001;
+    private final static GpioController gpio = GpioFactory.getInstance(); 
+    private static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+    private static GpioPinDigitalOutput RPI_DIRECTION_PIN_RX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16); //PORTAS RELACIONADAS PI4J
+    private static double RPI_DIRECTION_SWITCH_DELAY = 0.0001;
    
     // static variables
-    static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
+    private static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
     
  
-    public static void serial(){
+    private void serial(){
     	
         if (port == -1) {
             System.out.println(" ==>> SERIAL SETUP FAILED");
@@ -131,14 +131,14 @@ public class Ax12 {
 	    direction(0);
     }
     
-    public static void direction(int d){
+    private static void direction(int d){
         if(d==1)
             RPI_DIRECTION_PIN.high();
         else
             RPI_DIRECTION_PIN.low();
     }
     
-    public static void move (int id, int position) throws InterruptedException {
+    public void move (int id, int position) throws InterruptedException {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -159,7 +159,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void moveSpeed(int id, int position, int speed){
+    public void moveSpeed(int id, int position, int speed){
     	
         direction(1);
         Serial.serialFlush(port);
@@ -181,7 +181,7 @@ public class Ax12 {
         gpio.shutdown(); 
     }
 	
-    public static void ping (int id) {
+    public void ping (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -196,7 +196,7 @@ public class Ax12 {
         gpio.shutdown();
     }
 	
-    public static void factoryReset(int id){
+    public void factoryReset(int id){
 			
 		String[] options = new String[] {"SIM", "NÃO"};
 		
@@ -223,7 +223,7 @@ public class Ax12 {
 		}
     }
 
-    public static void setID (int id, int newId) {
+    public void setID (int id, int newId) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -240,7 +240,7 @@ public class Ax12 {
         gpio.shutdown();
     }
         
-    public static void setBaudRate (int id, int baudRate) {
+    public void setBaudRate (int id, int baudRate) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -258,7 +258,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void setStatusReturnLevel (int id, int level) {
+    public void setStatusReturnLevel (int id, int level) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -274,7 +274,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void setReturnDelayTime (int id, int delay) {
+    public void setReturnDelayTime (int id, int delay) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -291,7 +291,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void lockRegister (int id) {
+    public void lockRegister (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -308,7 +308,7 @@ public class Ax12 {
         gpio.shutdown();
     }
 
-    public static void moveRW (int id, int position) {
+    public void moveRW (int id, int position) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -327,7 +327,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void moveSpeedRW (int id, int position, int speed){
+    public void moveSpeedRW (int id, int position, int speed){
     	
         direction(1);
         Serial.serialFlush(port);
@@ -349,7 +349,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void action () {
+    public void action () {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -363,7 +363,7 @@ public class Ax12 {
         gpio.shutdown();
     }
 
-    public static void setTorqueStatus (int id, int status) {
+    public void setTorqueStatus (int id, int status) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -382,7 +382,7 @@ public class Ax12 {
         gpio.shutdown();
     }
 
-    public static void setLedStatus (int id, int status) {
+    public void setLedStatus (int id, int status) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -401,7 +401,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void setTemperatureLimit (int id, int temp) {
+    public void setTemperatureLimit (int id, int temp) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -418,7 +418,7 @@ public class Ax12 {
         gpio.shutdown();
     }        
     
-    public static void setVoltageLimit (int id, int lowVolt, int highVolt) {
+    public void setVoltageLimit (int id, int lowVolt, int highVolt) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -436,7 +436,7 @@ public class Ax12 {
         gpio.shutdown();
     }        
     
-    public static void setAngleLimit (int id, int cwLimit, int ccwLimit) {
+    public void setAngleLimit (int id, int cwLimit, int ccwLimit) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -458,7 +458,7 @@ public class Ax12 {
         gpio.shutdown();
     }        
     
-    public static void setTorqueLimit (int id, int torque) {
+    public void setTorqueLimit (int id, int torque) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -477,7 +477,7 @@ public class Ax12 {
         gpio.shutdown();
     }    
     
-    public static void setPunchLimit (int id, int punch) {
+    public void setPunchLimit (int id, int punch) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -496,7 +496,7 @@ public class Ax12 {
         gpio.shutdown();
     }    
     
-    public static void setCompliance (int id, int cwMargin, int ccwMargin, int cwSlope, int ccwSlope) {
+    public void setCompliance (int id, int cwMargin, int ccwMargin, int cwSlope, int ccwSlope) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -516,7 +516,7 @@ public class Ax12 {
         gpio.shutdown();
     }    
     
-    public static void setLedAlarm (int id, int alarm) {
+    public void setLedAlarm (int id, int alarm) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -533,7 +533,7 @@ public class Ax12 {
         gpio.shutdown();
     }    
      
-    public static void setShutdownAlarm (int id, int alarm) {
+    public void setShutdownAlarm (int id, int alarm) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -550,7 +550,7 @@ public class Ax12 {
         gpio.shutdown();
     }    
     
-	public static void readTemperature (int id) {
+	public void readTemperature (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -567,7 +567,7 @@ public class Ax12 {
         gpio.shutdown();
     }        
         
-    public static void readPosition (int id) {
+    public void readPosition (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -584,13 +584,20 @@ public class Ax12 {
         
         direction(0);
         byte reply[] = new byte[8];
-        reply = Serial.serialGetAvailableBytes(port);
-        System.out.println(reply[0]);
+        float time = 0;
+        while(time<100000){
+	        while (Serial.serialDataAvail(port)>0){
+	        	reply = Serial.serialGetAvailableBytes(port);
+	        	System.out.println(reply[0]);
+	        }
+        //System.out.println(reply[0]);
+        	time++;
+        }
         
         gpio.shutdown();
     }        
     
-    public static void readVoltage (int id) {
+    public void readVoltage (int id) {
         
     	direction(1);
         Serial.serialFlush(port);
@@ -607,7 +614,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void readSpeed (int id) {
+    public void readSpeed (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -624,7 +631,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void readLoad (int id) {
+    public void readLoad (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -641,7 +648,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void readMovingStatus (int id) {
+    public void readMovingStatus (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -658,7 +665,7 @@ public class Ax12 {
         gpio.shutdown();
     }
     
-    public static void readRWStatus (int id) {
+    public void readRWStatus (int id) {
     	
         direction(1);
         Serial.serialFlush(port);
