@@ -1,18 +1,27 @@
 
 public class Bioloid extends Ax12{
 		
-	private static int MAX_MOTOR;
-    private static int motors[] = new int[MAX_MOTOR];
+	//------------------------------------------ ATRIBUTES ------------------------------------------
+	
+	private static int MAX_MOTORS;
+    private static int motors[] = new int[MAX_MOTORS];
     private static int initPos[] = {336, 687, 298, 724, 412, 611, 355, 664, 491, 530, 394, 625, 278, 743, 616, 405, 490, 530};
-    
+    private static long baudrate;
 
+    //----------------------------------------- CONSTRUCTORS -----------------------------------------
+    
 	public Bioloid(int MAX_MOTORS){
-    	MAX_MOTOR = MAX_MOTORS; // NUMBER OF USED MOTORS 
+		this(MAX_MOTORS, (long) 57600);
 	}	
+	
+	public Bioloid(int MAX_MOTORS, long baudrate){
+		this.MAX_MOTORS = MAX_MOTORS; // NUMBER OF USED MOTORS 
+		this.baudrate = baudrate;
+	}
+	
+	//-------------------------------------------- METHODS --------------------------------------------
 
     public void initialPos() throws InterruptedException {
-        //serial();
-        
         for (int i=0;i<motors.length;i++){
         	motors[i]=initPos[i];
         	this.move(i+1,motors[i]);
@@ -20,9 +29,15 @@ public class Bioloid extends Ax12{
         }
     }
     
+    public void initialPos(long delayTime) throws InterruptedException {
+        for (int i=0;i<motors.length;i++){
+        	motors[i]=initPos[i];
+        	this.move(i+1,motors[i]);
+        	Thread.sleep(delayTime);
+        }
+    }
+    
     public void clear() throws InterruptedException {
-        //serial();
-        
         for(int i=0;i<(motors.length);i++){
         	motors[i] = 512;	
         		if(i==(7-1))
@@ -31,6 +46,18 @@ public class Bioloid extends Ax12{
         			motors[i] = 663;
         	this.move(i+1,motors[i]);
         	Thread.sleep(1000);
+        }
+    }
+    
+    public void clear(long delayTime) throws InterruptedException {
+        for(int i=0;i<(motors.length);i++){
+        	motors[i] = 512;	
+        		if(i==(7-1))
+        			motors[i] = 361;
+        		if(i==(8-1))
+        			motors[i] = 663;
+        	this.move(i+1,motors[i]);
+        	Thread.sleep(delayTime);
         }
     }
     
