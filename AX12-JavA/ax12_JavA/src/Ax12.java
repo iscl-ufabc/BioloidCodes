@@ -114,6 +114,7 @@ public class Ax12 {
 
     private final static GpioController gpio = GpioFactory.getInstance(); 
     private static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+	private static GpioPinDigitalOutput RPI_DIRECTION_PIN_TX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15); //PORTAS RELACIONADAS PI4J
     private static GpioPinDigitalOutput RPI_DIRECTION_PIN_RX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16); //PORTAS RELACIONADAS PI4J
     private static double RPI_DIRECTION_SWITCH_DELAY = 0.0001;
    
