@@ -5,9 +5,45 @@ import com.pi4j.wiringpi.Serial;
 
 import javax.swing.JOptionPane;
 
+/*
+ * AX-12A PROPERTIES:
+ * 
+ * ID = [0-252]
+ * BAUDRATE = [2000000 - 8000]
+ * RETURN DELAY TIME = [0 - 254]. Ex: 254 * (2 usec)
+ * CW ANGLE LIMIT(JOINT/WHEEL MODE) = [0 - 1023] 
+ * CCW ANGLE LIMIT (JOINT/WHEEL MODE) = [0 - 1023]
+ * HIGHEST LIMIT TEMPERATURE = [0 - 99]̣ Celsius
+ * LOWEST LIMIT VOLTAGE = [50 - 250]. Ex: 250 * (1/10) V
+ * HIGHEST LIMIT VOLTAGE = [50 - 250]. Ex: 250 * (1/10) V
+ * MAX TORQUE = [0 - 1023]
+ * STATUS RETURN LEVEL = [0 - 2]. (0 - NO RETURN; 1 - READ ONLY; 2- ALL RETURN)
+ * ALARM LED = (64 - INSTRUCTIONS; 32 - OVERLOAD; 16 - CHECKSUM; 8 - RANGE; 4 - OVERHEATING; 2 - ANGLE LIMIT; 1 - INPUT VOLTAGE)
+ * ALARM SHUTDOWN = (64 - INSTRUCTIONS; 32 - OVERLOAD; 16 - CHECKSUM; 8 - RANGE; 4 - OVERHEATING; 2 - ANGLE LIMIT; 1 - INPUT VOLTAGE)
+ * TORQUE ENABLE = [0 - 1]
+ * LED = [0 - 1]
+ * CW COMPLIANCE MARGIN = [1 - 254]
+ * CCW COMPLIANCE MARGIN = [1 - 254]
+ * CW COMPLIANCE SLOPE = [2, 4, 8, 16, 32, 64, 128]
+ * CCW COMPLIANCE SLOPE = [2, 4, 8, 16, 32, 64, 128]
+ * GOAL POSITION = [0 - 1023]
+ * MOVING SPEED = [0 - 1023] RPM
+ * TORQUE LIMIT = [0 - 1023]
+ * PRESENT POSITION = [0 - 1023]
+ * PRESENT SPEED = ONLY ON CW OR CCW MODE
+ * PRESENT LOAD = [0 - 100] %
+ * PRESENT VOLTAGE = [0 - 255]. Ex: 250 * (1/10) V
+ * PRESENT TEMPERATURE = [0 - 99] Celsius
+ * REGISTERED INSTRUCTION
+ * MOVING = [0 - 1]
+ * LOCK = EEPROM AREA LOCKED
+ * PUNCH = [0 - 1023] 
+ */
 
 public class Ax12 {
     
+	//------------------------------------------ ATRIBUTES ------------------------------------------
+
     // important AX-12 constants
     private final static int AX_MODEL_NUMBER_L = 0;
     private final static int AX_MODEL_NUMBER_H = 1;
@@ -121,15 +157,34 @@ public class Ax12 {
     // static variables
     private static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
     
- 
-    private void serial(){
-    	
+    //----------------------------------------- CONSTRUCTORS -----------------------------------------
+    
+    public Ax12(){
+    	this(57600,1);
+    }
+    
+    public Ax12(long baudrate,int rpiDirSwitch){
+    	this.gpio = GpioFactory.getInstance(); 
+        this.RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+        this.RPI_DIRECTION_PIN_RX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16); //PORTAS RELACIONADAS PI4J
+        this.RPI_DIRECTION_SWITCH_DELAY_MILLIS = rpiDirSwitch;
+        this.port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, (int) baudrate);
+        
+        serial(port);
+    }
+    
+    
+    //-------------------------------------------- METHODS --------------------------------------------
+    
+    private void serial(int port){
         if (port == -1) {
             System.out.println(" ==>> SERIAL SETUP FAILED");
+            gpio.shutdown();
             return;
         }
 	    
 	    direction(0);
+	    
     }
     
     private static void direction(int d){
@@ -139,7 +194,7 @@ public class Ax12 {
             RPI_DIRECTION_PIN.low();
     }
     
-    public void move (int id, int position) throws InterruptedException {
+    public void move (int id, int position) throws InterruptedException  {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -199,24 +254,24 @@ public class Ax12 {
 	
     public void factoryReset(int id){
 			
-		String[] options = new String[] {"SIM", "NÃO"};
+		String[] options = new String[] {"SIM", "NAO"};
 		
-		int response = JOptionPane.showOptionDialog(null, "DESEJA REALIZAR A RESTAURAÇÃO DE FÁBRICA? \n"
-					+ "OBS: Essa operação tornará o motor incompatível com AX12-JavA, lembre-se de alterar o baudrate do motor",
-					"Preparando para Reset de Fábrica", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+		int response = JOptionPane.showOptionDialog(null, "DESEJA REALIZAR A RESTAURACAO DE FABRICA? \n"
+					+ "OBS: Essa operacao tornara o motor incompati­vel com AX12-JavA, lembre-se de alterar o baudrate do motor e da porta serial",
+					"Preparando para Reset de Fabrica", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 				null, options, options[0]);   
 			
 		if (response == 0){    
-	        	direction(1);
-	        	Serial.serialFlush(port);
-				int checksum = (~(id + Ax12.AX_RESET_LENGTH + Ax12.AX_RESET))&0xff;
-				Serial.serialPutchar(port, (char) Ax12.AX_START);      
-				Serial.serialPutchar(port, (char) Ax12.AX_START);   
-				Serial.serialPutchar(port, (char) id); 
-				Serial.serialPutchar(port, (char) Ax12.AX_RESET_LENGTH);   
-				Serial.serialPutchar(port, (char) Ax12.AX_RESET);   
-				Serial.serialPutchar(port, (char) checksum);   
-				gpio.shutdown(); 
+			direction(1);
+	        Serial.serialFlush(port);
+			int checksum = (~(id + Ax12.AX_RESET_LENGTH + Ax12.AX_RESET))&0xff;
+			Serial.serialPutchar(port, (char) Ax12.AX_START);      
+			Serial.serialPutchar(port, (char) Ax12.AX_START);   
+			Serial.serialPutchar(port, (char) id); 
+			Serial.serialPutchar(port, (char) Ax12.AX_RESET_LENGTH);   
+			Serial.serialPutchar(port, (char) Ax12.AX_RESET);   
+			Serial.serialPutchar(port, (char) checksum);   
+			gpio.shutdown(); 
 		}
 		else{
 			System.out.println("");
@@ -568,7 +623,7 @@ public class Ax12 {
         gpio.shutdown();
     }        
         
-    public void readPosition (int id) {
+    public void readPosition (int id) throws InterruptedException {
     	
         direction(1);
         Serial.serialFlush(port);
@@ -583,16 +638,22 @@ public class Ax12 {
         Serial.serialPutchar(port, (char) Ax12.AX_INT_READ);
         Serial.serialPutchar(port, (char) checksum);   
         
+        Thread.sleep(RPI_DIRECTION_SWITCH_DELAY_MILLIS);
         direction(0);
-        byte reply[] = new byte[8];
-        float time = 0;
-        while(time<100000){
-	        while (Serial.serialDataAvail(port)>0){
-	        	reply = Serial.serialGetAvailableBytes(port);
-	        	System.out.println(reply[0]);
+        Serial.serialFlush(port);
+        
+        byte reply[] = new byte[12];
+        double initialTime = System.currentTimeMillis();
+        double currentTime = initialTime;
+        
+        while((currentTime - initialTime)<5000){
+	        for (int i = 0; Serial.serialDataAvail(port)>0; i++){
+	        	//reply = Serial.serialGetAvailableBytes(port);
+	        	reply[i] = Serial.serialGetByte(port);
+	        	System.out.println(reply[i]);
 	        }
         //System.out.println(reply[0]);
-        	time++;
+	        currentTime = System.currentTimeMillis();
         }
         
         gpio.shutdown();
