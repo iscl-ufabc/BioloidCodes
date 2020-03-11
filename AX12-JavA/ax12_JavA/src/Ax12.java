@@ -148,10 +148,11 @@ public class Ax12 {
     private final static double TX_DELAY_TIME = 0.00002;
 
 
-    private static GpioController gpio; 
-    private static GpioPinDigitalOutput RPI_DIRECTION_PIN;//PORTAS RELACIONADAS PI4J
-    private static GpioPinDigitalOutput RPI_DIRECTION_PIN_RX; //PORTAS RELACIONADAS PI4J
-    private static int RPI_DIRECTION_SWITCH_DELAY_MILLIS;
+    private final static GpioController gpio = GpioFactory.getInstance(); 
+    private static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+	private static GpioPinDigitalOutput RPI_DIRECTION_PIN_TX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15); //PORTAS RELACIONADAS PI4J
+    private static GpioPinDigitalOutput RPI_DIRECTION_PIN_RX = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16); //PORTAS RELACIONADAS PI4J
+    private static double RPI_DIRECTION_SWITCH_DELAY = 0.0001;
    
     // static variables
     private static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
