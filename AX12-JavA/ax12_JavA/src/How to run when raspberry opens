@@ -1,0 +1,2 @@
+sudo javac -cp *:. *.java
+sudo java -cp *:. Run

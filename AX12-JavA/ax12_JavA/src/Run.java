@@ -8,9 +8,35 @@ public class Run{
     	
     	Bioloid Jason = new Bioloid(18);
         
-    	Jason.move(3,512);
+    	double freq = 0.25;
+    	double T = 1.0 / freq;
+    	double division = 360.0;
+    	double timeByAngle = T / division;
+    	long timer = System.nanoTime();
+    	long timerInicio  = timer;
+    	System.out.println(timer);
     	
-    	Jason.readPosition(3);
+    	while(timer-timerInicio < (20000000000.0)){
+    		for(double i = 0; i<360; i+=360/division){
+    			
+    			while((double)(System.nanoTime() - timer) < ((i+1.0)*timeByAngle*1000000000.0)){
+    				
+    				double position = 1023 * ((0.5*Math.sin(i *(Math.PI/180))) + 0.5);
+    				//double positionPan = 140 * ((0.5*Math.sin(i *(Math.PI/180))) + 0.5) + 60;
+    				//double positionTilt = 290 * ((0.5*Math.sin(i *(Math.PI/180))) + 0.5) + 70;
+    				Jason.move(5, (int) position);
+    				//Jason.neck((int) positionTilt, (int) positionPan);	
+    			}
+        	}
+    		
+    		timer = System.nanoTime();
+    	   	
+    	}
+    	
+    	
+    	//Jason.move(5,512);
+    	//Thread.sleep(1000);
+    	//Jason.readPosition(5);
     	//Thread.sleep(10000);
     	
     	//Jason.clear();

@@ -1,22 +1,31 @@
+import java.io.IOException;
+
 
 public class Bioloid extends Ax12{
 		
 	//------------------------------------------ ATRIBUTES ------------------------------------------
 	
-	private static int MAX_MOTORS;
-    private static int motors[] = new int[MAX_MOTORS];
-    private static int initPos[] = {336, 687, 298, 724, 412, 611, 355, 664, 491, 530, 394, 625, 278, 743, 616, 405, 490, 530};
-    private static long baudrate;
+	private int MAX_MOTORS;
+    private int motors[] = new int[MAX_MOTORS];
+    private int initPos[] = {336, 687, 298, 724, 412, 611, 355, 664, 491, 530, 394, 625, 278, 743, 616, 405, 490, 530};
+    private long baudrate;
+    private panTilt neck;
 
     //----------------------------------------- CONSTRUCTORS -----------------------------------------
     
-	public Bioloid(int MAX_MOTORS){
+	public Bioloid(int MAX_MOTORS) {
 		this(MAX_MOTORS, (long) 57600);
 	}	
 	
-	public Bioloid(int MAX_MOTORS, long baudrate){
+	public Bioloid(int MAX_MOTORS, long baudrate) {
 		this.MAX_MOTORS = MAX_MOTORS; // NUMBER OF USED MOTORS 
 		this.baudrate = baudrate;
+		try {
+			neck = new panTilt();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//-------------------------------------------- METHODS --------------------------------------------
@@ -59,6 +68,10 @@ public class Bioloid extends Ax12{
         	this.move(i+1,motors[i]);
         	Thread.sleep(delayTime);
         }
+    }
+    
+    public void neck(int setBitPan, int setBitTilt){
+    	neck.run(setBitPan, setBitTilt);
     }
     
     

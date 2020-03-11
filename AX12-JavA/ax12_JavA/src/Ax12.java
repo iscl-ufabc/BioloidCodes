@@ -646,6 +646,7 @@ public class Ax12 {
         double currentTime = initialTime;
         
         while((currentTime - initialTime)<5000){
+        	System.out.println("Leitura: ");
 	        for (int i = 0; Serial.serialDataAvail(port)>0; i++){
 	        	//reply = Serial.serialGetAvailableBytes(port);
 	        	reply[i] = Serial.serialGetByte(port);
