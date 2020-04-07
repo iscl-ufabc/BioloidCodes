@@ -107,8 +107,11 @@ Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 *Classe* | *Função*
 ------------- | -------------
 *AX12.java:* | Classe que implementa as funções dos servos classe AX da Dynamixel.
+------------- | -------------
 *Bioloid.java:* | Classe para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
+------------- | -------------
 *panTilt.java:* | Implementa as funções para rodar com os servos SG90.
+------------- | -------------
 *Run.java:* | Permite rodar o main do programa.
 </p>
 
