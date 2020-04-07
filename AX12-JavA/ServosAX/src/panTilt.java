@@ -20,7 +20,7 @@ public class panTilt {
 		setPortPan(portPan);
 		setPortTilt(portTilt);
 		
-		System.out.println(getPortPan());
+		//System.out.println(getPortPan());
 		
         try {
 			runTime.exec("gpio mode "+getPortPan()+ " pwm");

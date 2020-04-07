@@ -14,7 +14,7 @@ public class Bioloid extends Ax12{
     //----------------------------------------- CONSTRUCTORS -----------------------------------------
     
 	public Bioloid(int MAX_MOTORS) {
-		this(MAX_MOTORS, (long) 57600);
+		this(MAX_MOTORS, (long) 1000000);
 	}	
 	
 	public Bioloid(int MAX_MOTORS, long baudrate) {

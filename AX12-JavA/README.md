@@ -177,9 +177,9 @@ _clear()_ | Seta os motores em 512.
 
 ### 2.2.Como rodar
 
-1. Entrar pelo terminal na pasta ServosAX
-	1. sudo javac -d bin/ -cp "lib/pi4j/*:.jar" src/*.java
-	2. sudo java -cp "lib/pi4j/*:.jar:bin" Run
+	1. Entrar pelo terminal na pasta ServosAX
+		1. sudo javac -d bin/ -cp "lib/pi4j/*:.jar" src/*.java
+		2. sudo java -cp "lib/pi4j/*:.jar:bin" Run
 
 **Possíveis Problemas**
 	
