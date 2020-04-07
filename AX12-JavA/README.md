@@ -104,6 +104,7 @@ Após isso, os arquivos do pi4j, incluindo os .jar estarão na pasta: /opt/pi4j
 Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 
 <p align="center">
+
 *Classe* | *Função*
 ------------- | -------------
 *AX12.java:* | Classe que implementa as funções dos servos classe AX da Dynamixel.
@@ -113,6 +114,7 @@ Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 *panTilt.java:* | Implementa as funções para rodar com os servos SG90.
 ------------- | -------------
 *Run.java:* | Permite rodar o main do programa.
+
 </p>
 
 ### 2.1.Funções
@@ -122,6 +124,7 @@ AX12.java
 </p>
 
 <p align="center">
+
 *Método* | *Função*
 ------------- | -------------
 _serial():_ | Inicializa a comunicação serial dos motores, sempre começar com essa função.
@@ -155,6 +158,7 @@ _readSpeed(id):_ | Lê a velocidade do servo. (Não FINALIZADO).
 _readLoad(id):_ | Lê a carga do servo. (Não FINALIZADO).
 _readMovingStatus(id):_ | Lê se o servo está se movimentando ou não. (Não FINALIZADO).
 _readRWStatus(id):_ | Lê se o servo está em rotação contínua. (Não FINALIZADO).
+
 </p>
 
 Mais informações em [9].
