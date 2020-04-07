@@ -104,17 +104,12 @@ Após isso, os arquivos do pi4j, incluindo os .jar estarão na pasta: /opt/pi4j
 Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 
 <p align="center">
-
 *Classe* | *Função*
 ------------- | -------------
 *AX12.java:* | Classe que implementa as funções dos servos classe AX da Dynamixel.
-
 *Bioloid.java:* | Classe para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
-
 *panTilt.java:* | Implementa as funções para rodar com os servos SG90.
-
 *Run.java:* | Permite rodar o main do programa.
-
 </p>
 
 ### 2.1.Funções
@@ -123,71 +118,41 @@ Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 AX12.java
 </p>
 
-Método | Função
+<p align="center">
+*Método* | *Função*
 ------------- | -------------
-
-* _serial():_ | Inicializa a comunicação serial dos motores, sempre começar com essa função.
-
-* _direction(int):_ | Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
-
-* _move(id, pos):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
-
-* _moveSpeed(id, pos, speed):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
-
-* _ping(id):_ | Retorna qual é o _ping_ do motor indicado pelo ID.
-
-* _factoryReset(id):_ | Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
-
-* _setID(id, newID):_ | Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
-
-* _setBaudRate(id,baudrate):_ | Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
-
-* _setStatusReturnLevel(id,level):_ | Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
-
-* _setReturnDelayTime(id,delay):_ | É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
-
-* _lockRegister(id):_ | Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
-
-* _moveRW(id, position):_ | Seta o servo para locomoção em rotação contínua.
-
-* _moveSpeedRW(id,position,speed):_ | Seta a velocidade do servo de rotação contínua.
-
-* _action():_ | Verifica se existe algum comando transmitido para o REG_WRITE
-
-* _setTorqueStatus(id,status):_ | Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
-
-* _setLedStatus(id,status):_ | Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
-
-* _setTemperatureLimit(id, temp):_ | Seta a temperatura limite do servo, indo de 0 a 99°C.
-
-* _setVoltageLimit(id,lowVolt,highVolt):_ | Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
-
-* _setAngleLimit(id,cwLimit,ccwLimit):_ | Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
-
-* _setTorqueLimit(id,torque):_ | Define o Torque limite, indo de 0 a 1023.
-
-* _setPunchLimit(id,punch):_ | Define a corrente para acionar o motor, indo de 0 a 1023.
-
-* _setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ | Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
-
-* _setLedAlarm(id,alarm):_ | Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
-
-* _setShutdownAlarm(id,alarm):_ | Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
-
-* _readTemperature(id):_ | Lê a temperatura do servo. (Não FINALIZADO).
-
-* _readPosition(id):_ | Lê a Posição Atual do servo.(Não FINALIZADO).
-
-* _readVoltage(id):_ | Lê a Voltagem do servo. (Não FINALIZADO).
-
-* _readSpeed(id):_ | Lê a velocidade do servo. (Não FINALIZADO).
-
-* _readLoad(id):_ | Lê a carga do servo. (Não FINALIZADO).
-
-* _readMovingStatus(id):_ | Lê se o servo está se movimentando ou não. (Não FINALIZADO).
-
-* _readRWStatus(id):_ | Lê se o servo está em rotação contínua. (Não FINALIZADO).
-
+_serial():_ | Inicializa a comunicação serial dos motores, sempre começar com essa função.
+_direction(int):_ | Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
+_move(id, pos):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
+_moveSpeed(id, pos, speed):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
+_ping(id):_ | Retorna qual é o _ping_ do motor indicado pelo ID.
+_factoryReset(id):_ | Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
+_setID(id, newID):_ | Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
+_setBaudRate(id,baudrate):_ | Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
+_setStatusReturnLevel(id,level):_ | Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
+_setReturnDelayTime(id,delay):_ | É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
+_lockRegister(id):_ | Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
+_moveRW(id, position):_ | Seta o servo para locomoção em rotação contínua.
+_moveSpeedRW(id,position,speed):_ | Seta a velocidade do servo de rotação contínua.
+_action():_ | Verifica se existe algum comando transmitido para o REG_WRITE
+_setTorqueStatus(id,status):_ | Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
+_setLedStatus(id,status):_ | Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
+_setTemperatureLimit(id, temp):_ | Seta a temperatura limite do servo, indo de 0 a 99°C.
+_setVoltageLimit(id,lowVolt,highVolt):_ | Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
+_setAngleLimit(id,cwLimit,ccwLimit):_ | Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
+_setTorqueLimit(id,torque):_ | Define o Torque limite, indo de 0 a 1023.
+_setPunchLimit(id,punch):_ | Define a corrente para acionar o motor, indo de 0 a 1023.
+_setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ | Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
+_setLedAlarm(id,alarm):_ | Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+_setShutdownAlarm(id,alarm):_ | Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+_readTemperature(id):_ | Lê a temperatura do servo. (Não FINALIZADO).
+_readPosition(id):_ | Lê a Posição Atual do servo.(Não FINALIZADO).
+_readVoltage(id):_ | Lê a Voltagem do servo. (Não FINALIZADO).
+_readSpeed(id):_ | Lê a velocidade do servo. (Não FINALIZADO).
+_readLoad(id):_ | Lê a carga do servo. (Não FINALIZADO).
+_readMovingStatus(id):_ | Lê se o servo está se movimentando ou não. (Não FINALIZADO).
+_readRWStatus(id):_ | Lê se o servo está em rotação contínua. (Não FINALIZADO).
+</p>
 
 Mais informações em [9].
 
