@@ -1,0 +1,2 @@
+sudo javac -d bin/ -cp "lib/pi4j/*:.jar" src/*.java
+sudo java -cp "lib/pi4j/*:.jar:bin" Run

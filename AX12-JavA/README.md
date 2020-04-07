@@ -4,221 +4,192 @@
 
 ## 1.Projeto Eletrônico
 
-Para utilizar a biblioteca, deve ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
+É possível adquirir o _shield_ Rasp2Dynamixel V2 através do e-mail gilmarjeronimo@uol.com.br: 
+
+<p align="center">
+<img src2 = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
+</p>
+
+Ou, pode ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
 
 <p align="center">
 <img src = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
 </p>
 
-Ou, pode-se confeccionar o _shield_ Rasp2Dynamixel em:
-
-_Em desenvolvimento_
-
 ## 2.Instalação
 
-Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. Segue-se os procedimentos para instalação da biblioteca e IDEs na Raspberry Pi. 
+Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. A última atualização do sistema opercional apresentou alguns problemas para instalação e preparação das IDEs, assim será sugerido a utilização do Geany compilando o código pelo terminal do comandos. Segue-se os procedimentos para instalação da biblioteca Pi4J na Raspberry Pi. 
 
-### 2.1.Preparando a Raspberry 
+### 2.1.Preparando a Raspberry com Noobs Versão 3.3.1 (2020-02-14)
 
-*Ao Ligar a RaspBerry Pi:*
+*Ao Ligar a Raspberry Pi:*
 
-	1) No terminal digitar: 
-		sudo leafpad /boot/config.txt
+1. No terminal digitar: 
+	1. sudo apt-get update
+	2. sudo apt-get upgrade
+	3. sudo apt-get install leafpad
+	4. sudo leafpad /boot/config.txt
 	
-	2) Irá abrir o arquivo, no final dele acrescentar:
-		enable_uart=1
-		init_uart_clock=16000000
-		init_uart_baud=1000000
-		sudo stty -F /dev/ttyAMA0 1000000
+2. Irá abrir o arquivo, no final dele acrescentar:
+	1. enable_uart=1
+	2. dtparam=uart0=on
+	3. dtoverlay=pi3-miniuart-bt
+	
+3. No terminal digitar: 
+	1. sudo leafpad ~/.bashrc
+	
+4. No final do arquivo colocar: 
+	1. sudo chmod -R 777 /dev/ttyAMA0
+	2. sudo chmod -R 777 /root
+	3. sudo chmod -R 777 '/dev/ttyAMA0'
+	4. sudo chmod -R 777 '/root'
+	
+5. Remover o conteúdo do arquivo cmdline.txt
+	1. sudo leafpad /boot/cmdline.txt
+	2. remover "console=serial0, 115200"
+
+6. No terminal:
+	1. sudo raspi-config
+	2. Selecionar "Interfacing Options -> Serial"
+	3. Colocar "Não" e "Sim", respectivamente
+
+7. Irá pedir para fazer reboot, colocaar "Sim"
 		
-	3) Existirá uma parte comentada começando com #dtoverlay... Descomentar (tirar o #) e alterar para: 
-		dtoverlay=pi3-disable-bt
-	
-	4) No terminal digitar: 
-		sudo leafpad ~/.bashrc
-		
-	5) No final do arquivo colocar: 
-		sudo chmod -R 777 /dev/ttyAMA0
-		sudo chmod -R 777 /root
-		sudo chmod -R 777 '/dev/ttyAMA0'
-		sudo chmod -R 777 '/root'
-	
-	6) No terminal digitar:
-		sudo leafpad /boot/cmdline.txt
-	
-	7) Ao abrir o arquivo remova todas opções citando ttyAMA0.
-	
-	8) No terminal: 
-		sudo reboot
+8. Se não pedir, no terminal digitar: 
+	1. sudo reboot
+
+**obs:** Qualquer problema com a comunicação serial, visualizar o vídeo de [6].
 
 ### 2.2.PI4J 
 
-*Para instalar o PI4J:*
-	Passo 0 - sudo apt-get purge openjdk-8-jre-headless
-			  sudo apt-get install openjdk-8-jre-headless
-			  sudo apt-get install openjdk-8-jre
-			  
-	Passo 1 - sudo apt-get update && sudo apt-get install oracle-java7-jdk cmake ant
-	Passo 2 - sudo apt-get install build-essential cmake pkg-config libpng12-0 libpng12-dev 
-		  libpng++-dev libpng3 libpnglite-dev zlib1g-dbg zlib1g zlib1g-dev pngtools  libtiff4 
-		  libtiffxx0c2 libtiff-tools libjpeg8 libjpeg8-dev libjpeg8-dbg libjpeg-progs libavcodec-dev   
-		  libavformat-dev libgstreamer0.10-0-dbg libgstreamer0.10-0 libgstreamer0.10-dev  libunicap2 
-		  libunicap2-dev libdc1394-22-dev libdc1394-22 libdc1394-utils swig libv4l-0 libv4l-dev
-    
-	OBS: se aparecer qualquer problema digitar o seguinte
-	sudo rm /var/lib/apt/lists/* ; sudo rm /var/lib/apt/lists/partial/* ; sudo apt-get -f install ; sudo apt-get clean ; sudo apt-get update
-    
-	No terminal: 
-		- curl -s get.pi4j.com | sudo bash
+*Preparando o Java:*
 
-### 2.3.ECLIPSE 
+1. Instalar o Java e Verificar sua versão:
+	1. sudo apt update
+	2. sudo apt install default-jdk
+	3. java -version
 
-*Para instalar o ECLIPSE:*
+A saída será algo do tipo
 
-	No terminal: 
-		- sudo apt-get install eclipse
+	openjdk version "11.0.6" 2020-01-14
+	OpenJDK Runtime Environment (build 11.0.6+10-post-Raspbian-1deb10u1)
+	OpenJDK Server VM (build 11.0.6+10-post-Raspbian-1deb10u1, mixed mode)
 
-*Para colocar as bibliotecas no Eclipse:*
+Mais dúvidas podem ser tiradas em [7].
 
-	- Abra o eclipse
-	- em window -> preferences
-	- em java -> build path -> user libraries
-	- New...
-	- User Library name: Pi4j (OK)
-	- Add External JARs...
-	- Procure por /opt/pi4j/lib/pi4j-core.jar 
-	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
-	- OK!
+*Preparando o WiringPi*
 
-*Crie um novo projeto Java:*
+Normalmente a biblioteca WiringPi já vem instalada nas novas versões, portanto os passos a seguir são garantias.
 
-	- Coloque o nome e clique em next>
-	- em Libraries clique em Add Library...
-	- User Library
-	- Selecione Pi4j
-	- Finish
-	- Crie a Classe e começe a brincadeira
+1. No terminal:
+	1. sudo apt-get install wiringpi
 
-### 2.4.NETBEANS
+Para testar, digite no terminal
+	1. gpio readall 
 
-*Para instalar o NETBEANS:*
+Isso irá mostrar todas as portas disponíveis da RPi3 e como estão configuradas para serem utilizadas.
 
-	- No site do netbeans: https://netbeans.org/downloads/ , baixe a versão Java SE na plataforma
-	SO Independent ZIP.
-	- Ao baixar, vá em download e descompact.
-	- Abra o arquivo contido em: /netbeans/bin/netbeans
-	- Atualize os pacotes, e reinicie o netbeans.
+Mais dúvidas, consultar [8].
 
-*Para colocar as bibliotecas no NETBEANS:*
+*Preparando o Pi4J:*
 
-	- Abra o NETBEANS.
-	- Em ferramentas, clique em bibliotecas.
-	- Clique em Nova Biblioteca...
-	- Coloque como nome: Pi4j , dê (OK)
-	- Adicionar Jar/Pasta...
-	- Procure por /opt/pi4j/lib/pi4j-core.jar 
-	- Selecione também: pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar
-	- OK!
+1. No terminal: 
+	1. curl -sSL https://pi4j.com/install | sudo bash
+	2. sudo apt-get install pi4j
 
-*Crie um novo projeto Java:*
+Após isso, os arquivos do pi4j, incluindo os .jar estarão na pasta: /opt/pi4j 
 
-	- Clique em Aplicação Java, Próximo >
-	- Escolha o Nome de seu projeto e clique em Finalizar
-	- Ao criar o arquivo, clique com o botão direito do mouse em cima do projeto criado
-	- Vá em propriedades --> bibliotecas --> Adicionar Bibliotecas --> Pi4j
-	- Adicione ela, e dê Ok!
+## 2.Programas e Funções da AX12-JavA 
 
-### 2.5.BlueJ 
+Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
 
-*Crie um novo projeto Java:*
+<p align="center">
 
-	- Ao abrir o BlueJ, clique em New Project.
-	- Crie uma pasta em /home/pi e nomeie como BlueJ Projects, dentro dessa pasta crie outra com o nome do seu Projeto, clique em create.
-	- Ao Abrir vá em Tools --> Preferences --> Library, clique em add.
-	- Procure as pastas: /opt/pi4j/lib/pi4j-core.jar (e também pi4j-device.jar/ pi4j-gpio-extension.jar/ pi4j-service.jar)
-	- Dê ok e reinicie o Programa.
-	- Crie a sua classe, clique duas vezes e programe em java!
+*Classe* | *Função*
+------------- | -------------
+*AX12.java:* | Classe que implementa as funções dos servos classe AX da Dynamixel.
 
-## 3.Programas e Funções da AX12-JavA 
+*Bioloid.java:* | Classe para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
 
-Dentro da pasta encontrará os seguintes arquivos:
+*panTilt.java:* | Implementa as funções para rodar com os servos SG90.
 
-*AX12.java:* Biblioteca que implementa as funções dos servos.
+*Run.java:* | Permite rodar o main do programa.
 
-*Bioloid.java:* Biblioteca para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
+</p>
 
-*Run.java:* Permite rodar o programa.
-
-### 3.1.Funções
+### 2.1.Funções
 
 <p align="center">
 AX12.java
 </p>
 
-_serial():_ Inicializa a comunicação serial dos motores, sempre começar com essa função.
+Método | Função
+------------- | -------------
 
-_direction(int):_ Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
+* _serial():_ | Inicializa a comunicação serial dos motores, sempre começar com essa função.
 
-_move(id, pos):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
+* _direction(int):_ | Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
 
-_moveSpeed(id, pos, speed):_ Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
+* _move(id, pos):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
 
-_ping(id):_ Retorna qual é o _ping_ do motor indicado pelo ID.
+* _moveSpeed(id, pos, speed):_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
 
-_factoryReset(id):_ Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
+* _ping(id):_ | Retorna qual é o _ping_ do motor indicado pelo ID.
 
-_setID(id, newID):_ Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
+* _factoryReset(id):_ | Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
 
-_setBaudRate(id,baudrate):_ Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
+* _setID(id, newID):_ | Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
 
-_setStatusReturnLevel(id,level):_ Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
+* _setBaudRate(id,baudrate):_ | Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
 
-_setReturnDelayTime(id,delay):_ É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
+* _setStatusReturnLevel(id,level):_ | Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
 
-_lockRegister(id):_ Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
+* _setReturnDelayTime(id,delay):_ | É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
 
-_moveRW(id, position):_ Seta o servo para locomoção em rotação contínua.
+* _lockRegister(id):_ | Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
 
-_moveSpeedRW(id,position,speed):_ Seta a velocidade do servo de rotação contínua.
+* _moveRW(id, position):_ | Seta o servo para locomoção em rotação contínua.
 
-_action():_ Verifica se existe algum comando transmitido para o REG_WRITE
+* _moveSpeedRW(id,position,speed):_ | Seta a velocidade do servo de rotação contínua.
 
-_setTorqueStatus(id,status):_ Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
+* _action():_ | Verifica se existe algum comando transmitido para o REG_WRITE
 
-_setLedStatus(id,status):_ Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
+* _setTorqueStatus(id,status):_ | Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
 
-_setTemperatureLimit(id, temp):_ Seta a temperatura limite do servo, indo de 0 a 99°C.
+* _setLedStatus(id,status):_ | Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
 
-_setVoltageLimit(id,lowVolt,highVolt):_ Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
+* _setTemperatureLimit(id, temp):_ | Seta a temperatura limite do servo, indo de 0 a 99°C.
 
-_setAngleLimit(id,cwLimit,ccwLimit):_ Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
+* _setVoltageLimit(id,lowVolt,highVolt):_ | Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
 
-_setTorqueLimit(id,torque):_ Define o Torque limite, indo de 0 a 1023.
+* _setAngleLimit(id,cwLimit,ccwLimit):_ | Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
 
-_setPunchLimit(id,punch):_ Define a corrente para acionar o motor, indo de 0 a 1023.
+* _setTorqueLimit(id,torque):_ | Define o Torque limite, indo de 0 a 1023.
 
-_setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
+* _setPunchLimit(id,punch):_ | Define a corrente para acionar o motor, indo de 0 a 1023.
 
-_setLedAlarm(id,alarm):_ Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+* _setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope):_ | Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
 
-_setShutdownAlarm(id,alarm):_ Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
+* _setLedAlarm(id,alarm):_ | Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
 
-_readTemperature(id):_ Lê a temperatura do servo. (Não FINALIZADO).
+* _setShutdownAlarm(id,alarm):_ | Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
 
-_readPosition(id):_ Lê a Posição Atual do servo.(Não FINALIZADO).
+* _readTemperature(id):_ | Lê a temperatura do servo. (Não FINALIZADO).
 
-_readVoltage(id):_ Lê a Voltagem do servo. (Não FINALIZADO).
+* _readPosition(id):_ | Lê a Posição Atual do servo.(Não FINALIZADO).
 
-_readSpeed(id):_ Lê a velocidade do servo. (Não FINALIZADO).
+* _readVoltage(id):_ | Lê a Voltagem do servo. (Não FINALIZADO).
 
-_readLoad(id):_ Lê a carga do servo. (Não FINALIZADO).
+* _readSpeed(id):_ | Lê a velocidade do servo. (Não FINALIZADO).
 
-_readMovingStatus(id):_ Lê se o servo está se movimentando ou não. (Não FINALIZADO).
+* _readLoad(id):_ | Lê a carga do servo. (Não FINALIZADO).
 
-_readRWStatus(id):_ Lê se o servo está em rotação contínua. (Não FINALIZADO).
+* _readMovingStatus(id):_ | Lê se o servo está se movimentando ou não. (Não FINALIZADO).
+
+* _readRWStatus(id):_ | Lê se o servo está em rotação contínua. (Não FINALIZADO).
 
 
-Mais informações em [6].
+Mais informações em [9].
 
 
 <p align="center">
@@ -231,27 +202,11 @@ _initialPos():_ Seta os motores em posição inicial.
 _clear():_ Seta os motores em 512.
 
 
-### 3.2.Instalação
+### 2.2.Como rodar
 
-*Ao executar o código RUN, aparecerá o seguinte problema:*
-
-
-	- Unable to determine hardware version. I see: Hardware	: BCM2835 - expecting BCM2708 or BCM2709. Please report this to projects@drogon.net terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::lock_error> >' what():  boost: mutex lock failed in pthread_mutex_lock: Invalid argument
-
-*Para resolvê-lo, digitar no terminal:*
-
-	- sudo rpi-update 52241088c1da59a359110d39c1875cda56496764
-	- sudo reboot
-
-*Ao executar novamente o código, aparecerá outro problema: *
-
-	- wiringPiSetup: Must be root (Did you forget sudo ?)
-
-*Para resolvê-lo: é necessario inicializar os programas pelo terminal de comandos.
-	
-	- sudo Eclipse
-	- sudo Netbens
-	- sudo BlueJ
+1. Entrar pelo terminal na pasta ServosAX
+	1. sudo javac -d bin/ -cp "lib/pi4j/*:.jar" src/*.java
+	2. sudo java -cp "lib/pi4j/*:.jar:bin" Run
 
 **Possíveis Problemas**
 	
@@ -294,7 +249,13 @@ _2) A comunicação serial funciona, mas o motor não mexe_
 
 [5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249–268, 2003.
 
-[6] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Disponível em: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Acesso em 26 de Maio de 2018.
+[6] AL, S. "Raspberry PI3 PI4 Solution to UART PermissionDenied". Disponível em <https://www.youtube.com/watch?v=StFZj7gSwNs>. Acesso em 06 de Abril de 2020. YouTube, 2020.
+
+[7] LINUXIZE. **How to Install Java on Raspberry Pi**. Disponível em: <https://linuxize.com/post/install-java-on-raspberry-pi/>. Acesso em 06 de Abril de 2020: Linuxize, 2020.
+
+[8] WIRINGPI. **Download and Install**. Disponível em: <http://wiringpi.com/download-and-install/>. Acesso em 06 de Abril de 2020. WiringPi, 2020.
+
+[9] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Disponível em: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Acesso em 26 de Maio de 2018.
 
 JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
 

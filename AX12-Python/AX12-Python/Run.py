@@ -3,12 +3,14 @@ from Bioloid import BIOLOID
 import sys
 import time
 
-robot = BIOLOID()
-#m = Ax12()
+#robot = BIOLOID()
+m = Ax12()
 
-robot.clear();
-time.sleep(2);
-robot.initialPos();
+m.move(6,512)
+
+#robot.clear();
+#time.sleep(2);
+#robot.initialPos();
 ##
 ##while True:
 ##

@@ -137,7 +137,7 @@ class Ax12:
 
     def __init__(self):
         if(Ax12.port == None):
-            Ax12.port = Serial("/dev/ttyAMA0", baudrate=57600, timeout=0.001)
+            Ax12.port = Serial("/dev/ttyAMA0", baudrate=115200, timeout=0.001)
             ##Ax12.port.write('A');
         if(not Ax12.gpioSet):
             GPIO.setwarnings(False)
@@ -320,16 +320,17 @@ class Ax12:
         Ax12.port.flushInput()
         p = [position&0xff, position>>8]
         checksum = (~(id + Ax12.AX_GOAL_LENGTH + Ax12.AX_WRITE_DATA + Ax12.AX_GOAL_POSITION_L + p[0] + p[1]))&0xff
-        outData = chr(Ax12.AX_START)
-        outData += chr(Ax12.AX_START)
-        outData += chr(id)
-        outData += chr(Ax12.AX_GOAL_LENGTH)
-        outData += chr(Ax12.AX_WRITE_DATA)
-        outData += chr(Ax12.AX_GOAL_POSITION_L)
-        outData += chr(p[0])
-        outData += chr(p[1])
-        outData += chr(checksum)
-        Ax12.port.write(outData)
+        Ax12.port.write(ord('h'))
+        #outData = chr(Ax12.AX_START)
+        ##outData += chr(Ax12.AX_START)
+        ##outData += chr(id)
+        ##outData += chr(Ax12.AX_GOAL_LENGTH)
+        ##outData += chr(Ax12.AX_WRITE_DATA)
+        ##outData += chr(Ax12.AX_GOAL_POSITION_L)
+        ##outData += chr(p[0])
+        ##outData += chr(p[1])
+        ##outData += chr(checksum)
+        ##Ax12.port.write(outData)
         sleep(Ax12.TX_DELAY_TIME)
         # # return self.readData(id)
 
