@@ -169,8 +169,8 @@ Bioloid.java
 
 *Method* | *Function*
 ------------- | -------------
-_initialPos()_ | Arrow the engines in starting position.                                                                                                                                                                                                                                                                 
-_clear()_ | Set engines to 512.
+_initialPos()_ | Sets the servos in starting position.                                                                                                                                                                                                                                                                 
+_clear()_ | Set servos to 512.
 
 </p>
 
