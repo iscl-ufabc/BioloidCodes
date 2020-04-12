@@ -104,12 +104,14 @@ After that, the files of pi4j, including the .jar will be in the folder: /opt/pi
 Inside the ServosAX/src folder, you will find the following files:
 
 <p align="center">
+
 *Class* |*Function*
 ------------- | -------------
 *AX12.java:* | Class that implements Dynamixel AX class servos functions.                              
 *Bioloid.java:* | Class to assist in Bioloid functions, such as zeroing engines and putting them in the initial position.
 *panTilt.java:* | Implements the functions to run with SG90 servos.
 *Run.java:* | Allows to run the main of the program.
+
 </p>
 
 ### 2.1.Functions
@@ -166,7 +168,7 @@ Bioloid.java
 
 <p align="center">
 
-*Method * *Function *
+*Method * |*Function *
 ------------- | -------------
 _initialPos()_ | Arrow the engines in starting position.                                                                                                                                                                                                                                                                 
 _clear()_ | Set engines to 512.
