@@ -1,32 +1,30 @@
 # BioloidCodes
 
-**Descrição:** Adaptação da plataforma Robotis Bioloid Premium [1] utilizando uma Raspberry PI 3B [2]. Foi construido um sistema de visão utilizando uma *webcam* [3] e a biblioteca OpenCV [4] em Java, além do *shield* Raspi2Dynamixel para controlar todos os motores AX-12A da plataforma a partir de códigos em Java e Python.
+**Description:** Adapting the Robotis Bioloid Premium platform [1] using a Raspberry PI 3B [2]. A vision system was built using a *webcam* [3] and the OpenCV library [4] in Java, and the *shield* Raspi2Dynamixel to control all AX-12A motors of the platform using Java and Python code.
 
-**Objetivo:** Este repositório tem o objetivo de compartilhar os conhecimentos obtidos durante a iniciação científica [5], além de aprimorar o estudo na plataforma Robotis Bioloid Premium, possibilitando um uso simples e educacional desta plataforma.
+**Objective:** This repository aims to share the knowledge obtained during the scientific research [5], in addition to improving the study on the Robotis Bioloid Premium platform, enabling a simple and educational use of this platform.
 
-## Arquitetura 
+## Architecture 
 
-Foi proposto uma arquitetura para o uso de técnicas de processamento de imagem e visão computacional, além da utilização da Raspberry Pi 3B para controlar os servos motores do humanoide de uma forma prática, utilizando códigos do Java e Python [6].
+An architecture was proposed for the use of image processing techniques and computer vision, in addition to the use of Raspberry Pi 3B to control the motor servos of humanoid in a practical way, using Java and Python codes [6].
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/28567780/32135686-fd12e826-bbe1-11e7-9b8e-8b909cda75f1.jpg" width="500">
 </p>
 
-A imagem ilustra a arquitetura proposta, com o suporte _pan/tilt_ e a _webcam_ formando o sistema de visão em (a) e (b). O projeto eletrônico utilizando a Raspberry Pi e o _shield_ Raspi2Dynamixel desenvolvido em (c) e (d). A plataforma humanoide em (e). A conexão entre o sistema de visão e o projeto eletrônico ocorre pelo OpenCV, e entre o projeto eletrônico e o jogador robótico ocorre pela biblioteca AX12-JavA desenvolvida com o Pi4J [7].
+The image illustrates the proposed architecture, with the _pan/tilt_ support and the _webcam_ making the vision system in (a) and (b). The electronic project using Raspberry Pi and the developed _shield_ Raspi2Dynamixel in (c) and (d). Finally, the humanoid platform is represented in (e). The connection between the vision system and the electronic project occurs through OpenCV, and between the electronic project and the robotic player occurs through the AX12-JavA library developed with Pi4J [7].
 
-## Orientações do Repositório
+## Repository Guidelines
 
-**_AX12-Python:_** Contém a biblioteca para os servos AX-12A desenvolvida por [6], a classe Bioloid com funções definidas para a plataforma e instruções de instalação. Além do circuito para conexão, adaptado de [8].
+**_AX12-Python:_** Contains the library for the AX-12A servos developed by [6], the Bioloid class with defined functions for the platform and installation instructions. In addition to the connection circuit, adapted from [8].
 
-**_AX12-JavA:_** Contém a biblioteca para os servos AX-12A traduzida para Java, a classe Bioloid com funções definidas para a plataforma e instruções de instalação. Além do circuito para conexão, adaptado de [8].
+**_AX12-JavA:_** Contains the AX-12A servos library translated to Java, the Bioloid class with defined functions for the platform and installation instructions. In addition to the connection circuit, adapted from [8].
 
-**_OpenCV+Raspberry+Java:_** Contém os códigos adaptados de [9] para uso do OpenCV em tempo real, além das instruções de instalação.
+**_OpenCV+Raspberry+Java:_** Contains the adapted codes from [9] for real time OpenCV use, besides the installation instructions. The project of the vision system can be found on OpenNNCV repository.
 
-**_PIXY+Raspberry+Python:_** Em desenvolvimento.
+**_PIXY+Raspberry+Python:_** In development.
 
-**_Tutorial para Montar a Shield Raspi2Dynamixel:_** Em desenvolvimento.
-
-## Contato
+## Contact
 
 Gilmar Correia Jeronimo
 
@@ -38,30 +36,30 @@ e-mail: paulo.consoni4000@gmail.com
 
 Rodrigo Fialho
 
-e-mail: 
+e-mail: rodrigo.fialho@aluno.ufabc.edu.br
 
-## Apoio
+## Support
 
 <img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
   
 <img src = "http://proad.ufabc.edu.br/images/headers/logo_ufabc.png" width="100">
 
-## Referências 
+## References 
 
-[1] BIOLOID. **Robotis - Bioloid Premium Kit**. Disponível em: <http://en.robotis.com/index/product.php?cate_code=121010>. Acesso em 24 de Maio de 2016: [s.n.], 2016.
+[1] BIOLOID. **Robotis - Bioloid Premium Kit**. Available at: <http://en.robotis.com/index/product.php?cate_code=121010>. Access on May 24, 2016: [n.º], 2016.
 
-[2] FOUNDATION, R. P ©. **Raspberry Pi**. Disponível em: <https://www.raspberrypi.org/learning/hardware-guide/components/raspberry-pi/>. Acesso em 12 de Novembro de 2016: RaspberryPi Foundation, 2016.
+[2] FOUNDATION, R. P ©. **Raspberry Pi**. Available at: <https://www.raspberrypi.org/learning/hardware-guide/components/raspberry-pi/>. Access on November 12, 2016: RaspberryPi Foundation, 2016.
 
-[3] LOGITECH©. **Specifications**. In: Logitech. Disponível em: <http://support.logitech.com/en_us/product/hd-pro-webcam-c920/specs>. Acesso em 20 de Setembro de 2017: Logitech, 2017.
+[3] LOGITECH©. **Specifications**. In: Logitech. Available at: <http://support.logitech.com/en_us/product/hd-pro-webcam-c920/specs>. Accessed September 20, 2017: Logitech, 2017.
 
-[4] BRADSKI, G.; KAEHLER, A. __Learning OpenCV: Computer vision with the OpenCV library__. [S.l.]: "O’ReillyMedia, Inc.", 2008.
+[4] BRADSKI, G.; KAEHLER, A. __Learning OpenCV: Computer vision with the OpenCV library__. [S.l.]: "O'ReillyMedia, Inc.", 2008.
 
-[5] JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
+[5] JERONIMO, G. C. **Implementation of RoboCup Kid-Size Image Processing Technique with Real Validation on Bioloid ROBOTIS Premium Platform**. FAPESP, UFABC, 2016.
 
 [6] HERSAN, T. **AX-12 Python Library (for RaspberryPi)**. [S.l.]: GitHub, 2014. <https://github.com/thiagohersan/memememe/tree/master/Python/ax12>.
 
-[7] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Disponível em: <http://pi4j.com/download.html>. Acesso em 4 de Outubro de 2017: Pi4J©, 2016.
+[7] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Available at: <http://pi4j.com/download.html>. Access on October 4, 2017: Pi4J©, 2016.
 
-[8] HERSAN, T. **How to Drive Dynamixel AX-12A Servos (with a RaspberryPi)**. Disponível em: <http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/>. Acesso em 3 de Outubro de 2017: Instructables, 2015.
+[8] HERSAN, T. **How to Drive Dynamixel AX-12A Servos (with a RaspberryPi)**. Available at: <http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/>. Accessed October 3, 2017: Instructables, 2015.
 
 [9] PISKIN, M. **OpenCvObjectDetection**. [S.l.]: GitHub, 2017. <https://github.com/mesutpiskin/OpenCvObjectDetection>.
