@@ -122,7 +122,7 @@ AX12.java
 
 <p align="center">
 
-*Method * | *Function *
+*Method* | *Function*
 ------------- | -------------
 _serial()_ | Initializes the serial communication of the motors, always start with this function.
 _direction(int)_ | Sets GPIO pin 8 to change state, HIGH if int = 1 or LOW if int = 0.  
@@ -130,7 +130,6 @@ _move(id, pos)_ | Moves the servo from a certain ID to a position between 0 (0°
 _moveSpeed(id, pos, speed)_ | Moves the servo from a certain ID to a position between 0 (0°) and 1024 (300°) with speed between 0 and 1024.
 _ping(id)_ | Returns what is the _ping_ of the motor indicated by the ID.
 _factoryReset(id)_ | Performs the Factory Reset on the engine with the ID indicated.This setting will lose connection to the PI4J, since the factory baudrate is 1000000.
-This setting will lose connection to the PI4J, since the factory baudrate is 1000000, not supported by the library.
 _setID(id, newID)_ | Change the indicated motor ID (id) to a new one (newID) of 0-252.
 _setBaudRate(id,baudrate)_ | Change the Baud Rate of the chosen engine from 2000000-8000 bps.
 _setStatusReturnLevel(id,level)_ | Decides how to return a Status Package, if level = 0 no read will be returned except ping, if level = 1 returns a message for the read command only, and if level = 2 returns a message for all sent commands. 
@@ -168,7 +167,7 @@ Bioloid.java
 
 <p align="center">
 
-*Method * |*Function *
+*Method* | *Function*
 ------------- | -------------
 _initialPos()_ | Arrow the engines in starting position.                                                                                                                                                                                                                                                                 
 _clear()_ | Set engines to 512.
