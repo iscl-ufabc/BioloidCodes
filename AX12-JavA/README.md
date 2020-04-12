@@ -1,121 +1,118 @@
-# Comunicação AX-12A, Java e Raspberry Pi 3B
+# Communication between AX-12A, Java and Raspberry Pi 3B
 
-**Descrição:** Biblioteca Java, desenvolvida com o Pi4J [1], para controlar os servos motores AX-12A com a Raspberry Pi 3B.
+**Description:** Java library, developed with Pi4J [1], to control AX-12A servos with Raspberry Pi 3B.
 
-## 1.Projeto Eletrônico
-
-É possível adquirir o _shield_ Rasp2Dynamixel V2 através do e-mail gilmarjeronimo@uol.com.br: 
+## 1.Electronic Project
+You can purchase the Raspi2Dynamixel V2 _shield_ from gilmarjeronimo@uol.com.br: 
 
 <p align="center">
-<img src2 = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
+<img src = "img/v2.png" width = "300">
 </p>
 
-Ou, pode ser montado o seguinte circuito, adaptado de [2]. Em (a) está ilustrado a Raspberry Pi 3B, em (b) o CI 74LS241, em (c) os servos motores AX-12A e em (d) a bateria LiPo 11.1V, 1000mAh.   
+Or, the following circuit can be assembled, adapted from [2]. In (a) is illustrated the Raspberry Pi 3B, in (b) the CI 74LS241, in (c) the AX-12A motor servos and in (d) the LiPo 11.1V, 1000mAh battery.   
 
 <p align="center">
 <img src = "https://user-images.githubusercontent.com/28567780/32135696-1ff67e84-bbe2-11e7-9de0-32faf4b4759b.png" width = "300">
 </p>
 
-## 2.Instalação
+## 2.Installation
 
-Alguns pacotes são necessários para o uso da biblioteca, como o Pi4J. É opcional o uso das IDEs, como Eclipse [3], Netbeans [4] e BlueJ [5], mas é altamente recomendados para correção dos códigos. A última atualização do sistema opercional apresentou alguns problemas para instalação e preparação das IDEs, assim será sugerido a utilização do Geany compilando o código pelo terminal do comandos. Segue-se os procedimentos para instalação da biblioteca Pi4J na Raspberry Pi. 
+Some packages are required to use the library, such as Pi4J. The use of IDEs such as Eclipse [3], Netbeans [4] and BlueJ [5] is optional, but is highly recommended for code correction. The last operating system update presented some problems for installation and preparation of the IDEs, so it will be suggested the use of Geany to compile the code by the command terminal. The following are the procedures for installing the Pi4J library on Raspberry Pi. 
 
-### 2.1.Preparando a Raspberry com Noobs Versão 3.3.1 (2020-02-14)
+### 2.1.Preparing Raspberry with Noobs Version 3.3.1 (2020-02-14)
 
-*Ao Ligar a Raspberry Pi:*
+*By Turning on Raspberry Pi:*
 
-	1. No terminal digitar: 
+	1. In the terminal type: 
 		1. sudo apt-get update
 		2. sudo apt-get upgrade
 		3. sudo apt-get install leafpad
 		4. sudo leafpad /boot/config.txt
-		
-	2. Irá abrir o arquivo, no final dele acrescentar:
+			
+	2. It will open the file, at the end of it add:
 		1. enable_uart=1
 		2. dtparam=uart0=on
 		3. dtoverlay=pi3-miniuart-bt
-		
-	3. No terminal digitar: 
+			
+	3. In the terminal type: 
 		1. sudo leafpad ~/.bashrc
-		
-	4. No final do arquivo colocar: 
+			
+	4. At the end of the file place: 
 		1. sudo chmod -R 777 /dev/ttyAMA0
 		2. sudo chmod -R 777 /root
-		3. sudo chmod -R 777 '/dev/ttyAMA0'
-		4. sudo chmod -R 777 '/root'
-		
-	5. Remover o conteúdo do arquivo cmdline.txt
-		1. sudo leafpad /boot/cmdline.txt
-		2. remover "console=serial0, 115200"
-	
-	6. No terminal:
-		1. sudo raspi-config
-		2. Selecionar "Interfacing Options -> Serial"
-		3. Colocar "Não" e "Sim", respectivamente
-
-	7. Irá pedir para fazer reboot, colocaar "Sim"
+		3. sudo chmod -R 777 '/dev/ttyAMA0
+		4. sudo chmod -R 777 '/root
 			
-	8. Se não pedir, no terminal digitar: 
+	5. Remove the contents of the cmdline.txt file
+		1. sudo leafpad /boot/cmdline.txt
+		2. remove "console=serial0, 115200"
+		
+	6. In the terminal:
+		1. sudo raspi-config
+		2. Select "Interfacing Options -> Serial".
+		3. Put "No" and "Yes" respectively
+
+	7. Will ask to reboot, put "Yes"
+				
+	8. If you don't ask, in the terminal type: 
 		1. sudo reboot
 
-**obs:** Qualquer problema com a comunicação serial, visualizar o vídeo de [6].
+**obs:** Any problem with serial communication, view the video of [6].
 
 ### 2.2.PI4J 
 
-*Preparando o Java:*
+*Preparing Java:*
 
-	1. Instalar o Java e Verificar sua versão:
+	Install Java and Verify Your Version:
 		1. sudo apt update
 		2. sudo apt install default-jdk
 		3. java -version
 
-A saída será algo do tipo
+The output will be something like
 
 	openjdk version "11.0.6" 2020-01-14
 	OpenJDK Runtime Environment (build 11.0.6+10-post-Raspbian-1deb10u1)
 	OpenJDK Server VM (build 11.0.6+10-post-Raspbian-1deb10u1, mixed mode)
 
-Mais dúvidas podem ser tiradas em [7].
+More questions can be answered in [7].
 
-*Preparando o WiringPi*
+*Preparing the WiringPi *
 
-Normalmente a biblioteca WiringPi já vem instalada nas novas versões, portanto os passos a seguir são garantias.
+Usually the WiringPi library is already installed in the new versions, so the steps to follow are guarantees.
 
-	1. No terminal:
-		1. sudo apt-get install wiringpi
+	1. In the terminal:
+		1. Sudo apt-get install wiringpi
 
-Para testar, digite no terminal
+To test, type in the terminal
 
 	1. gpio readall 
 
-Isso irá mostrar todas as portas disponíveis da RPi3 e como estão configuradas para serem utilizadas.
+This will show all available RPi3 ports and how they are configured to be used.
 
-Mais dúvidas, consultar [8].
+More questions, see [8].
 
-*Preparando o Pi4J:*
+*Preparing Pi4J:*
 
-	1. No terminal: 
+	1. In the terminal: 
 		1. curl -sSL https://pi4j.com/install | sudo bash
 		2. sudo apt-get install pi4j
 
-Após isso, os arquivos do pi4j, incluindo os .jar estarão na pasta: /opt/pi4j 
+After that, the files of pi4j, including the .jar will be in the folder: /opt/pi4j 
 
-## 2.Programas e Funções da AX12-JavA 
+## 2.AX12-JavA Programs and Functions 
 
-Dentro da pasta ServosAX/src, encontrará os seguintes arquivos:
+Inside the ServosAX/src folder, you will find the following files:
 
 <p align="center">
-
-*Classe* | *Função*
+*Class* |*Function*
 ------------- | -------------
-*AX12.java:* | Classe que implementa as funções dos servos classe AX da Dynamixel.                                                                                                                                                                                                                                          
-*Bioloid.java:* | Classe para auxiliar nas funções do Bioloid, como zerar motores e colocá-los em posição inicial.
-*panTilt.java:* | Implementa as funções para rodar com os servos SG90.
-*Run.java:* | Permite rodar o main do programa.
-
+*AX12.java:* | Class that implements Dynamixel AX class servos functions.                              
+*Bioloid.java:* | Class to assist in Bioloid functions, such as zeroing engines and putting them in the initial position.
+*panTilt.java:* | Implements the functions to run with SG90 servos.
+*Run.java:* | Allows to run the main of the program.
 </p>
 
-### 2.1.Funções
+### 2.1.Functions
 
 <p align="center">
 AX12.java
@@ -123,43 +120,44 @@ AX12.java
 
 <p align="center">
 
-*Método* | *Função*
+*Method * | *Function *
 ------------- | -------------
-_serial()_ | Inicializa a comunicação serial dos motores, sempre começar com essa função.
-_direction(int)_ | Configura o pino GPIO 8 para mudar de estado, HIGH se int = 1 ou LOW se int = 0.  
-_move(id, pos)_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°).
-_moveSpeed(id, pos, speed)_ | Movimenta o servo de um certo ID para uma posição entre 0 (0°) e 1024 (300°) com velocidade entre 0 e 1024.
-_ping(id)_ | Retorna qual é o _ping_ do motor indicado pelo ID.
-_factoryReset(id)_ | Realiza o Reset de Fábrica no motor com ID indicado. Tal configuração poderá conexão com o PI4J, já que o baudrate de fábrica é 1000000, não suportado pela biblioteca.
-_setID(id, newID)_ | Muda o ID do motor indicado (id) para um novo (newID) de 0-252.
-_setBaudRate(id,baudrate)_ | Muda o Baud Rate do motor escolhido de 2000000-8000 bps.
-_setStatusReturnLevel(id,level)_ | Decide como retornar um Pacote de Status, se level = 0 não será retornado nenhuma leitura exceto ping, se level = 1 retorna uma mensagem somente para o comando read, e se level = 2 retorna uma mensagem para todos comandos enviados. 
-_setReturnDelayTime(id,delay)_ | É o tempo de delay entre a mensagem transmitida do pacote de Instrução e recebida no pacote de Status. Varia de 0 a 254, sendo 1 delay de 2 microsegundos, 2 um delay de 4 microsegundos e 250 um delay de 0,5 milisegundos. 
-_lockRegister(id)_ | Tranca área de EEPROM do servo, não podendo ser modificada. Nela impede de se alterar ID, Baud Rate, Torque e outros. 
-_moveRW(id, position)_ | Seta o servo para locomoção em rotação contínua.
-_moveSpeedRW(id,position,speed)_ | Seta a velocidade do servo de rotação contínua.
-_action()_ | Verifica se existe algum comando transmitido para o REG_WRITE
-_setTorqueStatus(id,status)_ | Define se o torque do motor está ligado ou desligado. Se status = 0 mantém o torque, se status = 1 gera torque.
-_setLedStatus(id,status)_ | Define o estado do LED do motor. Se status = 0 o LED desliga, se status = 1 o LED liga.
-_setTemperatureLimit(id, temp)_ | Seta a temperatura limite do servo, indo de 0 a 99°C.
-_setVoltageLimit(id,lowVolt,highVolt)_ | Seta o limite de voltagem do servo, indo de 50 a 250 para lowVolt e highVolt. Se o valor é 50, temos 5V.
-_setAngleLimit(id,cwLimit,ccwLimit)_ | Define o ângulo limite no sentido clockwise (horário) e no counterclockwise (anti-horário). Indo de 0 a 1023.
-_setTorqueLimit(id,torque)_ | Define o Torque limite, indo de 0 a 1023.
-_setPunchLimit(id,punch)_ | Define a corrente para acionar o motor, indo de 0 a 1023.
-_setCompliance(id, cwMargin, ccwMargin, cwSlope, ccwSlope)_ | Define a flexibilidade de controle do motor. cwMargin e ccwMargin vão de 1 a 254 e representam o erro entre a posição desejada e a posição atual. Enquanto que cwSlope e ccwSlope são valores fixo de [2,4,8,16,32,64,128], que definem o nível do Torque próximo a posição desejada.
-_setLedAlarm(id,alarm)_ | Define o alarme do LED. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
-_setShutdownAlarm(id,alarm)_ | Define o alarme. Seu valor é pode ser [1,2,4,8,16,32,64]. O valor 1 representa que há um erro na voltagem de entrada, 2 um erro no ângulo limite, 4 problema de superaquecimento, 8 problema de range, 16 problema de checksum, 32 problema de Overload e 64 problema de instrução. 
-_readTemperature(id)_ | Lê a temperatura do servo. (Não FINALIZADO).
-_readPosition(id)_ | Lê a Posição Atual do servo.(Não FINALIZADO).
-_readVoltage(id)_ | Lê a Voltagem do servo. (Não FINALIZADO).
-_readSpeed(id)_ | Lê a velocidade do servo. (Não FINALIZADO).
-_readLoad(id)_ | Lê a carga do servo. (Não FINALIZADO).
-_readMovingStatus(id)_ | Lê se o servo está se movimentando ou não. (Não FINALIZADO).
-_readRWStatus(id)_ | Lê se o servo está em rotação contínua. (Não FINALIZADO).
+_serial()_ | Initializes the serial communication of the motors, always start with this function.
+_direction(int)_ | Sets GPIO pin 8 to change state, HIGH if int = 1 or LOW if int = 0.  
+_move(id, pos)_ | Moves the servo from a certain ID to a position between 0 (0°) and 1024 (300°).
+_moveSpeed(id, pos, speed)_ | Moves the servo from a certain ID to a position between 0 (0°) and 1024 (300°) with speed between 0 and 1024.
+_ping(id)_ | Returns what is the _ping_ of the motor indicated by the ID.
+_factoryReset(id)_ | Performs the Factory Reset on the engine with the ID indicated.This setting will lose connection to the PI4J, since the factory baudrate is 1000000.
+This setting will lose connection to the PI4J, since the factory baudrate is 1000000, not supported by the library.
+_setID(id, newID)_ | Change the indicated motor ID (id) to a new one (newID) of 0-252.
+_setBaudRate(id,baudrate)_ | Change the Baud Rate of the chosen engine from 2000000-8000 bps.
+_setStatusReturnLevel(id,level)_ | Decides how to return a Status Package, if level = 0 no read will be returned except ping, if level = 1 returns a message for the read command only, and if level = 2 returns a message for all sent commands. 
+_setReturnDelayTime(id,delay)_ | This is the time delay between the message transmitted from the Instruction packet and received in the Status packet. It varies from 0 to 254, with 1 delay of 2 microseconds, 2 a delay of 4 microseconds, and 250 a delay of 0.5 milliseconds. 
+_lockRegister(id)_ | Lock EEPROM area of the servo, cannot be modified. It prevents changing ID, Baud Rate, Torque and others. 
+_moveRW(id, position)_ | Sets the servo to move in continuous rotation.
+_moveSpeedRW(id,position,speed)_ | Sets the speed of the servo for continuous rotation.
+_action()_ | Check if there is any command transmitted to REG_WRITE
+_setTorqueStatus(id,status)_ | Defines whether the engine torque is on or off. If status = 0 maintains torque, if status = 1 generates torque.
+_setLedStatus(id,status)_ | Sets the status of the engine LED. If status = 0 the LED turns off, if status = 1 the LED turns on.
+_setTemperatureLimit(id,temp)_ | Sets the servo limit temperature, going from 0 to 99°C.
+_setVoltageLimit(id,lowVolt,highVolt)_ | Sets the voltage limit of the servo, going from 50 to 250 for lowVolt and highVolt. If the value is 50, we have 5V.
+_setAngleLimit(id,cwLimit,ccwLimit)_ | Sets the limit angle in clockwise (clockwise) and counterclockwise (counterclockwise) direction. Going from 0 to 1023.
+_setTorqueLimit(id,torque)_ | Sets the limit torque, going from 0 to 1023.
+_setPunchLimit(id,punch)_ | Sets the current to drive the engine, going from 0 to 1023.
+_setCompliance(id,cwMargin, ccwMargin, cwSlope, ccwSlope)_ | Sets the motor control flexibility. cwMargin and ccwMargin range from 1 to 254 and represent the error between the desired position and the current position. While cwSlope and ccwSlope are fixed values of [2,4,8,16,32,64,128], which define the Torque level near the desired position.
+_setLedAlarm(id,alarm)_ | Sets the LED alarm. Its value can be [1,2,4,8,16,32,64]. The value 1 represents an error in the input voltage, 2 an error in the limit angle, 4 overheat problem, 8 range problem, 16 checksum problem, 32 overload problem and 64 instruction problem. 
+_setShutdownAlarm(id,alarm)_ | Set the alarm. Its value can be [1,2,4,8,16,32,64]. Value 1 represents an error in input voltage, 2 an error in threshold angle, 4 overheat problem, 8 range problem, 16 checksum problem, 32 overload problem, and 64 instruction problem. 
+_readTemperature(id)_ | Reads the temperature of the servo. (Not FINISHED).
+_readPosition(id)_ | Reads Current Servo Position.(Not ENDED).
+_readVoltage(id)_ | Reads Servo Voltage. (Not ENDED).
+_readSpeed(id)_ | Reads Servo Speed. (Not FINISHED).
+_readLoad(id)_ | Reads the servo load. (Not ENDED).
+_readMovingStatus(id)_ | Reads if the servo is moving or not. (Not ENDED).
+_readRWStatus(id)_ | Reads if servo is in continuous rotation. (Not ENDED).
 
 </p>
 
-Mais informações em [9].
+More information in [9].
 
 
 <p align="center">
@@ -168,94 +166,93 @@ Bioloid.java
 
 <p align="center">
 
-*Método* | *Função*
+*Method * *Function *
 ------------- | -------------
-_initialPos()_ | Seta os motores em posição inicial.                                                                                                                                                                                                                                                                 
-_clear()_ | Seta os motores em 512.
+_initialPos()_ | Arrow the engines in starting position.                                                                                                                                                                                                                                                                 
+_clear()_ | Set engines to 512.
 
 </p>
 
-### 2.2.Como rodar
+### 2.2.How to run
 
-	1. Entrar pelo terminal na pasta ServosAX
+	1. enter the terminal in the ServosAX folder
 		1. sudo javac -d bin/ -cp "lib/pi4j/*:.jar" src/*.java
 		2. sudo java -cp "lib/pi4j/*:.jar:bin" Run
+		
 
-**Possíveis Problemas**
+**Possible Problems**
 	
-_1) Código não roda_
+_1) Code does not rotate_
 	
-	O arquivo em Java roda em um Baud Rate específico, além disso, outras portas seriais e GPIO podem ser usadas, basta realizar a configuração acima para setar outras portas. No arquivo Ax12.java existe uma linha escrita:
+	The Java file runs at a specific Baud Rate, in addition, other serial and GPIO ports can be used, just perform the above configuration to set other ports. In the Ax12.java file there is a line written:
 	
-		- public static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
-		- static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 57600);
+		- public static GpioPinDigitalOutput RPI_DIRECTION_PIN = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTS RELATED PI4J
+		- static int port = Serial.serialOpen(Serial.DEFAULT_COM_PORT, 1000000);
 	
-	Se for a primeira vez que estiver usando o programa com os servos motores AX-12A, altere o Baud Rate para 57600 utilizando o código em Python disponível em https://github.com/LAB08-SBC/BioloidCodes/tree/master/AX12-Python
+	If you want to test your Raspberry's Serial communication and check that it is working, use an Arduino and assemble the following circuit. Use the Arduino code at https://github.com/LAB08-SBC/BioloidCodes/blob/master/SerialArduinoRasp.ino. Access the Arduino Serial terminal and change the Baud Rate to the same one from Raspberry. 
 	
-	Se deseja testar a comunicação Serial da sua Raspberry e verificar se ela está funcionando use um Arduino e monte o seguinte circuito. Use o código Arduino em https://github.com/LAB08-SBC/BioloidCodes/blob/master/SerialArduinoRasp.ino. Acesse o terminal Serial do Arduino e troque o Baud Rate para o mesmo da Raspberry. 
+	Run the program in arduino, then the Raspberry python. Check if the characters are transmitted to Arduino's Serial terminal, if so, the Serial communication is working (TIP: testing with different Baud Rates).
 	
-	Rode o programa em arduino, em seguida o python da Raspberry. Verifique se os caractéres são transmitidos para o terminal Serial do Arduino, se sim, a comunicação Serial está funcionando (DICA: teste com diferentes Baud Rates).
+_2) Serial communication works, but the engine does not move_
 	
-_2) A comunicação serial funciona, mas o motor não mexe_
+	Check that the baudrate of the AX-12A engines are the same as those you are using in java code.
 	
-	Verifique se o baudrate dos motores AX-12A são os mesmos que está utilizando no código java.
+	Use RoboPlus together with DynamixelWizard. Use the factory standards, with baudrate = 1000000 and check if the engine ID is correct.
 	
-	Utilize o RoboPlus, juntamente com o DynamixelWizard. Utilize os padrões de fábrica, com baudrate = 1000000 e verifique se o ID do motor está correto.
+	Perform step 1 again.	
 	
-	Realize o passo 1 novamente	
-
-## 4.Apoio
+## 4.Support
 
 <img src="http://www.fc.unesp.br/Home/Cursos/Fisica/fisica-fapesp.png" width="200">
   
 <img src = "http://proad.ufabc.edu.br/images/headers/logo_ufabc.png" width="100">
 
-## 5.Referências 
+## 5.References 
 
-[1] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Disponível em: <http://pi4j.com/download.html>. Acesso em 4 de Outubro de 2017: Pi4J©, 2016.
+[1] PI4J©. **The Pi4J Project: Java I/O Library for the Raspberry Pi**. Available at: <http://pi4j.com/download.html>. Access on October 4, 2017: Pi4J©, 2016.
 
-[2] HERSAN, T. **How to Drive Dynamixel AX-12A Servos (with a RaspberryPi)**. Disponível em: <http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/>. Acesso em 3 de Outubro de 2017: Instructables, 2015.
+[2] HERSAN, T. **How to Drive Dynamixel AX-12A Servos (with a RaspberryPi)**. Available at: <http://www.instructables.com/id/How-to-drive-Dynamixel-AX-12A-servos-with-a-Raspbe/>. Accessed October 3, 2017: Instructables, 2015.
 
-[3] ECLIPSE, I.; IDE, E. __Documentação do. Eclipse©__. Disponível em:<http://www.eclipse.org>. Acesso em 4 de Outubro de 2017, v. 12, 2006.
+[3] ECLIPSE, I.; IDE, E. __Documentation of. Eclipse©__. Available at:<http://www.eclipse.org>. Access on October 4, 2017, v. 12, 2006.
 
-[4] NETBEANS, I. __Netbeans©__. Disponível em:<http://netbeans.org/>. Acesso em 4 de Outubro de 2017, v. 11, 2008.
+[4] NETBEANS, I. __Netbeans©__. Available at:<http://netbeans.org/>. Access on October 4, 2017, v. 11, 2008.
 
-[5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249–268, 2003.
+[5] KÖLLING, M. et al. __The bluej system and its pedagogy__. Computer Science Education, Taylor & Francis, v. 13, n. 4, p. 249-268, 2003.
 
-[6] AL, S. "Raspberry PI3 PI4 Solution to UART PermissionDenied". Disponível em <https://www.youtube.com/watch?v=StFZj7gSwNs>. Acesso em 06 de Abril de 2020. YouTube, 2020.
+[6] AL, S. "Raspberry PI3 PI4 Solution to UART PermissionDenied". Available at <https://www.youtube.com/watch?v=StFZj7gSwNs>. Access on 06 April 2020. YouTube, 2020.
 
-[7] LINUXIZE. **How to Install Java on Raspberry Pi**. Disponível em: <https://linuxize.com/post/install-java-on-raspberry-pi/>. Acesso em 06 de Abril de 2020: Linuxize, 2020.
+[7] LINUXIZE. **How to Install Java on Raspberry Pi**. Available at: https://linuxize.com/post/install-java-on-raspberry-pi/. Access on 06 April 2020: Linuxize, 2020.
 
-[8] WIRINGPI. **Download and Install**. Disponível em: <http://wiringpi.com/download-and-install/>. Acesso em 06 de Abril de 2020. WiringPi, 2020.
+[8] WIRINGPI. **Download and Install**. Available at: http://wiringpi.com/download-and-install/. Access on April 06, 2020. WiringPi, 2020.
 
-[9] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Disponível em: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Acesso em 26 de Maio de 2018.
+[9] ROBOTIS.__AX-12/ AX-12+/ AX-12A__. Available at: <http://support.robotis.com/en/product/actuator/dynamixel/ax_series/dxl_ax_actuator.htm#Actuator_Address_2F>. Access on May 26, 2018.
 
-JERONIMO, G. C. **Implementação de Técnica de Processamento de Imagens para a Categoria Kid Size da RoboCup com Validação Real na Plataforma Bioloid ROBOTIS Premium**. FAPESP, UFABC, 2016.
+JERONIMO, G. C. **Implementation of Image Processing Technique for RoboCup Kid Size Category with Real Validation on Bioloid ROBOTIS Premium Platform**. FAPESP, UFABC, 2016.
 
 HERSAN, T. **AX-12 Python Library (for RaspberryPi)**. [S.l.]: GitHub, 2014. <https://github.com/thiagohersan/memememe/tree/master/Python/ax12>.
 
-PI4J©. **Pi4J :: Parent POM 1.1 API**. Disponível em: <http://pi4j.com/apidocs/>. Acesso em 13 de Outubro de 2017: Pi4J©, 2016.
+PI4J©. **Pi4J :: Parent POM 1.1 API**. Available at: <http://pi4j.com/apidocs/>. Access on October 13, 2017: Pi4J©, 2016.
 
-CROSTON, B. __RPi.GPIO module basics__. Disponível em: <https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/>. Acesso em 13 de Outubro de 2017.
+CROSTON, B. __RPi.GPIO module basics__. Available at: <https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/>. Access on October 13, 2017.
 
-PI4J©. **Simple GPIO Control using Pi4J**. Disponível em: <http://pi4j.com/example/control.html>. Acesso em 13 de Outubro de 2017: Pi4J©, 2016.
+PI4J©. **Simple GPIO Control using Pi4J**. Available at: <http://pi4j.com/example/control.html>. Access on October 13, 2017: Pi4J©, 2016.
 
-Programiz©. **Python chr()**. Disponível em: <https://www.programiz.com/python-programming/methods/built-in/chr>. Acesso em 13 de Outubro de 2017.
+Programiz©. **Python chr()**. Available at: <https://www.programiz.com/python-programming/methods/built-in/chr>. Access on October 13, 2017.
 
-LIECHTI, C. ©. **pySerial API**. Disponível em: <http://pyserial.readthedocs.io/en/latest/pyserial_api.html>. Acesso em 13 de Outubro de 2017.
+LIECHTI, C. ©. **pySerial API**. Available at: <http://pyserial.readthedocs.io/en/latest/pyserial_api.html>. Access on October 13, 2017.
 
-EICKHOLD, J. **Serial Communication in Java with Raspberry Pi and RXTX**. Disponível em: <https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/>. Acesso em 13 de Outubro de 2017.
+EICKHOLD, J. **Serial Communication in Java with Raspberry Pi and RXTX**. Available at: <https://eclipsesource.com/blogs/2012/10/17/serial-communication-in-java-with-raspberry-pi-and-rxtx/>. Access on October 13, 2017.
 
-Python. **FAQ: What do the operators <<, >>, &, |, ~, and ^ do?**. Disponível em: <https://wiki.python.org/moin/BitwiseOperators>. Acesso em 13 de Outubro de 2017.
+Python. **FAQ: What do the operators <<, >>, &, |, ~, and ^ do?**. Available at: <https://wiki.python.org/moin/BitwiseOperators>. Access on October 13, 2017.
 
-TutorialsPoint. **Java - Bitwise Operators Example**. Disponível em: <https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm>. Acesso em 13 de Outubro de 2017.
+TutorialsPoint. **Java - Bitwise Operators Example**. Available at: <https://www.tutorialspoint.com/java/java_bitwise_operators_examples.htm>. Access on October 13, 2017.
 
-Domoticz. **Domoticz error after RPI update**. Disponível em: <https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279>. Acesso em 13 de Outubro de 2017.
+Domoticz. **Domoticz error after RPI update**. Available at: <https://www.domoticz.com/forum/viewtopic.php?t=16433#p122279>. Access on October 13, 2017.
 
-Opeedijk. **Dynamixel AX12 and the Raspberry Pi**. Disponível em: <http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi>. Acesso em 13 de Outubro de 2017.
+Opeedijk. **Dynamixel AX12 and the Raspberry Pi**. Available at: <http://www.oppedijk.com/robotics/control-dynamixel-with-raspberrypi>. Access on October 13, 2017.
 
-WiringPi. **Serial Library**. Disponível em: <http://wiringpi.com/reference/serial-library/>. Acesso em 13 de Outubro de 2017.
+WiringPi. **Serial Library**. Available at: http://wiringpi.com/reference/serial-library/. Access on October 13, 2017.
 
-THOMSEN, A. **Como comunicar o Arduino com Raspberry Pi**. Disponível em: <https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/>. Acesso em 13 de Outubro de 2017.
+THOMSEN, A. **How to communicate Arduino with Raspberry Pi**. Available at: https://www.filipeflop.com/blog/comunicacao-serial-arduino-com-raspberry-pi/. Access on October 13, 2017.
 
-Java-Buddy. **Install NetBeans on Raspberry Pi/Raspbian for Java and C/C++ development**. Disponível em: <http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html>. Acesso em 13 de Outubro de 2017.  
+Java-Buddy. **Install NetBeans on Raspberry Pi/Raspbian for Java and C/C++ development**. Available at: <http://java-buddy.blogspot.com.br/2015/03/install-netbeans-on-raspberry.html>. Access on October 13, 2017.  
