@@ -183,7 +183,7 @@ public class Ax12 {
         }
         
         private void setMessageDirectionPin(){
-                this.messageDirectionPin = getGpio().provisionDigitalOutputPin(RaspiPin.GPIO_08); //PORTAS RELACIONADAS PI4J
+                this.messageDirectionPin = getGpio().provisionDigitalOutputPin(RaspiPin.GPIO_04); //PORTAS RELACIONADAS PI4J
         }
         
         private void setMessageDirectionDelayMillis(int delayMillis){
@@ -222,14 +222,14 @@ public class Ax12 {
         private void messageDirection(boolean direction){
                 if(direction == TRANSMITTING)
                     getMessageDirectionPin().high();
-                else
+                else if (direction == RECEIVING)
                     getMessageDirectionPin().low();
         }
         
         public void move (int id, int position) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
-                //Serial.serialFlush(serialPort);
+                Serial.serialFlush(serialPort);
                 
                 int [] p = {position&0xff,position >> 8};
                 int checksum = (~(id + AX_GOAL_LENGTH + AX_WRITE_DATA + AX_GOAL_POSITION_L + p[0] + p[1]))&0xff;
@@ -248,7 +248,7 @@ public class Ax12 {
                 gpio.shutdown();
         }
         
-        public void moveSpeed(int id, int position, int speed){
+        public void moveSpeed(int id, int position, int speed) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -269,10 +269,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) s[1]); 
                 Serial.serialPutByte(serialPort, (byte) checksum);  
                  
+                Thread.sleep(getMessageDirectionDelayMillis()); 
                 gpio.shutdown(); 
         }
         
-        public void ping (int id) {
+        public void ping (int id) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -284,11 +285,13 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) id); 
                 Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
                 Serial.serialPutByte(serialPort, (byte) AX_PING);   
-                Serial.serialPutByte(serialPort, (byte) checksum);   
+                Serial.serialPutByte(serialPort, (byte) checksum);  
+                
+                Thread.sleep(getMessageDirectionDelayMillis()); 
                 gpio.shutdown();
         }
         
-        public void factoryReset(int id){
+        public void factoryReset(int id) throws InterruptedException{
                         
                 String[] options = new String[] {"SIM", "NAO"};
                 
@@ -309,6 +312,7 @@ public class Ax12 {
                         Serial.serialPutByte(serialPort, (byte) AX_RESET);   
                         Serial.serialPutByte(serialPort, (byte) checksum);   
                         
+                        Thread.sleep(getMessageDirectionDelayMillis());
                         gpio.shutdown(); 
                         Serial.serialClose(serialPort);
                         
@@ -325,7 +329,7 @@ public class Ax12 {
                 }
         }
         
-        public void setID (int id, int newId) {
+        public void setID (int id, int newId) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -341,10 +345,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) newId);      
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void setBaudRate (int id, int baudRate) {
+        public void setBaudRate (int id, int baudRate) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -361,6 +366,7 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) br);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
                 Serial.serialClose(serialPort);
                 
@@ -372,7 +378,7 @@ public class Ax12 {
                 }
         }
         
-        public void setStatusReturnLevel (int id, int level) {
+        public void setStatusReturnLevel (int id, int level) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -387,10 +393,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_GOAL_POSITION_L);   
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void setReturnDelayTime (int id, int delay) {
+        public void setReturnDelayTime (int id, int delay) throws InterruptedException{
                 
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -406,10 +413,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) (delay/2));     
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void lockRegister (int id) {
+        public void lockRegister (int id) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -425,10 +433,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_LOCK_VALUE);      
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void moveRW (int id, int position) {
+        public void moveRW (int id, int position) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -446,10 +455,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) p[1]);   
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void moveSpeedRW (int id, int position, int speed){
+        public void moveSpeedRW (int id, int position, int speed) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -470,10 +480,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) s[1]); 
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void action () {
+        public void action () throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -485,10 +496,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_ACTION);   
                 Serial.serialPutByte(serialPort, (byte) AX_ACTION_CHECKSUM);  
                           
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void setTorqueStatus (int id, int status) {
+        public void setTorqueStatus (int id, int status) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -511,10 +523,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) ts);      
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }
         
-        public void setLedStatus (int id, int status) {
+        public void setLedStatus (int id, int status) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -535,11 +548,12 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_LED_STATUS);   
                 Serial.serialPutByte(serialPort, (byte) ls);      
                 Serial.serialPutByte(serialPort, (byte) checksum); 
-                  
+                 
+                Thread.sleep(getMessageDirectionDelayMillis());  
                 gpio.shutdown();
         }
         
-        public void setTemperatureLimit (int id, int temp) {
+        public void setTemperatureLimit (int id, int temp) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -555,10 +569,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) temp );      
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }        
         
-        public void setVoltageLimit (int id, int lowVolt, int highVolt) {
+        public void setVoltageLimit (int id, int lowVolt, int highVolt) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -574,11 +589,12 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) lowVolt);
                 Serial.serialPutByte(serialPort, (byte) highVolt);
                 Serial.serialPutByte(serialPort, (byte) checksum); 
-                  
+                
+                Thread.sleep(getMessageDirectionDelayMillis());  
                 gpio.shutdown();
         }        
         
-        public void setAngleLimit (int id, int cwLimit, int ccwLimit) {
+        public void setAngleLimit (int id, int cwLimit, int ccwLimit) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -599,10 +615,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) ccw[1]);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }        
         
-        public void setTorqueLimit (int id, int torque) {
+        public void setTorqueLimit (int id, int torque) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -620,10 +637,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) mt[1]);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }    
         
-        public void setPunchLimit (int id, int punch) {
+        public void setPunchLimit (int id, int punch) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -641,10 +659,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) p[1]);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }    
         
-        public void setCompliance (int id, int cwMargin, int ccwMargin, int cwSlope, int ccwSlope) {
+        public void setCompliance (int id, int cwMargin, int ccwMargin, int cwSlope, int ccwSlope) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -663,10 +682,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) ccwSlope);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }    
         
-        public void setLedAlarm (int id, int alarm) {
+        public void setLedAlarm (int id, int alarm) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -682,10 +702,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) alarm);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }    
         
-        public void setShutdownAlarm (int id, int alarm) {
+        public void setShutdownAlarm (int id, int alarm) throws InterruptedException{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -701,10 +722,11 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) alarm);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }    
         
-        public void readTemperature (int id) {
+        public void readTemperature (int id) throws InterruptedException, Exception{
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -719,11 +741,37 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_PRESENT_TEMPERATURE);   
                 Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
                 Serial.serialPutByte(serialPort, (byte) checksum);
+                
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[7];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+                
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<7; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 7){
+                  int temperature = reply[5];
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]))&0xFF;
+                  if(checkSum == reply[6])
+                    System.out.println("Temperature ID " + reply[2] +": "+ temperature);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
                    
                 gpio.shutdown();
         }        
         
-        public void readPosition (int id) throws InterruptedException {
+        public void readPosition (int id) throws InterruptedException, Exception {
         
                 messageDirection(TRANSMITTING);
                 Serial.serialFlush(serialPort);
@@ -739,111 +787,241 @@ public class Ax12 {
                 Serial.serialPutByte(serialPort, (byte) AX_INT_READ);
                 Serial.serialPutByte(serialPort, (byte) checksum);   
                 
-                //Thread.sleep(RPI_DIRECTION_SWITCH_DELAY);
-                messageDirection(RECEIVING);
                 Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
                 
-                byte reply[] = new byte[12];
+                int reply[] = new int[8];
                 double initialTime = System.currentTimeMillis();
-                double currentTime = initialTime;
                 
-                while((currentTime - initialTime)<5000){
-                        System.out.println("Leitura: ");
-                        for (int i = 0; Serial.serialDataAvail(serialPort)>0; i++){
-                                //reply = Serial.serialGetAvailableBytes(port);
-                                reply[i] = Serial.serialGetByte(serialPort);
-                                System.out.println(reply[i]);
-                        }
-                //System.out.println(reply[0]);
-                        currentTime = System.currentTimeMillis();
+                int i;
+                
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<8; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 8){
+                  int position = reply[5] + 256*reply[6];
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5] + reply[6]))&0xFF;
+                  if(checkSum == reply[7])
+                    System.out.println("Position ID " + reply[2] +": "+ position);
+                  else
+                    throw new Exception("Message error");
+                    
                 }
-                
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
                 gpio.shutdown();
         }        
         
-        public void readVoltage (int id) {
+        public void readVoltage (int id) throws InterruptedException, Exception{
         
-        messageDirection(TRANSMITTING);
-        Serial.serialFlush(serialPort);
-        
-        int checksum = (~(id + AX_VOLT_LENGTH + AX_READ_DATA + AX_PRESENT_VOLTAGE + AX_BYTE_READ))&0xff;
-        Serial.serialPutByte(serialPort, (byte) AX_START);      
-        Serial.serialPutByte(serialPort, (byte) AX_START);   
-        Serial.serialPutByte(serialPort, (byte) id); 
-        Serial.serialPutByte(serialPort, (byte) AX_VOLT_LENGTH);   
-        Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
-        Serial.serialPutByte(serialPort, (byte) AX_PRESENT_VOLTAGE);   
-        Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
-        Serial.serialPutByte(serialPort, (byte) checksum);   
-        gpio.shutdown();
+                messageDirection(TRANSMITTING);
+                Serial.serialFlush(serialPort);
+                
+                int checksum = (~(id + AX_VOLT_LENGTH + AX_READ_DATA + AX_PRESENT_VOLTAGE + AX_BYTE_READ))&0xff;
+                Serial.serialPutByte(serialPort, (byte) AX_START);      
+                Serial.serialPutByte(serialPort, (byte) AX_START);   
+                Serial.serialPutByte(serialPort, (byte) id); 
+                Serial.serialPutByte(serialPort, (byte) AX_VOLT_LENGTH);   
+                Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
+                Serial.serialPutByte(serialPort, (byte) AX_PRESENT_VOLTAGE);   
+                Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
+                Serial.serialPutByte(serialPort, (byte) checksum);  
+                 
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[7];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+                
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<7; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 7){
+                  int voltage = reply[5] ;
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]))&0xFF;
+                  if(checkSum == reply[6])
+                    System.out.println("Voltage ID " + reply[2] +": "+ voltage);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
         }
         
-        public void readSpeed (int id) {
+        public void readSpeed (int id) throws InterruptedException, Exception{
         
-        messageDirection(TRANSMITTING);
-        Serial.serialFlush(serialPort);
-        
-        int checksum = (~(id + AX_SPEED_LENGTH + AX_READ_DATA + AX_PRESENT_SPEED_L + AX_INT_READ))&0xff;
-        Serial.serialPutByte(serialPort, (byte) AX_START);      
-        Serial.serialPutByte(serialPort, (byte) AX_START);   
-        Serial.serialPutByte(serialPort, (byte) id); 
-        Serial.serialPutByte(serialPort, (byte) AX_SPEED_LENGTH);   
-        Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
-        Serial.serialPutByte(serialPort, (byte) AX_PRESENT_SPEED_L);   
-        Serial.serialPutByte(serialPort, (byte) AX_INT_READ);
-        Serial.serialPutByte(serialPort, (byte) checksum);   
-        gpio.shutdown();
+                messageDirection(TRANSMITTING);
+                Serial.serialFlush(serialPort);
+                
+                int checksum = (~(id + AX_SPEED_LENGTH + AX_READ_DATA + AX_PRESENT_SPEED_L + AX_INT_READ))&0xff;
+                Serial.serialPutByte(serialPort, (byte) AX_START);      
+                Serial.serialPutByte(serialPort, (byte) AX_START);   
+                Serial.serialPutByte(serialPort, (byte) id); 
+                Serial.serialPutByte(serialPort, (byte) AX_SPEED_LENGTH);   
+                Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
+                Serial.serialPutByte(serialPort, (byte) AX_PRESENT_SPEED_L);   
+                Serial.serialPutByte(serialPort, (byte) AX_INT_READ);
+                Serial.serialPutByte(serialPort, (byte) checksum);   
+                
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[8];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+              
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<8; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 8){
+                  int speed = reply[5] + 256*reply[6];
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]+reply[6]))&0xFF;
+                  if(checkSum == reply[7])
+                    System.out.println("Speed ID " + reply[2] +": "+ speed);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
         }
         
-        public void readLoad (int id) {
+        public void readLoad (int id) throws InterruptedException, Exception{
         
-        messageDirection(TRANSMITTING);
-        Serial.serialFlush(serialPort);
-        
-        int checksum = (~(id + AX_LOAD_LENGTH + AX_READ_DATA + AX_PRESENT_LOAD_L + AX_INT_READ))&0xff;
-        Serial.serialPutByte(serialPort, (byte) AX_START);      
-        Serial.serialPutByte(serialPort, (byte) AX_START);   
-        Serial.serialPutByte(serialPort, (byte) id); 
-        Serial.serialPutByte(serialPort, (byte) AX_LOAD_LENGTH);   
-        Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
-        Serial.serialPutByte(serialPort, (byte) AX_PRESENT_LOAD_L);   
-        Serial.serialPutByte(serialPort, (byte) AX_INT_READ);
-        Serial.serialPutByte(serialPort, (byte) checksum);   
-        gpio.shutdown();
+                messageDirection(TRANSMITTING);
+                Serial.serialFlush(serialPort);
+                
+                int checksum = (~(id + AX_LOAD_LENGTH + AX_READ_DATA + AX_PRESENT_LOAD_L + AX_INT_READ))&0xff;
+                Serial.serialPutByte(serialPort, (byte) AX_START);      
+                Serial.serialPutByte(serialPort, (byte) AX_START);   
+                Serial.serialPutByte(serialPort, (byte) id); 
+                Serial.serialPutByte(serialPort, (byte) AX_LOAD_LENGTH);   
+                Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
+                Serial.serialPutByte(serialPort, (byte) AX_PRESENT_LOAD_L);   
+                Serial.serialPutByte(serialPort, (byte) AX_INT_READ);
+                Serial.serialPutByte(serialPort, (byte) checksum);   
+                
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[8];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+              
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<8; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+
+                if(i == 8){
+                  int load = reply[5] + 256*reply[6];
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]+reply[6]))&0xFF;
+                  if(checkSum == reply[7])
+                    System.out.println("Load ID " + reply[2] +": "+ load);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
         }
         
-        public void readMovingStatus (int id) {
+        public void readMovingStatus (int id) throws InterruptedException, Exception{
         
-        messageDirection(TRANSMITTING);
-        Serial.serialFlush(serialPort);
-        
-        int checksum = (~(id + AX_MOVING_LENGTH + AX_READ_DATA + AX_MOVING + AX_BYTE_READ))&0xff;
-        Serial.serialPutByte(serialPort, (byte) AX_START);      
-        Serial.serialPutByte(serialPort, (byte) AX_START);   
-        Serial.serialPutByte(serialPort, (byte) id); 
-        Serial.serialPutByte(serialPort, (byte) AX_MOVING_LENGTH);   
-        Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
-        Serial.serialPutByte(serialPort, (byte) AX_MOVING);   
-        Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
-        Serial.serialPutByte(serialPort, (byte) checksum);   
-        gpio.shutdown();
+                messageDirection(TRANSMITTING);
+                Serial.serialFlush(serialPort);
+                
+                int checksum = (~(id + AX_MOVING_LENGTH + AX_READ_DATA + AX_MOVING + AX_BYTE_READ))&0xff;
+                Serial.serialPutByte(serialPort, (byte) AX_START);      
+                Serial.serialPutByte(serialPort, (byte) AX_START);   
+                Serial.serialPutByte(serialPort, (byte) id); 
+                Serial.serialPutByte(serialPort, (byte) AX_MOVING_LENGTH);   
+                Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
+                Serial.serialPutByte(serialPort, (byte) AX_MOVING);   
+                Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
+                Serial.serialPutByte(serialPort, (byte) checksum);   
+                
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[7];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+                
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<7; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 7){
+                  int movingStatus = reply[5] ;
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]))&0xFF;
+                  if(checkSum == reply[6])
+                    System.out.println("movingStatus ID " + reply[2] +": "+ movingStatus);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
         }
         
-        public void readRWStatus (int id) {
+        public void readRWStatus (int id) throws InterruptedException, Exception{
         
-        messageDirection(TRANSMITTING);
-        Serial.serialFlush(serialPort);
-        
-        int checksum = (~(id + AX_RWS_LENGTH + AX_READ_DATA + AX_REGISTERED_INSTRUCTION + AX_BYTE_READ))&0xff;
-        Serial.serialPutByte(serialPort, (byte) AX_START);      
-        Serial.serialPutByte(serialPort, (byte) AX_START);   
-        Serial.serialPutByte(serialPort, (byte) id); 
-        Serial.serialPutByte(serialPort, (byte) AX_RWS_LENGTH);   
-        Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
-        Serial.serialPutByte(serialPort, (byte) AX_REGISTERED_INSTRUCTION);   
-        Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
-        Serial.serialPutByte(serialPort, (byte) checksum);   
-        gpio.shutdown();
+                messageDirection(TRANSMITTING);
+                Serial.serialFlush(serialPort);
+                
+                int checksum = (~(id + AX_RWS_LENGTH + AX_READ_DATA + AX_REGISTERED_INSTRUCTION + AX_BYTE_READ))&0xff;
+                Serial.serialPutByte(serialPort, (byte) AX_START);      
+                Serial.serialPutByte(serialPort, (byte) AX_START);   
+                Serial.serialPutByte(serialPort, (byte) id); 
+                Serial.serialPutByte(serialPort, (byte) AX_RWS_LENGTH);   
+                Serial.serialPutByte(serialPort, (byte) AX_READ_DATA);   
+                Serial.serialPutByte(serialPort, (byte) AX_REGISTERED_INSTRUCTION);   
+                Serial.serialPutByte(serialPort, (byte) AX_BYTE_READ);
+                Serial.serialPutByte(serialPort, (byte) checksum);
+                
+                Serial.serialFlush(serialPort);
+                messageDirection(RECEIVING);
+                
+                int reply[] = new int[7];
+                double initialTime = System.currentTimeMillis();
+                
+                int i;
+                
+                for(i = 0; (System.currentTimeMillis() - initialTime)<1000.0 && Serial.serialDataAvail(serialPort)>=0 && i<7; i++) 
+                  reply[i] = Serial.serialGetchar(serialPort);
+                
+                if(i == 7){
+                  int RWstatus = reply[5] ;
+                  int checkSum = (~(reply[2] + reply[3] + reply[4] + reply[5]))&0xFF;
+                  if(checkSum == reply[6])
+                    System.out.println("RW Status ID " + reply[2] +": "+ RWstatus);
+                  else
+                    throw new Exception("Message error");
+                    
+                }
+                else
+                  throw new Exception("Comunication Error");
+
+                Thread.sleep(getMessageDirectionDelayMillis());
+                gpio.shutdown();
         }
     
     

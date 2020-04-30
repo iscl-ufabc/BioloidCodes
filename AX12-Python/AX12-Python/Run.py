@@ -1,12 +1,23 @@
+## -*- coding: utf-8 -*-
+## Rodar os seguintes códigos
+##   sudo systemctl stop serial-getty@ttyAMA0.service
+##   sudo systemctl disable serial-getty@ttyAMA0.service
+
 from ax12 import Ax12
-from Bioloid import BIOLOID
-import sys
+#from Bioloid import BIOLOID
+#import sys
 import time
 
 #robot = BIOLOID()
 m = Ax12()
 
-m.move(6,512)
+m.move(2,512)
+time.sleep(2)
+m.readPosition(2)
+time.sleep(2)
+m.readPosition(4)
+time.sleep(2)
+m.readPosition(6)
 
 #robot.clear();
 #time.sleep(2);
