@@ -148,13 +148,13 @@ _setPunchLimit(id,punch)_ | Sets the current to drive the engine, going from 0 t
 _setCompliance(id,cwMargin, ccwMargin, cwSlope, ccwSlope)_ | Sets the motor control flexibility. cwMargin and ccwMargin range from 1 to 254 and represent the error between the desired position and the current position. While cwSlope and ccwSlope are fixed values of [2,4,8,16,32,64,128], which define the Torque level near the desired position.
 _setLedAlarm(id,alarm)_ | Sets the LED alarm. Its value can be [1,2,4,8,16,32,64]. The value 1 represents an error in the input voltage, 2 an error in the limit angle, 4 overheat problem, 8 range problem, 16 checksum problem, 32 overload problem and 64 instruction problem. 
 _setShutdownAlarm(id,alarm)_ | Set the alarm. Its value can be [1,2,4,8,16,32,64]. Value 1 represents an error in input voltage, 2 an error in threshold angle, 4 overheat problem, 8 range problem, 16 checksum problem, 32 overload problem, and 64 instruction problem. 
-_readTemperature(id)_ | Reads the temperature of the servo. (Not FINISHED).
-_readPosition(id)_ | Reads Current Servo Position.(Not ENDED).
-_readVoltage(id)_ | Reads Servo Voltage. (Not ENDED).
-_readSpeed(id)_ | Reads Servo Speed. (Not FINISHED).
-_readLoad(id)_ | Reads the servo load. (Not ENDED).
-_readMovingStatus(id)_ | Reads if the servo is moving or not. (Not ENDED).
-_readRWStatus(id)_ | Reads if servo is in continuous rotation. (Not ENDED).
+_readTemperature(id)_ | Reads the temperature of the servo.
+_readPosition(id)_ | Reads Current Servo Position.
+_readVoltage(id)_ | Reads Servo Voltage.
+_readSpeed(id)_ | Reads Servo Speed. 
+_readLoad(id)_ | Reads the servo load.
+_readMovingStatus(id)_ | Reads if the servo is moving or not.
+_readRWStatus(id)_ | Reads if servo is in continuous rotation.
 
 </p>
 
